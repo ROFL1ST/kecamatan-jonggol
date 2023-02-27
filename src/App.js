@@ -8,6 +8,7 @@ import Footer from "./component/footer";
 import Video from "./pages/video";
 import DetailVideo from "./pages/video/detail";
 import Foto from "./pages/foto";
+import Struktur from "./pages/struktur";
 
 function App() {
   // load
@@ -29,6 +30,7 @@ function App() {
           <Route path="video" element={<Video />} />
           <Route path="video/:id" element={<DetailVideo />} />
           <Route path="foto" element={<Foto />} />
+          <Route path="struktur-organisasi" element={<Struktur   />} />
         </Routes>
         <Footer />
       </>

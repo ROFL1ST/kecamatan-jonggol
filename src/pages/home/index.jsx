@@ -178,7 +178,7 @@ export default function Home() {
             ))}
             {/* box */}
           </div>
-          <div
+          {/* <div
             onMouseEnter={handleMouseOver}
             onMouseLeave={handleMouseOut}
             className={`border-2 border-gray-400 rounded-full px-6 py-3 cursor-pointer ${
@@ -188,7 +188,7 @@ export default function Home() {
             }`}
           >
             <p className="font-semibold ">See More</p>
-          </div>
+          </div> */}
         </div>
         {/* program */}
         {/* Gallery */}

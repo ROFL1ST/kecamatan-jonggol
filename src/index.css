@@ -100,3 +100,12 @@ body{
            line-clamp: 2; 
    -webkit-box-orient: vertical;
 }
+
+.anti-blos3{
+  overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 3; /* number of lines to show */
+           line-clamp: 2; 
+   -webkit-box-orient: vertical;
+}

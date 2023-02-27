@@ -5,11 +5,13 @@ import {
   HambergerMenu,
 } from "iconsax-react";
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import Logo from "../assets/logo/Logo.png";
 import { Menu, Transition } from "@headlessui/react";
 
 export default function Navbar() {
+  const location = useLocation();
+  // console.log(location.pathname);
   const activePage =
     "bg-white px-5 py-1 rounded-full text-[#547153] font-bold transition-all";
   const normalPages = "transition-all";
@@ -47,11 +49,11 @@ export default function Navbar() {
               Home
             </NavLink>
             <div>
-              <DropProfile />
+              <DropProfile location={location.pathname} />
             </div>
             <NavLink>Program</NavLink>
             <div className="w-1/4 text-center flex items-center justify-center my-auto">
-              <DropMedia />
+              <DropMedia location={location.pathname} />
             </div>
             <NavLink
               to={"/agenda"}
@@ -151,7 +153,7 @@ function DropMobileMedia() {
   );
 }
 
-function DropMedia() {
+function DropMedia({ location }) {
   const activeDrop = "text-[#547153] font-bold transition-all";
   const normalDrop = "transition-all";
   return (
@@ -161,8 +163,12 @@ function DropMedia() {
           <>
             <Menu.Button
               className={` inline-flex w-full justify-center items-center text-sm transition-all  ${
-                open &&
-                "bg-white px-5 py-1 rounded-full text-[#547153] font-bold transition-all"
+                open ||
+                location == "/foto" ||
+                location == "/video" ||
+                location == "/berita"
+                  ? "bg-white px-5 py-1 rounded-full text-[#547153] font-bold transition-all"
+                  : ""
               }`}
             >
               Media & Informasi
@@ -237,7 +243,7 @@ function DropMedia() {
   );
 }
 
-function DropProfile() {
+function DropProfile({ location }) {
   const activeDrop = "text-[#547153] font-bold transition-all";
   const normalDrop = "transition-all";
   return (
@@ -287,9 +293,11 @@ function DropProfile() {
                 <div className="px-1 py-1">
                   <Menu.Item>
                     {({ active }) => (
-                      <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
-                        Struktur
-                      </button>
+                      <NavLink to={"/struktur-organisasi"}>
+                        <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
+                          Struktur
+                        </button>
+                      </NavLink>
                     )}
                   </Menu.Item>
                 </div>
