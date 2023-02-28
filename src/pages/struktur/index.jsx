@@ -96,9 +96,11 @@ export default function Struktur() {
       desc: "merupakan unit terkecil dari wilayah kecamatan dan bertanggung jawab dalam penyelenggaraan pelayanan masyarakat di tingkat desa, termasuk pelayanan administrasi, kesehatan, dan pendidikan.",
     },
   ];
+
+  
   return (
     <>
-      <div className="  w-full">
+      <div className="pt-[100px]  w-full">
         <div className="2xl:px-16 lg:px-6 px-0">
           {/* Section */}
           <div className="mt-20 flex justify-center lg:px-0 px-10">

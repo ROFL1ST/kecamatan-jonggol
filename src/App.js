@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/home";
 import Navbar from "./component/navbar";
 import Profile from "./pages/profile";
@@ -13,6 +13,7 @@ import Berita from "./pages/berita";
 import Detail from "./pages/berita/detail";
 
 function App() {
+  const { pathname } = useLocation();
   // load
   const [loading, setLoading] = React.useState(true);
   const spinner = document.getElementById("spinner");
@@ -22,6 +23,10 @@ function App() {
       setLoading(false);
     }, 2000);
   }
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   return (
     !loading && (
       <>

@@ -2,7 +2,7 @@ import React from "react";
 import { getApi } from "../../API/restApi";
 import { Listbox } from "@headlessui/react";
 import { useNavigate } from "react-router-dom";
-
+import notFound from "../../assets/Icon/berita not found.png";
 export default function Berita() {
   const [berita, setBerita] = React.useState([]);
   const [loadBerita, setLoadBerita] = React.useState(true);
@@ -33,6 +33,7 @@ export default function Berita() {
   React.useEffect(() => {
     getBerita();
   }, [limit, search]);
+  
   return (
     <>
       <div className="w-screen pt-[100px]">
@@ -68,9 +69,25 @@ export default function Berita() {
               />
             </div>
           </div>
-          <div className="grid lg:grid-cols-4 grid-cols-1 mb-20 gap-4 ">
+          <div
+            className={`${
+              loadBerita
+                ? "grid lg:grid-cols-4 grid-cols-1"
+                : berita.length == 0
+                ? ""
+                : "grid lg:grid-cols-4 grid-cols-1"
+            } mb-20 gap-4 `}
+          >
             {!loadBerita ? (
-              berita.map((i, key) => <CardBerita i={i} key={key} />)
+              berita.length != 0 ? (
+                berita.map((i, key) => <CardBerita i={i} key={key} />)
+              ) : (
+                <>
+                  <div className="relative flex justify-center items-center py-20">
+                    <img src={notFound} className="h-[200px]" alt="" />
+                  </div>
+                </>
+              )
             ) : (
               <>
                 <CardBeritaLoading />

@@ -13,6 +13,7 @@ import berita4 from "../../assets/images/suami.jpeg";
 import CountUp from "react-countup";
 import { getApi } from "../../API/restApi";
 import { useNavigate } from "react-router-dom";
+import beritaNotFound from "../../assets/Icon/berita not found.png";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -117,6 +118,7 @@ export default function Home() {
   React.useEffect(() => {
     getBerita();
   }, []);
+  
   return (
     <>
       <div className=" lg:pt-[100px] pt-[80px] w-full">
@@ -215,6 +217,9 @@ export default function Home() {
               Berita Terbaru
             </h1>
             <div
+              onClick={() => {
+                navigate("/berita");
+              }}
               className={`flex items-center justify-center gap-x-2  cursor-pointer ${
                 hoverButton2
                   ? "text-[#007100] transition-all -translate-x-1 -translate-y-1"
@@ -238,7 +243,15 @@ export default function Home() {
             </h1>
           </div>
           {/* Title For Mobile */}
-          <div className="content w-full grid lg:grid-cols-4 grid-cols-1 2xl:mt-20 mt-10 2xl:gap-x-16 lg:gap-x-4 lg:gap-y-0 gap-y-10">
+          <div
+            className={` content w-full 2xl:mt-20 mt-10   2xl:gap-x-16 lg:gap-x-4 lg:gap-y-0 gap-y-10 ${
+              loadBerita
+                ? "grid lg:grid-cols-4 grid-cols-1"
+                : berita.length == 0
+                ? ""
+                : "grid lg:grid-cols-4 grid-cols-1"
+            }`}
+          >
             {loadBerita ? (
               <>
                 <CardBeritaLoading />
@@ -246,8 +259,14 @@ export default function Home() {
                 <CardBeritaLoading />
                 <CardBeritaLoading />
               </>
-            ) : (
+            ) : berita.length != 0 ? (
               berita.slice(0, 4).map((i, key) => <CardBerita key={key} i={i} />)
+            ) : (
+              <>
+                <div className="relative flex justify-center items-center py-20">
+                  <img src={beritaNotFound} className="h-[200px]" alt="" />
+                </div>
+              </>
             )}
             <div className="lg:hidden flex justify-center items-center">
               <button

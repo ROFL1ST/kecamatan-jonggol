@@ -45,6 +45,8 @@ export default function Video() {
       views: 100,
     },
   ];
+
+  
   return (
     <>
       <div className="w-screen pt-[100px]">

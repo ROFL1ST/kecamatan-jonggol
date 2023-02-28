@@ -54,6 +54,8 @@ export default function DetailVideo() {
       createAt: "03 Desember 2022",
     },
   ];
+
+  
   return (
     <>
       <div className="w-screen lg:pt-[110px] pt-[80px]">
