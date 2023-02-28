@@ -11,8 +11,11 @@ import berita2 from "../../assets/images/anies.jpeg";
 import berita3 from "../../assets/images/jakarta.jpeg";
 import berita4 from "../../assets/images/suami.jpeg";
 import CountUp from "react-countup";
+import { getApi } from "../../API/restApi";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+  const navigate = useNavigate();
   const data = [
     {
       id: 1,
@@ -53,15 +56,6 @@ export default function Home() {
       desc: "Lorem ipsum dolor sit amet consectetur. Eget laoreet donec commodo placerat viverra scelerisque ut. Sed lorem diam nunc cursus arcu nulla sapien. Non tempor donec suspendisse suspendisse egestas urna adipiscing feugiat. Sit velit eleifend eleifend felis arcu nisi. Eu gravida ultricies amet ut pretium purus aliquam porta a. Duis consectetur donec auctor lorem metus.",
     },
   ];
-
-  const [hoverButton, setHoverButton] = React.useState(false);
-  const handleMouseOver = () => {
-    setHoverButton(true);
-  };
-
-  const handleMouseOut = () => {
-    setHoverButton(false);
-  };
 
   const [hoverButton2, setHoverButton2] = React.useState(false);
   const handleMouseOver2 = () => {
@@ -104,6 +98,25 @@ export default function Home() {
       vilage: "Desa Cibodas",
     },
   ];
+
+  const [berita, setBerita] = React.useState([]);
+  const [loadBerita, setLoadBerita] = React.useState(true);
+  const getBerita = async () => {
+    try {
+      getApi("berita").then((val) => {
+        console.log(val.data.data);
+        setBerita(val.data.data);
+        setLoadBerita(false);
+      });
+    } catch (error) {
+      console.log(error);
+      setLoadBerita(false);
+    }
+  };
+
+  React.useEffect(() => {
+    getBerita();
+  }, []);
   return (
     <>
       <div className=" lg:pt-[100px] pt-[80px] w-full">
@@ -149,7 +162,7 @@ export default function Home() {
 
         {/* jumlah for dekstop */}
         <div className="mt-10 mb-10 px-16 lg:flex hidden justify-center">
-          <div className=" rounded-xl bg-white flex lg:px-5 lg:py-5">
+          <div className=" rounded-xl bg-white flex lg:px-5 lg:py-5 ">
             {data.map((i, key) => (
               <CardInfo key={key} index={key} data={i} />
             ))}
@@ -168,7 +181,7 @@ export default function Home() {
 
         {/* program */}
         <div className="mt-28 mb-10 2xl:px-16 lg:px-10 px-8 flex flex-col items-center justify-center">
-          <h1 className="text-4xl font-bold capitalize underline decoration-[#547153]">
+          <h1 className="text-4xl font-bold capitalize underline decoration-[#3C903C]">
             Aplikasi Pemerintah
           </h1>
           <div className="grid lg:grid-cols-3 grid-cols-1 2xl:gap-x-24 lg:gap-x-10 gap-10 mt-16 mb-16 w-full justify-center h-full">
@@ -204,7 +217,7 @@ export default function Home() {
             <div
               className={`flex items-center justify-center gap-x-2  cursor-pointer ${
                 hoverButton2
-                  ? "text-[#547153] transition-all -translate-x-1 -translate-y-1"
+                  ? "text-[#007100] transition-all -translate-x-1 -translate-y-1"
                   : " text-[#6B7280] transition-all"
               }`}
               onMouseEnter={handleMouseOver2}
@@ -225,18 +238,28 @@ export default function Home() {
             </h1>
           </div>
           {/* Title For Mobile */}
-          <div className="content grid lg:grid-cols-4 grid-cols-1 2xl:mt-20 mt-10 2xl:gap-x-16 lg:gap-x-4 lg:gap-y-0 gap-y-10">
-            {dataBerita.map((i, key) => (
-              <CardBerita key={key} i={i} />
-            ))}
+          <div className="content w-full grid lg:grid-cols-4 grid-cols-1 2xl:mt-20 mt-10 2xl:gap-x-16 lg:gap-x-4 lg:gap-y-0 gap-y-10">
+            {loadBerita ? (
+              <>
+                <CardBeritaLoading />
+                <CardBeritaLoading />
+                <CardBeritaLoading />
+                <CardBeritaLoading />
+              </>
+            ) : (
+              berita.slice(0, 4).map((i, key) => <CardBerita key={key} i={i} />)
+            )}
             <div className="lg:hidden flex justify-center items-center">
               <button
+                onClick={() => {
+                  navigate("/berita");
+                }}
                 onMouseEnter={handleMouseOver2}
                 onMouseLeave={handleMouseOut2}
                 className={` px-5 py-2 2xl:py-3 rounded-full lg:text-sm 2xl:text-base font-semibold ${
                   hoverButton2
-                    ? "bg-[#547153] text-white transition-all border-2 border-[#547153]"
-                    : "border-[#547153] border-2  text-[#547153] transition-all"
+                    ? "bg-[#007100] text-white transition-all border-2 border-[#007100]"
+                    : "border-[#007100] border-2  text-[#007100] transition-all"
                 }`}
               >
                 Selengkapnya
@@ -245,6 +268,23 @@ export default function Home() {
           </div>
         </div>
         {/* Berita */}
+      </div>
+    </>
+  );
+}
+
+function CardBeritaLoading(params) {
+  return (
+    <>
+      <div className="bg-gray-100 w-full h-80 rounded-2xl border-blue-300 animate-pulse">
+        <div className="w-full h-1/2 bg-cover rounded-t-2xl bg-center bg-gray-300"></div>
+        <div className="pl-2 pr-10 py-5 space-y-16">
+          <div className="space-y-2">
+            <div className="text-xs font-bold h-4  bg-gray-300 rounded-full"></div>
+            <div className="text-xs font-bold h-4 w-1/4 bg-gray-300 rounded-full"></div>
+          </div>
+          <div className="text-xs font-bold h-4 w-1/4 bg-gray-300 rounded-full"></div>
+        </div>
       </div>
     </>
   );
@@ -264,7 +304,7 @@ function CardInfo({ index, data }) {
       <div
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}
-        className={`penduduk flex flex-col  items-center lg:gap-y-5 gap-y-1 lg:px-12 px-5  lg:py-5 py-2 transition-all ${
+        className={`penduduk flex flex-col  items-center lg:gap-y-5 gap-y-1 lg:px-12 px-5  lg:py-5 py-2 transition-all cursor-default ${
           isHovering && "-translate-y-1 -translate-x-1 shadow-xl transition-all"
           // eslint-disable-next-line eqeqeq
         } ${index != 0 && !isHovering ? "border-l-2" : "rounded-xl"}`}
@@ -310,8 +350,8 @@ function CardApp({ data }) {
   };
   return (
     <>
-      <div className="flex flex-col bg-[#547153]  rounded-xl">
-        <div className="atas bg-[#A9AF7F] bg-opacity-40 py-10 rounded-t-xl px-5 flex justify-center items-center">
+      <div className="flex flex-col bg-[#007100]  rounded-xl">
+        <div className="atas bg-[#3C903C] bg-opacity-40 py-10 rounded-t-xl px-5 flex justify-center items-center">
           <div
             style={{ backgroundImage: `url(${data.url})` }}
             className="iconApp w-36 h-36 bg-cover bg-center rounded-full"
@@ -327,7 +367,7 @@ function CardApp({ data }) {
               onMouseLeave={handleMouseOut}
               className={`cursor-pointer ${
                 isHovering
-                  ? "text-[#142b51] -translate-y-0.5 transition ease-in-out"
+                  ? "text-[#3C903C] -translate-y-0.5 transition ease-in-out"
                   : "text-white transition ease-in-out"
               }`}
             >
@@ -341,24 +381,47 @@ function CardApp({ data }) {
 }
 
 function CardBerita({ i }) {
+  const navigate = useNavigate();
+  const date = new Date(i.createdAt);
+  var months = [
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "May",
+    "Juni",
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember",
+  ];
+  var monthName = months[date.getMonth()];
+
   return (
     <>
-      <div className="bg-[#f5f5fa] w-full 2xl:h-[350px] h-[300px]  rounded-3xl shadow-md cursor-pointer">
+      <div
+        onClick={() => {
+          navigate(`/berita/${i._id}`);
+        }}
+        className="bg-[#f5f5fa] w-full 2xl:h-[350px] h-[300px]  rounded-3xl shadow-md cursor-pointer"
+      >
         <div
-          style={{ backgroundImage: `url(${i.cover})` }}
+          style={{ backgroundImage: `url(${i.thumbnail})` }}
           className="w-full h-1/2 bg-cover rounded-t-3xl bg-center"
         ></div>
         <div className=" 2xl:px-5 px-3 2xl:py-4 py-2 flex  flex-col justify-between">
           <p className="text-xs 2xl:font-bold lg:font-semibold text-gray-500">
-            {i.date}
+            {date.getDate()} {monthName} {date.getFullYear()}
           </p>
           <div className="2xl:h-28 lg:h-24 w-11/12">
             <h3 className="my-3 font-bold capitalize 2xl:text-xl lg:text-base 2xl:pr-16 anti-blos">
-              {i.title}
+              {i.judul}
             </h3>
           </div>
           <small className="text-xs font-bold  text-[#547153]">
-            {i.vilage}
+            {i.author.email}
           </small>
         </div>
       </div>

@@ -5,7 +5,7 @@ import {
   HambergerMenu,
 } from "iconsax-react";
 import React from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useParams } from "react-router-dom";
 import Logo from "../assets/logo/Logo.png";
 import { Menu, Transition } from "@headlessui/react";
 
@@ -13,7 +13,7 @@ export default function Navbar() {
   const location = useLocation();
   // console.log(location.pathname);
   const activePage =
-    "bg-white px-5 py-1 rounded-full text-[#547153] font-bold transition-all";
+    "bg-white px-5 py-1 rounded-full text-[#3C903C] font-bold transition-all";
   const normalPages = "transition-all";
   const [navbarOpen, setNavbarOpen] = React.useState(false);
 
@@ -21,8 +21,8 @@ export default function Navbar() {
     <>
       <div className="fixed w-screen z-20">
         {/* Dekstop */}
-        <div className="lg:flex hidden bg-[#547153] h-6"></div>
-        <div className="w-full h-20 lg:bg-[#7D8F69] bg-[#547153]   lg:bg-opacity-20 lg:backdrop-blur-lg lg:drop-shadow-lg flex items-center justify-between px-5 2xl:px-16 lg:px-10">
+        <div className="lg:flex hidden bg-[#007100] h-6"></div>
+        <div className="w-full h-20 lg:bg-[#007100] bg-[#007100]   lg:bg-opacity-20 lg:backdrop-blur-lg lg:drop-shadow-lg flex items-center justify-between px-5 2xl:px-16 lg:px-10">
           <NavLink to={"/"}>
             <img src={Logo} className="lg:w-full w-4/5" alt="" />
           </NavLink>
@@ -70,15 +70,14 @@ export default function Navbar() {
         <div
           className={`${
             navbarOpen ? "flex transition-all" : "hidden transition-all"
-          } top-0 fixed flex-col z-30 bg-[#547153] w-full  mt-[78px] px-10 py-10 pb-10 overflow-y-auto rounded-b-2xl  `}
+          } top-0 fixed flex-col z-30 bg-[#007100] w-full  mt-[78px] px-10 py-10 pb-10 overflow-y-auto rounded-b-2xl  `}
         >
           <ul className="flex flex-col gap-y-5 font-bold text-white">
             <NavLink to={"/"}>
               <li className="cursor-pointer">Home</li>
             </NavLink>
             <li className="cursor-pointer flex items-center gap-x-5">
-              Profile
-              <ArrowDown2 className="h-4 w-4" color="#ffffff" />
+              <DropProfileMobile />
             </li>
             <li className="cursor-pointer flex items-center gap-x-5">
               Program
@@ -95,7 +94,7 @@ export default function Navbar() {
   );
 }
 
-function DropMobileMedia() {
+function DropProfileMobile() {
   return (
     <>
       <Menu as={"div"} className="relative inline-block text-left">
@@ -103,14 +102,14 @@ function DropMobileMedia() {
           <>
             <Menu.Button className={"flex flex-col w-full  "}>
               <div className="flex gap-x-3 justify-center items-center">
-                Media & Informasi
+                Profile
                 {open ? (
                   <>
-                    <ArrowDown2 className="h-6 w-6" color="#ffffff" />
+                    <ArrowUp2 className="h-6 w-6" color="#ffffff" />
                   </>
                 ) : (
                   <>
-                    <ArrowUp2 className="h-6 w-6" color="#ffffff" />
+                    <ArrowDown2 className="h-6 w-6" color="#ffffff" />
                   </>
                 )}
               </div>
@@ -133,7 +132,70 @@ function DropMobileMedia() {
                 <button
                   className={`text-white group flex justify-start w-full items-center rounded-md px-2 py-1 text-sm    `}
                 >
-                  Berita
+                  <NavLink to={"/profile"}>Profil</NavLink>
+                </button>
+
+                <button
+                  className={`text-white group flex justify-start w-full items-center rounded-md px-2 py-1 text-sm    `}
+                >
+                  <NavLink to={"/struktur-organisasi"}>
+                    Struktur Organisasi
+                  </NavLink>
+                </button>
+                <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
+                  <NavLink to={"/sejarah"}>Sejarah</NavLink>
+                </button>
+                <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
+                  <NavLink to={"/visi-misi"}>Visi dan Misi</NavLink>
+                </button>
+              </div>
+            </Transition>
+          </>
+        )}
+      </Menu>
+    </>
+  );
+}
+
+function DropMobileMedia() {
+  return (
+    <>
+      <Menu as={"div"} className="relative inline-block text-left">
+        {({ open }) => (
+          <>
+            <Menu.Button className={"flex flex-col w-full  "}>
+              <div className="flex gap-x-3 justify-center items-center">
+                Media & Informasi
+                {open ? (
+                  <>
+                    <ArrowUp2 className="h-6 w-6" color="#ffffff" />
+                  </>
+                ) : (
+                  <>
+                    <ArrowDown2 className="h-6 w-6" color="#ffffff" />
+                  </>
+                )}
+              </div>
+            </Menu.Button>
+            <Transition
+              show={open}
+              as={React.Fragment}
+              enter="transition-all ease-in duration-100"
+              enterFrom="transform opacity-0 scale-95 translate-y-1"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95 -translate-y-1"
+            >
+              <div
+                className={`mt-3 ${
+                  open ? "flex-col gap-y-5 list-disc px-5" : "hidden"
+                }`}
+              >
+                <button
+                  className={`text-white group flex justify-start w-full items-center rounded-md px-2 py-1 text-sm    `}
+                >
+                  <NavLink to={"/berita"}>Berita</NavLink>
                 </button>
 
                 <button
@@ -156,29 +218,33 @@ function DropMobileMedia() {
 function DropMedia({ location }) {
   const activeDrop = "text-[#547153] font-bold transition-all";
   const normalDrop = "transition-all";
+  const { id } = useParams();
+
+  console.log(id);
   return (
     <>
       <Menu as={"div"} className="relative inline-block text-left">
         {({ open }) => (
           <>
             <Menu.Button
-              className={` inline-flex w-full justify-center items-center text-sm transition-all  ${
+              className={`px-3 inline-flex w-full justify-center items-center text-sm transition-all  ${
                 open ||
                 location == "/foto" ||
                 location == "/video" ||
-                location == "/berita"
-                  ? "bg-white px-5 py-1 rounded-full text-[#547153] font-bold transition-all"
+                location == "/berita" ||
+                location == `/berita/${id}`
+                  ? "bg-white  py-1 rounded-full text-[#547153] font-bold transition-all"
                   : ""
               }`}
             >
               Media & Informasi
               {open ? (
                 <>
-                  <ArrowDown2 className="h-6 w-6" color="#000000" />
+                  <ArrowUp2 className="h-6 w-6" color="#000000" />
                 </>
               ) : (
                 <>
-                  <ArrowUp2 className="h-6 w-6" color="#000000" />
+                  <ArrowDown2 className="h-6 w-6" color="#000000" />
                 </>
               )}
             </Menu.Button>
@@ -197,7 +263,14 @@ function DropMedia({ location }) {
                   <Menu.Item>
                     {({ active }) => (
                       <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
-                        Berita
+                        <NavLink
+                          to={"/berita"}
+                          className={({ active }) =>
+                            active ? activeDrop : normalDrop
+                          }
+                        >
+                          Berita
+                        </NavLink>
                       </button>
                     )}
                   </Menu.Item>
@@ -252,9 +325,9 @@ function DropProfile({ location }) {
         {({ open }) => (
           <>
             <Menu.Button
-              className={` inline-flex gap-x-3 w-full justify-center items-center text-sm transition-all  ${
+              className={`px-5 inline-flex gap-x-3 w-full justify-center items-center text-sm transition-all  ${
                 open &&
-                "bg-white px-5 py-1 rounded-full text-[#547153] font-bold transition-all"
+                "bg-white  py-1 rounded-full text-[#547153] font-bold transition-all"
               }`}
             >
               <p className="text-base">Profile</p>

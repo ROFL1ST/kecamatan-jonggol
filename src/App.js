@@ -9,6 +9,8 @@ import Video from "./pages/video";
 import DetailVideo from "./pages/video/detail";
 import Foto from "./pages/foto";
 import Struktur from "./pages/struktur";
+import Berita from "./pages/berita";
+import Detail from "./pages/berita/detail";
 
 function App() {
   // load
@@ -26,11 +28,13 @@ function App() {
         <Navbar></Navbar>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="berita" element={<Berita />} />
+          <Route path="berita/:id" element={<Detail />} />
           <Route path="profile" element={<Profile />} />
           <Route path="video" element={<Video />} />
           <Route path="video/:id" element={<DetailVideo />} />
           <Route path="foto" element={<Foto />} />
-          <Route path="struktur-organisasi" element={<Struktur   />} />
+          <Route path="struktur-organisasi" element={<Struktur />} />
         </Routes>
         <Footer />
       </>

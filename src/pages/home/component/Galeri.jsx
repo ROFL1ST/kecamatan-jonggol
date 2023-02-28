@@ -48,7 +48,7 @@ export default function Galeri() {
   };
   return (
     <>
-      <div className="mt-28 mb-10 2xl:pl-16 lg:pl-10 lg:py-20 flex flex-col items-center justify-center bg-[#7D8F69]">
+      <div className="mt-28 mb-10 2xl:pl-16 lg:pl-10 lg:py-20 flex flex-col items-center justify-center bg-[#3C903C]">
         <div className="w-full  flex lg:flex-row flex-col lg:justify-between justify-center gap-x-10 mt-20 mb-20 items-center">
           <div className="kiri lg:px-0 px-8 lg:w-1/3 flex flex-col lg:items-start items-center lg:mb-0 mb-10 lg:gap-y-0 gap-y-5">
             <h1 className="text-6xl text-white font-semibold">Foto</h1>
@@ -64,7 +64,7 @@ export default function Galeri() {
               onMouseLeave={handleMouseOut}
               className={`lg:flex hidden px-5 py-2 2xl:py-3 rounded-full lg:text-sm 2xl:text-base font-semibold mt-10 ${
                 hoverButton
-                  ? "bg-[#547153] text-white transition-all border-2 border-[#547153]"
+                  ? "bg-[#007100] text-white transition-all border-2 border-[#007100]"
                   : "border-white border-2  text-white transition-all"
               }`}
             >

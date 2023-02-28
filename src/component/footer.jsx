@@ -8,8 +8,8 @@ import bogor from "../assets/logo/kabupatenbogor.png";
 export default function Footer() {
   return (
     <>
-      <div className="w-screen z-20 bg-[#547153]   flex flex-col justify-center items-center">
-        <div className="top py-5 bg-[#7D8F69] w-full 2xl:px-16 lg:px-10 px-8">
+      <div className="w-screen z-20 bg-[#007100]   flex flex-col justify-center items-center">
+        <div className="top py-5 bg-[#3C903C] w-full 2xl:px-16 lg:px-10 px-8">
           {/* tautan terkait */}
           <div className="flex justify-center gap-x-5 items-center">
             <div className="border-b-2 lg:w-1/12 w-1/6"></div>
@@ -103,7 +103,7 @@ export default function Footer() {
               </div>
               <div className="flex flex-col gap-y-4">
                 {/* Instagram */}
-                <div className="flex gap-x-2  items-center">
+                <div className="flex gap-x-2  items-center cursor-pointer">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-7 h-7 font-bold"
@@ -118,7 +118,7 @@ export default function Footer() {
                 </div>
                 {/* Instagram */}
                 {/* Twitter */}
-                <div className="flex gap-x-2  items-center">
+                <div className="flex gap-x-2  items-center cursor-pointer">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-7 h-7 font-bold"
@@ -133,7 +133,7 @@ export default function Footer() {
                 </div>
                 {/* Twitter */}
                 {/* Facebook */}
-                <div className="flex gap-x-2  items-center">
+                <div className="flex gap-x-2  items-center cursor-pointer">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-7 h-7 font-bold"
@@ -148,7 +148,7 @@ export default function Footer() {
                 </div>
                 {/* Facebook */}
                 {/* Youtube */}
-                <div className="flex gap-x-2  items-center">
+                <div className="flex gap-x-2  items-center cursor-pointer">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-7 h-7 font-bold"

@@ -50,7 +50,7 @@ export default function Video() {
       <div className="w-screen pt-[100px]">
         <div className="lg:px-16 px-10">
           <div className="mt-20 flex justify-center ">
-            <div className=" rounded-full px-10 py-3 bg-[#7D8F69] cursor-default">
+            <div className=" rounded-full px-10 py-3 bg-[#3C903C] cursor-default">
               <h1 className="font-bold text-4xl text-white">Video</h1>
             </div>
           </div>

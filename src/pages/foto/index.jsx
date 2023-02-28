@@ -54,7 +54,7 @@ export default function Foto() {
       <div className="pt-[100px]  w-full">
         <div className="lg:px-16 px-10">
           <div className="mt-20 flex justify-center">
-            <div className=" rounded-full px-10 py-3 bg-[#7D8F69] cursor-default">
+            <div className=" rounded-full px-10 py-3 bg-[#007100] cursor-default">
               <h1 className="font-bold text-4xl text-white">Foto</h1>
             </div>
           </div>

@@ -98,11 +98,11 @@ export default function Struktur() {
   ];
   return (
     <>
-      <div className="pt-[100px]  w-full">
+      <div className="  w-full">
         <div className="2xl:px-16 lg:px-6 px-0">
           {/* Section */}
           <div className="mt-20 flex justify-center lg:px-0 px-10">
-            <div className=" rounded-full px-10 py-3 bg-[#7D8F69] cursor-default">
+            <div className=" rounded-full px-10 py-3 bg-[#3C903C] cursor-default">
               <h1 className="font-bold 2xl:text-4xl lg:text-xl text-center text-white">
                 STRUKTUR ORGANISASI KECAMATAN JONGGOL
               </h1>
