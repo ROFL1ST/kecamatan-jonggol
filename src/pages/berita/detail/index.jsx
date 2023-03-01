@@ -47,7 +47,7 @@ export default function Detail() {
     <>
       <div className="w-screen pt-[100px]">
         <div className="2xl:px-16 px-8 lg:py-24 py-10 ">
-          {loadDetail && loadBerita ? (
+          {!loadDetail && !loadBerita ? (
             <div className="flex justify-between w-full gap-x-5">
               <div className="left lg:w-3/4 w-full">
                 {/* cover */}
