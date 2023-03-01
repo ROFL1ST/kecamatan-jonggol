@@ -47,21 +47,29 @@ export default function Detail() {
     <>
       <div className="w-screen pt-[100px]">
         <div className="2xl:px-16 px-8 lg:py-24 py-10 ">
-          {!loadDetail && !loadBerita ? (
+          {loadDetail && loadBerita ? (
             <div className="flex justify-between w-full gap-x-5">
               <div className="left lg:w-3/4 w-full">
                 {/* cover */}
                 <div
                   style={{ backgroundImage: `url(${detail.thumbnail})` }}
-                  className="2xl:h-[659px] lg:h-[500px] h-[300px] bg-cover bg-center rounded-xl mb-10"
+                  className="2xl:h-[659px] lg:h-[500px] h-[300px] bg-cover bg-center rounded-xl lg:mb-10 mb-0"
                 >
                   <div className="h-full w-full bg-black bg-opacity-60 rounded-xl flex flex-col justify-end lg:p-8 p-4">
-                    <h1 className="title-font lg:text-4xl text-white text-xl mb-4 font-medium w-3/4">
+                    {/* title for dektop */}
+                    <h1 className="title-font lg:text-4xl text-white lg:flex hidden text-xl mb-4 font-medium w-3/4">
                       {detail.judul}
                     </h1>
+                    {/* title for dektop */}
                   </div>
                 </div>
                 {/* cover */}
+                {/* title for mobile */}
+                <h1 className="flex title-font text-3xl mb-4 font-bold pt-5 pb-2 ">
+                  {detail.judul}
+                </h1>
+                {/* title for mobile */}
+
                 <div className=" text-base pb-10">
                   <p>{detail.konten}</p>
                 </div>
@@ -84,12 +92,13 @@ export default function Detail() {
             <>
               <div className="flex justify-between w-full gap-x-5">
                 <div className="left hidden lg:flex flex-col w-3/4 h-96 rounded-2xl bg-gray-300 animate-pulse ">
-                  {/* cover */}
+                  {/* cover for dekstop */}
                   <div className="space-y-2 pt-72 px-10">
                     <div className="text-xs font-bold h-4 w-1/2 bg-gray-500 rounded-full"></div>
                     <div className="text-xs font-bold h-4 w-1/4 bg-gray-500 rounded-full"></div>
                   </div>
-                  {/* cover */}
+                  {/* cover for dekstop */}
+
                   <div className="space-y-2  animate-pulse mt-20">
                     <div className="text-xs font-bold h-4  bg-gray-500 rounded-full"></div>
                     <div className="text-xs font-bold h-4 w-3/4 bg-gray-500 rounded-full"></div>
@@ -97,6 +106,7 @@ export default function Detail() {
                     <div className="text-xs font-bold h-4 w-1/4 bg-gray-500 rounded-full"></div>
                   </div>
                 </div>
+
                 <div className="right 2xl:w-1/3 w-1/2 bg-white lg:flex hidden flex-col px-10 py-8 rounded-[20px] gap-y-5">
                   <div className="card-top flex flex-col mt-5 gap-y-2 animate-pulse">
                     <div className="h-[300px] rounded-[15px] bg-gray-300"></div>
@@ -106,6 +116,16 @@ export default function Detail() {
                   <BottomCardLoader />
                   <BottomCardLoader />
                 </div>
+              </div>
+              <div className="lg:hidden flex flex-col gap-y-5">
+                {/* cover for mobile */}
+                <div className=" w-full h-96 rounded-2xl bg-gray-300 animate-pulse"></div>
+
+                <div className="space-y-2 animate-pulse w-full pb-5">
+                  <div className="text-xs font-bold h-4 w-3/4 bg-gray-300 rounded-full"></div>
+                  <div className="text-xs font-bold h-4 w-1/2  bg-gray-300 rounded-full"></div>
+                </div>
+                {/* cover for mobile */}
               </div>
             </>
           )}

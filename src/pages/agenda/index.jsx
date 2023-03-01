@@ -48,7 +48,7 @@ export default function Agenda() {
 function Card({data}) {
   return (
     <>
-      <div className="2xl:h-[350px] lg:h-[350px] h-[300px] w-full bg-white rounded-2xl px-6 py-5">
+      <div className="2xl:h-[350px] lg:h-[350px] h-[300px] w-full bg-white rounded-2xl px-6 py-5 shadow-xl">
         {/* top */}
         <div className="flex justify-between w-full  items-center mb-8">
           <p className="font-bold">10:45 - 12:00</p>
