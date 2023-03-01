@@ -65,7 +65,7 @@ export default function Detail() {
                 </div>
                 {/* cover */}
                 {/* title for mobile */}
-                <h1 className="flex title-font text-3xl mb-4 font-bold pt-5 pb-2 ">
+                <h1 className="lg:hidden flex title-font text-3xl mb-4 font-bold pt-5 pb-2 ">
                   {detail.judul}
                 </h1>
                 {/* title for mobile */}
