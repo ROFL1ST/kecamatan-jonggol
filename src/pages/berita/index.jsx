@@ -107,8 +107,8 @@ export default function Berita() {
                 onMouseLeave={handleMouseOut2}
                 className={` px-5 py-2 2xl:py-3 rounded-full lg:text-sm 2xl:text-base font-semibold ${
                   hoverButton2
-                    ? "bg-[#547153] text-white transition-all border-2 border-[#547153]"
-                    : "border-[#547153] border-2  text-[#547153] transition-all"
+                    ? "bg-[#3C903C] text-white transition-all border-2 border-[#3C903C]"
+                    : "border-[#3C903C] border-2  text-[#3C903C] transition-all"
                 }`}
               >
                 Selengkapnya

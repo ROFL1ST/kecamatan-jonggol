@@ -1,9 +1,11 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getApi } from "../../../API/restApi";
 import moment from "moment";
 export default function Detail() {
   const { id } = useParams();
+  const { pathname } = useLocation();
+
   //   console.log(id);
   const [loadDetail, setLoadDetail] = React.useState(true);
   const [detail, setDetail] = React.useState();
@@ -36,12 +38,16 @@ export default function Detail() {
   React.useEffect(() => {
     getDetail();
     getBerita();
-  }, []);
+    if (pathname) {
+      setLoadBerita(true);
+      setLoadDetail(true);
+    }
+  }, [pathname]);
   return (
     <>
       <div className="w-screen pt-[100px]">
         <div className="2xl:px-16 px-8 lg:py-24 py-10 ">
-          {!loadDetail ? (
+          {!loadDetail && !loadBerita ? (
             <div className="flex justify-between w-full gap-x-5">
               <div className="left lg:w-3/4 w-full">
                 {/* cover */}
@@ -129,11 +135,17 @@ function BottomCardLoader(params) {
 }
 
 function TopCard({ i }) {
-    const create = "2023-02-28T10:30:00Z"
-  const timeAgo = moment(i.createAt).fromNow();
+  const navigate = useNavigate();
+  const create = "2023-02-28T10:30:00Z";
+  const timeAgo = moment(i.createdAt).fromNow();
   return (
     <>
-      <div className="card-top flex flex-col mt-5 gap-y-2 cursor-pointer">
+      <div
+        onClick={() => {
+          navigate(`/berita/${i._id}`);
+        }}
+        className="card-top flex flex-col mt-5 gap-y-2 cursor-pointer"
+      >
         <div
           style={{ backgroundImage: `url(${i.thumbnail})` }}
           className="rounded-[15px] 2xl:min-h-[300px] 2xl:max-h-[300px] bg-cover bg-center  min-h-[200px] max-h-[200px]"
@@ -148,16 +160,23 @@ function TopCard({ i }) {
 }
 
 function MiniCard({ i }) {
-  const timeAgo = moment(i.createAt).fromNow();
+  const navigate = useNavigate();
+
+  const timeAgo = moment(i.createdAt).fromNow();
 
   return (
     <>
-      <div className="flex justify-between gap-x-1 cursor-pointer">
+      <div
+        onClick={() => {
+          navigate(`/berita/${i._id}`);
+        }}
+        className="flex justify-between gap-x-1 cursor-pointer"
+      >
         <div
           style={{ backgroundImage: `url(${i.thumbnail})` }}
           className="h-[100px] bg-cover bg-center rounded-xl w-1/3"
         ></div>
-        <div className="w-3/5 flex flex-col gap-y-2">
+        <div className="w-3/5 flex flex-col gap-y-2 justify-between h-11/12">
           {" "}
           <h1 className="anti-blos3 font-bold 2xl:text-base text-sm ">
             {i.judul}

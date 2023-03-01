@@ -86,6 +86,9 @@ export default function Navbar() {
             <li className="cursor-pointer flex items-center gap-x-5">
               <DropMobileMedia />
             </li>
+            <NavLink to={"/agenda"}>
+              <li className="cursor-pointer">Agenda</li>
+            </NavLink>
           </ul>
         </div>
         {/* Mobile */}
