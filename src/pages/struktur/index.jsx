@@ -4,6 +4,9 @@ import berita1 from "../../assets/images/save-rohingya.jpg";
 import berita2 from "../../assets/images/anies.jpeg";
 import berita3 from "../../assets/images/jakarta.jpeg";
 import berita4 from "../../assets/images/suami.jpeg";
+import { getApi } from "../../API/restApi";
+import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 export default function Struktur() {
   const dataBerita = [
@@ -96,8 +99,24 @@ export default function Struktur() {
       desc: "merupakan unit terkecil dari wilayah kecamatan dan bertanggung jawab dalam penyelenggaraan pelayanan masyarakat di tingkat desa, termasuk pelayanan administrasi, kesehatan, dan pendidikan.",
     },
   ];
+  const [berita, setBerita] = React.useState([]);
+  const [loadBerita, setLoadBerita] = React.useState(true);
 
-  
+  const getBerita = async () => {
+    try {
+      getApi(`berita`).then((val) => {
+        setBerita(val.data.data);
+        setLoadBerita(false);
+      });
+    } catch (error) {
+      console.log(error);
+      setLoadBerita(false);
+    }
+  };
+
+  React.useEffect(() => {
+    getBerita();
+  }, []);
   return (
     <>
       <div className="pt-[100px]  w-full">
@@ -201,8 +220,20 @@ export default function Struktur() {
             </div>
             <div className="right 2xl:w-1/3 w-1/2 bg-white lg:flex hidden flex-col px-10 py-8 rounded-[20px] gap-y-5">
               <h1 className="font-bold text-xl">Berita Terbaru</h1>
-              {dataBerita.map((i, key) =>
-                key == 0 ? <TopCard i={i} /> : <MiniCard i={i} />
+              {!loadBerita ? (
+                berita.slice(0, 4).map((i, key) =>
+                  key == 0 ? <TopCard i={i} /> : <MiniCard i={i} />
+                )
+              ) : (
+                <div className="right  bg-white lg:flex hidden flex-col  rounded-[20px] gap-y-5">
+                  <div className="card-top flex flex-col mt-5 gap-y-2 animate-pulse">
+                    <div className="h-[300px] rounded-[15px] bg-gray-300"></div>
+                    <div className="text-xs font-bold h-4 w-1/2 bg-gray-500 rounded-full"></div>
+                    <div className="text-xs font-bold h-4 w-1/4 bg-gray-500 rounded-full"></div>
+                  </div>
+                  <BottomCardLoader />
+                  <BottomCardLoader />
+                </div>
               )}
             </div>
           </div>
@@ -213,14 +244,43 @@ export default function Struktur() {
   );
 }
 
-function TopCard({ i }) {
+function BottomCardLoader(params) {
   return (
     <>
-      <div className="card-top flex flex-col mt-5 gap-y-2 cursor-pointer">
-        <img src={i.cover} className="rounded-[15px]" alt="" />
-        <h1 className="font-bold anti-blos">{i.title}</h1>
+      <div className="card-bottom flex justify-between gap-x-1">
+        <div className="h-[100px] bg-cover bg-center rounded-xl w-1/3 bg-gray-300"></div>
+        <div className="w-3/5 flex flex-col gap-y-2 animate-pulse">
+          <div className="text-xs font-bold h-4 w-3/4 bg-gray-500 rounded-full"></div>
+          <div className="text-xs font-bold h-4 w-1/2 bg-gray-500 rounded-full"></div>
+
+          <div className="bottom font-semibold text-xs flex gap-x-3">
+            <div className="text-xs font-bold h-4 w-1/2 bg-gray-500 rounded-full"></div>
+            <div className="text-xs font-bold h-4 w-1/4 bg-gray-500 rounded-full"></div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function TopCard({ i }) {
+  const navigate = useNavigate();
+  const timeAgo = moment(i.createdAt).fromNow();
+  return (
+    <>
+      <div
+        onClick={() => {
+          navigate(`/berita/${i._id}`);
+        }}
+        className="card-top flex flex-col mt-5 gap-y-2 cursor-pointer"
+      >
+        <div
+          style={{ backgroundImage: `url(${i.thumbnail})` }}
+          className="rounded-[15px] 2xl:min-h-[300px] 2xl:max-h-[300px] bg-cover bg-center  min-h-[200px] max-h-[200px]"
+        ></div>
+        <h1 className="font-bold anti-blos 2xl:text-base text-sm">{i.judul}</h1>
         <div className="text-xs flex gap-x-2">
-          <p className="text-[#FF5252CC]">Berita OPD</p> <p>2 Jam yang lalu</p>
+          <p className="text-[#FF5252CC]">Berita OPD</p> <p>{timeAgo}</p>
         </div>
       </div>
     </>
@@ -228,22 +288,30 @@ function TopCard({ i }) {
 }
 
 function MiniCard({ i }) {
+  const navigate = useNavigate();
+
+  const timeAgo = moment(i.createdAt).fromNow();
+
   return (
     <>
-      <div className="flex justify-between gap-x-1 cursor-pointer">
+      <div
+        onClick={() => {
+          navigate(`/berita/${i._id}`);
+        }}
+        className="flex justify-between gap-x-1 cursor-pointer"
+      >
         <div
-          style={{ backgroundImage: `url(${i.cover})` }}
+          style={{ backgroundImage: `url(${i.thumbnail})` }}
           className="h-[100px] bg-cover bg-center rounded-xl w-1/3"
         ></div>
-        <div className="w-3/5 flex flex-col gap-y-2">
+        <div className="w-3/5 flex flex-col gap-y-2 justify-between h-11/12">
           {" "}
-          <h1 className="anti-blos3 font-bold">
-            Solidaritas Tanpa Batas Untuk Rohingnya selama - lamanya saling
-            membantu sesama
+          <h1 className="anti-blos3 font-bold 2xl:text-base text-sm ">
+            {i.judul}
           </h1>
-          <div className="bottom font-semibold text-xs flex gap-x-3">
+          <div className="bottom font-semibold text-xs flex 2xl:flex-row flex-col gap-x-3">
             <p className="anti-blos2 text-[#FF5252CC]">Berita OPD</p>
-            <p>2 Jam yang lalu</p>
+            <p>{timeAgo}</p>
           </div>
         </div>
       </div>

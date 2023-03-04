@@ -12,6 +12,7 @@ import Struktur from "./pages/struktur";
 import Berita from "./pages/berita";
 import Detail from "./pages/berita/detail";
 import Agenda from "./pages/agenda";
+import DetailAgenda from "./pages/agenda/detail";
 
 function App() {
   const { pathname } = useLocation();
@@ -42,6 +43,7 @@ function App() {
           <Route path="foto" element={<Foto />} />
           <Route path="struktur-organisasi" element={<Struktur />} />
           <Route path="agenda" element={<Agenda />} />
+          <Route path="agenda/:id" element={<DetailAgenda />} />
         </Routes>
         <Footer />
       </>

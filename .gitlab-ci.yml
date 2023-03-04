@@ -1,0 +1,36 @@
+image: docker:latest
+
+variables:
+  REPOSITORY_URL: galihmusex/fe-kecamatan
+  IMAGE_TAG: latest
+
+services:
+- docker:dind
+
+before_script:
+  - docker login --username=$DH_USERNAME --password=$DH_PASSWORD
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - echo "Building image..."
+    - docker build 
+      -t fe-kecamatan:latest 
+      --no-cache .
+    - echo "Tagging image..."
+    - docker tag fe-kecamatan:latest $REPOSITORY_URL:latest
+    - echo "Pushing image..."
+    - docker push $REPOSITORY_URL:latest
+  only:
+    - prod
+
+deploy:
+  stage: deploy
+  script:
+    - curl -I -u galih:111677b619caf128df322da123144cf790 "http://54.254.61.26:8080//job/prod-job/build?token=TOKENAMAN"
+  only:
+    - prod

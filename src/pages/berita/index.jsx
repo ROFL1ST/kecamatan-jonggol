@@ -9,6 +9,7 @@ export default function Berita() {
   const [limit, setLimit] = React.useState(12);
   const [hoverButton2, setHoverButton2] = React.useState(false);
   const [search, setSearch] = React.useState("");
+  const load = [1, 2, 3, 4, 5, 6, 7, 8];
   const handleMouseOver2 = () => {
     setHoverButton2(true);
   };
@@ -33,7 +34,7 @@ export default function Berita() {
   React.useEffect(() => {
     getBerita();
   }, [limit, search]);
-  
+
   return (
     <>
       <div className="w-screen pt-[100px]">
@@ -89,12 +90,7 @@ export default function Berita() {
                 </>
               )
             ) : (
-              <>
-                <CardBeritaLoading />
-                <CardBeritaLoading />
-                <CardBeritaLoading />
-                <CardBeritaLoading />
-              </>
+              load.map((i, key) => <CardBeritaLoading key={key} />)
             )}
           </div>
           {berita.length < 12 ? (
@@ -160,6 +156,7 @@ function CardBerita({ i }) {
   return (
     <>
       <div
+        title={i.judul}
         onClick={() => {
           navigate(`/berita/${i._id}`);
         }}

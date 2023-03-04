@@ -1,5 +1,6 @@
 import { Calendar, Location } from "iconsax-react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Agenda() {
   const [hoverButton2, setHoverButton2] = React.useState(false);
@@ -11,7 +12,48 @@ export default function Agenda() {
   const handleMouseOut2 = () => {
     setHoverButton2(false);
   };
-  const data = [1, 2, 3, 4, 5, 6];
+  const data = [
+    {
+      _id: 1,
+      title: "Pelantikan Pengurus Gerakan Pramuka Kwartir Ranting Jonggol",
+      jamIn: "10.00",
+      jamOut: "13.00",
+      tgl: "28 Desmber 2023",
+      tempat: "Desa Singasari",
+    },
+    {
+      _id: 2,
+      title: "Pelantikan Pengurus Gerakan Pramuka Kwartir Ranting Jonggol",
+      jamIn: "10.00",
+      jamOut: "13.00",
+      tgl: "28 Desmber 2023",
+      tempat: "Desa Singasari",
+    },
+    {
+      _id: 3,
+      title: "Pelantikan Pengurus Gerakan Pramuka Kwartir Ranting Jonggol",
+      jamIn: "10.00",
+      jamOut: "13.00",
+      tgl: "28 Desmber 2023",
+      tempat: "Desa Singasari",
+    },
+    {
+      _id: 4,
+      title: "Pelantikan Pengurus Gerakan Pramuka Kwartir Ranting Jonggol",
+      jamIn: "10.00",
+      jamOut: "13.00",
+      tgl: "28 Desmber 2023",
+      tempat: "Desa Singasari",
+    },
+    {
+      _id: 5,
+      title: "Pelantikan Pengurus Gerakan Pramuka Kwartir Ranting Jonggol",
+      jamIn: "10.00",
+      jamOut: "13.00",
+      tgl: "28 Desmber 2023",
+      tempat: "Desa Singasari",
+    },
+  ];
   return (
     <>
       <div className="w-screen pt-[100px]">
@@ -45,31 +87,37 @@ export default function Agenda() {
   );
 }
 
-function Card({data}) {
+function Card({ data }) {
+  const navigate = useNavigate();
   return (
     <>
       <div className="2xl:h-[350px] lg:h-[350px] h-[300px] w-full bg-white rounded-2xl px-6 py-5 shadow-xl">
         {/* top */}
         <div className="flex justify-between w-full  items-center mb-8">
-          <p className="font-bold">10:45 - 12:00</p>
+          <p className="font-bold">
+            {data.jamIn} - {data.jamOut}
+          </p>
           <div className="flex font-bold gap-x-3 items-center text-[#6D6D6D]">
             <Location size="22" color="#6D6D6D" />
-            <p>Desa Singasari</p>
+            <p>{data.tempat}</p>
           </div>
         </div>
         {/* top */}
         {/* Center */}
         <div className="flex flex-col justify-between h-4/5">
-          <h1 className="font-bold text-2xl 2xl:w-3/4">
-            Pelantikan Pengurus Gerakan Pramuka Kwartir Ranting Jonggol
-          </h1>
+          <h1 className="font-bold text-2xl 2xl:w-3/4">{data.title}</h1>
           <div className="flex justify-between w-full items-end">
-            <button className="px-7 py-3 font-bold bg-[#3C903C] text-white rounded-2xl text-xl">
+            <button
+              onClick={() => {
+                navigate(`/agenda/${data._id}`);
+              }}
+              className="px-7 py-3 font-bold bg-[#3C903C] text-white rounded-2xl text-xl"
+            >
               Detail
             </button>
             <div className="flex text-[#6D6D6D] gap-x-3 font-bold text-sm">
               <Calendar size="22" color="#6D6D6D" />
-              <p>27 agustus 2022</p>
+              <p>{data.tgl}</p>
             </div>
           </div>
         </div>

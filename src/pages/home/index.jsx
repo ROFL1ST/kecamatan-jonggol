@@ -115,10 +115,13 @@ export default function Home() {
     }
   };
 
+
+
   React.useEffect(() => {
     getBerita();
+
   }, []);
-  
+
   return (
     <>
       <div className=" lg:pt-[100px] pt-[80px] w-full">
@@ -421,6 +424,7 @@ function CardBerita({ i }) {
   return (
     <>
       <div
+        title={i.judul}
         onClick={() => {
           navigate(`/berita/${i._id}`);
         }}

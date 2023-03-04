@@ -6,6 +6,7 @@ import slide1 from "../../../assets/images/kevinmarcus.jpg";
 import slide2 from "../../../assets/images/save-rohingya.jpg";
 import slide3 from "../../../assets/images/sri-mulyani.jpg";
 import { Dialog, Transition } from "@headlessui/react";
+import { getApi } from "../../../API/restApi";
 
 export default function Galeri() {
   const navigate = useNavigate();
@@ -46,6 +47,24 @@ export default function Galeri() {
   const handleMouseOut = () => {
     setHoverButton(false);
   };
+
+  const [dataGaleri, setDataGaleri] = React.useState([]);
+  const [loadGaleri, setLoadGaleri] = React.useState(true);
+  const getGaleri = async () => {
+    try {
+      getApi("album").then((res) => {
+        setDataGaleri(res.data.data);
+        setLoadGaleri(false);
+      });
+    } catch (error) {
+      console.log(error);
+      setLoadGaleri(false);
+    }
+  };
+
+  React.useEffect(() => {
+    getGaleri();
+  }, []);
   return (
     <>
       <div className="mt-28 mb-10 2xl:pl-16 lg:pl-10 lg:py-20 flex flex-col items-center justify-center bg-[#3C903C]">
@@ -93,11 +112,15 @@ export default function Galeri() {
                 },
               }}
             >
-              {sliderData.map((i, key) => (
-                <SwiperSlide className="swiper-image" key={key}>
-                  <CardFoto i={i} />
-                </SwiperSlide>
-              ))}
+              {!loadGaleri ? (
+                dataGaleri.map((i, key) => (
+                  <SwiperSlide className="swiper-image" key={key}>
+                    <CardFoto i={i} />
+                  </SwiperSlide>
+                ))
+              ) : (
+                <></>
+              )}
             </Swiper>
             <div className="lg:hidden flex justify-center">
               <button
@@ -130,18 +153,23 @@ function CardFoto({ i }) {
           setOpen(true);
         }}
         className="lg:h-96 2xl:min-h-[30rem]  h-96 rounded-2xl w-full bg-cover bg-center shadow-2xl"
-        style={{ backgroundImage: `url(${i.url})` }}
+        style={{ backgroundImage: `url(${i.thumbnail.thumbnail})` }}
       >
         <div className="w-full h-full bg-black bg-opacity-25 px-5 py-5 rounded-2xl flex flex-col justify-end">
-          <h1 className="text-white font-semibold">{i.title}</h1>
+          <h1 className="text-white font-semibold">{i.nama}</h1>
         </div>
       </div>
-      <Modal open={open} setOpen={setOpen} cancelButtonRef={cancelButtonRef} />
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        cancelButtonRef={cancelButtonRef}
+        foto={i}
+      />
     </>
   );
 }
 
-function Modal({ open, setOpen, cancelButtonRef }) {
+function Modal({ open, setOpen, cancelButtonRef, foto }) {
   const swiperRef = React.useRef();
 
   const data = [
@@ -174,6 +202,24 @@ function Modal({ open, setOpen, cancelButtonRef }) {
       createAt: "24 Desember 2022",
     },
   ];
+
+  const [listFoto, setListFoto] = React.useState([]);
+  const [loadFoto, setLoadFoto] = React.useState(true);
+  const getList = async () => {
+    try {
+      getApi(`galeri/${foto._id}`).then((res) => {
+        setListFoto(res.data.data);
+        setLoadFoto(false);
+      });
+    } catch (error) {
+      console.log(error);
+      setLoadFoto(false);
+    }
+  };
+
+  React.useEffect(() => {
+    getList();
+  }, []);
   return (
     <>
       <Transition.Root show={open} as={React.Fragment}>
