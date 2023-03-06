@@ -158,7 +158,7 @@ function CardBerita({ i }) {
       <div
         title={i.judul}
         onClick={() => {
-          navigate(`/berita/${i._id}`);
+          navigate(`/berita/${i.slug}`);
         }}
         className="bg-[#f5f5fa] w-full 2xl:h-[350px] h-[300px]  rounded-3xl shadow-md cursor-pointer"
       >

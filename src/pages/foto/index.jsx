@@ -1,54 +1,29 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable eqeqeq */
 import { Dialog, Transition } from "@headlessui/react";
-import { ArrowLeft3, ArrowRight3 } from "iconsax-react";
 import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { getApi } from "../../API/restApi";
+import galeriNotFound from "../../assets/Icon/galery not found.png";
 
 export default function Foto() {
-  const data = [
-    {
-      id: 1,
-      title: "Suasana Pasar Asemka",
-      thumbnail: "https://jonggolberkah.com/asset/img_galeri/6asemka9.jpg",
-      jumlah: 12,
-    },
-    {
-      id: 2,
-      title: "Suasana Pasar Asemka",
-      thumbnail: "https://jonggolberkah.com/asset/img_galeri/6asemka9.jpg",
-      jumlah: 12,
-    },
-    {
-      id: 3,
-      title: "Suasana Pasar Asemka",
-      thumbnail: "https://jonggolberkah.com/asset/img_galeri/6asemka9.jpg",
-      jumlah: 12,
-    },
-    {
-      id: 4,
-      title: "Suasana Pasar Asemka",
-      thumbnail: "https://jonggolberkah.com/asset/img_galeri/6asemka9.jpg",
-      jumlah: 12,
-    },
-    {
-      id: 5,
-      title: "Suasana Pasar Asemka",
-      thumbnail: "https://jonggolberkah.com/asset/img_galeri/6asemka9.jpg",
-      jumlah: 12,
-    },
-    {
-      id: 6,
-      title: "Suasana Pasar Asemka",
-      thumbnail: "https://jonggolberkah.com/asset/img_galeri/6asemka9.jpg",
-      jumlah: 12,
-    },
-    {
-      id: 7,
-      title: "Suasana Pasar Asemka",
-      thumbnail: "https://jonggolberkah.com/asset/img_galeri/6asemka9.jpg",
-      jumlah: 12,
-    },
-  ];
+  const [dataGaleri, setDataGaleri] = React.useState([]);
+  const [loadGaleri, setLoadGaleri] = React.useState(true);
+  const getGaleri = async () => {
+    try {
+      getApi("album").then((res) => {
+        setDataGaleri(res.data.data);
+        setLoadGaleri(false);
+      });
+    } catch (error) {
+      console.log(error);
+      setLoadGaleri(false);
+    }
+  };
+
+  React.useEffect(() => {
+    getGaleri();
+  }, []);
   return (
     <>
       <div className="pt-[100px]  w-full">
@@ -58,12 +33,46 @@ export default function Foto() {
               <h1 className="font-bold text-4xl text-white">Foto</h1>
             </div>
           </div>
-          <div className="grid lg:grid-cols-3 grid-cols-1 mb-20 gap-4 mt-20">
-            {data.map((i, key) => (
-              <CardFoto key={key} data={i} />
-            ))}
+          <div
+            className={` mb-20 gap-4 mt-20 ${
+              loadGaleri
+                ? "grid lg:grid-cols-3 grid-cols-1"
+                : dataGaleri.length == 0
+                ? ""
+                : "grid lg:grid-cols-3 grid-cols-1"
+            }`}
+          >
+            {!loadGaleri ? (
+              dataGaleri.length != 0 ? (
+                dataGaleri.map((i, key) => <CardFoto key={key} data={i} />)
+              ) : (
+                <>
+                  <div className="relative flex justify-center items-center py-20">
+                    <img src={galeriNotFound} className="h-[200px]" alt="" />
+                  </div>
+                </>
+              )
+            ) : (
+              <>
+                <CardFotoLoading />
+                <CardFotoLoading />
+                <CardFotoLoading />
+                <CardFotoLoading />
+                <CardFotoLoading />
+              </>
+            )}
           </div>
         </div>
+      </div>
+    </>
+  );
+}
+
+function CardFotoLoading(params) {
+  return (
+    <>
+      <div className=" h-96 rounded-2xl bg-gray-300 animate-pulse">
+        <div className="w-full h-full flex flex-col justify-center items-center "></div>
       </div>
     </>
   );
@@ -94,7 +103,7 @@ function CardFoto({ data }) {
       >
         <div
           style={{
-            backgroundImage: `url(${data.thumbnail})`,
+            backgroundImage: `url(${data.cover.thumbnail})`,
           }}
           className=" rounded-lg mx-auto max-h-96 min-w-full bg-no-repeat bg-cover relative"
         >
@@ -107,7 +116,7 @@ function CardFoto({ data }) {
           >
             <div className="absolute justify-start flex flex-col bottom-5 left-5 w-4/5">
               <p className="uppercase font-bold text-white xl:text-base lg:text-base md:text-sm text-sm truncate ">
-                {data.title}
+                {data.nama_album}
               </p>
               <p
                 className={`${
@@ -120,44 +129,36 @@ function CardFoto({ data }) {
           </div>
         </div>
       </div>
-      <Modal open={open} setOpen={setOpen} cancelButtonRef={cancelButtonRef} />
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        cancelButtonRef={cancelButtonRef}
+        foto={data}
+      />
     </>
   );
 }
 
-function Modal({ open, setOpen, cancelButtonRef }) {
-  const swiperRef = React.useRef();
+function Modal({ open, setOpen, cancelButtonRef, foto }) {
+  const [listFoto, setListFoto] = React.useState([]);
+  const [loadFoto, setLoadFoto] = React.useState(true);
+  const getList = async () => {
+    try {
+      getApi(`galeri/${foto.id}`).then((res) => {
+        setListFoto(res.data.data);
+        setLoadFoto(false);
+      });
+    } catch (error) {
+      console.log(error);
+      setLoadFoto(false);
+    }
+  };
 
-  const data = [
-    {
-      id: 1,
-      img: "https://jonggolberkah.com/asset/img_galeri/84asemka2.jpg",
-      desc: "Seorang pedagang sedang membungkus souvenir penikahan yang akan dijual ataupun pesanan dari pelanggangnnya.",
-      place: "Desa Singasari",
-      createAt: "24 Desember 2022",
-    },
-    {
-      id: 2,
-      img: "https://jonggolberkah.com/asset/img_galeri/84asemka2.jpg",
-      desc: "Seorang pedagang sedang membungkus souvenir penikahan yang akan dijual ataupun pesanan dari pelanggangnnya.",
-      place: "Desa Singasari",
-      createAt: "24 Desember 2022",
-    },
-    {
-      id: 3,
-      img: "https://jonggolberkah.com/asset/img_galeri/84asemka2.jpg",
-      desc: "Seorang pedagang sedang membungkus souvenir penikahan yang akan dijual ataupun pesanan dari pelanggangnnya.",
-      place: "Desa Singasari",
-      createAt: "24 Desember 2022",
-    },
-    {
-      id: 4,
-      img: "https://jonggolberkah.com/asset/img_galeri/84asemka2.jpg",
-      desc: "Seorang pedagang sedang membungkus souvenir penikahan yang akan dijual ataupun pesanan dari pelanggangnnya.",
-      place: "Desa Singasari",
-      createAt: "24 Desember 2022",
-    },
-  ];
+  React.useEffect(() => {
+    getList();
+  }, []);
+
+  console.log(foto);
   return (
     <>
       <Transition.Root show={open} as={React.Fragment}>
@@ -209,43 +210,33 @@ function Modal({ open, setOpen, cancelButtonRef }) {
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <Dialog.Panel className=" relative flex lg:gap-x-20 lg:space-y-0 space-y-20  text-center overflow-hidden transform transition-all  justify-center 2xl:w-3/5">
-                  <div className={`lg:flex hidden justify-center items-center`}>
+                <Dialog.Panel className=" relative flex lg:gap-x-20 lg:space-y-0 space-y-20  text-center overflow-hidden transform transition-all  justify-center ">
+                  {/* <div className={`lg:flex hidden justify-center items-center`}>
                     <ArrowLeft3
                       onClick={() => swiperRef.current.slidePrev()}
                       size="42"
                       color="#FFFFFF"
                       className="cursor-pointer"
                     />
-                  </div>
-                  <Swiper
-                    centeredSlides={true}
-                    slidesPerView={"auto"}
-                    spaceBetween={30}
-                    onSwiper={(swiper) => {
-                      swiperRef.current = swiper;
-                    }}
-                    className="modalSwiper"
-                  >
-                    {data.map((i, key) => (
-                      <SwiperSlide className="modalGalery" key={key}>
-                        <CardModal
-                          img={i.img}
-                          summary={i.desc}
-                          tgl={i.createAt}
-                          place={i.place}
-                        ></CardModal>
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-                  <div className={`lg:flex hidden justify-center items-center`}>
+                  </div> */}
+                  {!loadFoto && listFoto ? (
+                    <CardModal
+                      img={listFoto.thumbnail}
+                      summary={listFoto.deskripsi}
+                      tgl={listFoto.createdAt}
+                      nama={listFoto.nama}
+                    ></CardModal>
+                  ) : (
+                    <></>
+                  )}
+                  {/* <div className={`lg:flex hidden justify-center items-center`}>
                     <ArrowRight3
                       onClick={() => swiperRef.current.slideNext()}
                       size="42"
                       color="#FFFFFF"
                       className="cursor-pointer"
                     />
-                  </div>
+                  </div> */}
                 </Dialog.Panel>
               </Transition.Child>
             </div>
@@ -256,7 +247,23 @@ function Modal({ open, setOpen, cancelButtonRef }) {
   );
 }
 
-function CardModal({ img, tgl, place, summary }) {
+function CardModal({ img, tgl, nama, summary }) {
+  const date = new Date(tgl);
+  var months = [
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "May",
+    "Juni",
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember",
+  ];
+  var monthName = months[date.getMonth()];
   return (
     <>
       <div className=" items-center flex flex-col justify-center">
@@ -267,7 +274,7 @@ function CardModal({ img, tgl, place, summary }) {
         />
         <div className=" items-center gap-y-5 flex flex-col mt-10 w-11/12">
           <h1 className="font-semibold text-white lg:text-lg">
-            {tgl} | {place}
+            {date.getDate()} {monthName} {date.getFullYear()} | {nama}
           </h1>
 
           <p className="text-white lg:w-3/4 md:w-full sm:w-1/2 w-4/5  2xl:text-sm text-xs font-extralight">

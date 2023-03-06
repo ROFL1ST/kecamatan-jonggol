@@ -6,10 +6,6 @@ import sipahadasi from "../../assets/logo/sipahadesi.png";
 import sipaojol from "../../assets/logo/sipaojol.png";
 import Galeri from "./component/Galeri";
 import { ArrowRight2 } from "iconsax-react";
-import berita1 from "../../assets/images/save-rohingya.jpg";
-import berita2 from "../../assets/images/anies.jpeg";
-import berita3 from "../../assets/images/jakarta.jpeg";
-import berita4 from "../../assets/images/suami.jpeg";
 import CountUp from "react-countup";
 import { getApi } from "../../API/restApi";
 import { useNavigate } from "react-router-dom";
@@ -67,44 +63,11 @@ export default function Home() {
     setHoverButton2(false);
   };
 
-  const dataBerita = [
-    {
-      id: 1,
-      title: "Solidaritas Tanpa Batas Untuk Rohingnya",
-      cover: berita1,
-      date: "24 Desember 2022",
-      vilage: "Desa Singasari",
-    },
-    {
-      id: 2,
-      title:
-        "Viral Kuda Delman Anies Mundur-mundur Menuju Deklarasi, Ini Kata PKS",
-      cover: berita2,
-      date: "24 Februari 2023",
-      vilage: "Desa Singasari",
-    },
-    {
-      id: 3,
-      title:
-        "Banjir Jakarta 24 Februari 2023: Titik Lokasi hingga Kondisi Terkini",
-      cover: berita3,
-      date: "19 Februari 2023",
-      vilage: "Desa Cibodas",
-    },
-    {
-      id: 4,
-      title: "Viral Suami Lempar Istri ke Laut dari Kapal Merak-Bakauheni",
-      cover: berita4,
-      date: "1 Januari 2023",
-      vilage: "Desa Cibodas",
-    },
-  ];
-
   const [berita, setBerita] = React.useState([]);
   const [loadBerita, setLoadBerita] = React.useState(true);
   const getBerita = async () => {
     try {
-      getApi("berita").then((val) => {
+      await getApi("berita").then((val) => {
         console.log(val.data.data);
         setBerita(val.data.data);
         setLoadBerita(false);
@@ -115,11 +78,8 @@ export default function Home() {
     }
   };
 
-
-
   React.useEffect(() => {
     getBerita();
-
   }, []);
 
   return (
@@ -426,7 +386,7 @@ function CardBerita({ i }) {
       <div
         title={i.judul}
         onClick={() => {
-          navigate(`/berita/${i._id}`);
+          navigate(`/berita/${i.slug}`);
         }}
         className="bg-[#f5f5fa] w-full 2xl:h-[350px] h-[300px]  rounded-3xl shadow-md cursor-pointer"
       >
@@ -444,7 +404,7 @@ function CardBerita({ i }) {
             </h3>
           </div>
           <small className="text-xs font-bold  text-[#547153]">
-            {i.author.email}
+            {i.author.username}
           </small>
         </div>
       </div>

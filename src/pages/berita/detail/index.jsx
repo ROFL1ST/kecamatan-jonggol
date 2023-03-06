@@ -1,9 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable eqeqeq */
 import React from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getApi } from "../../../API/restApi";
 import moment from "moment";
+import parse from "html-react-parser";
+
 export default function Detail() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const { pathname } = useLocation();
 
   //   console.log(id);
@@ -11,7 +15,7 @@ export default function Detail() {
   const [detail, setDetail] = React.useState();
   const getDetail = async () => {
     try {
-      getApi(`berita/${id}`).then((val) => {
+      await getApi(`berita/${slug}`).then((val) => {
         setDetail(val.data.data);
         setLoadDetail(false);
       });
@@ -25,7 +29,7 @@ export default function Detail() {
 
   const getBerita = async () => {
     try {
-      getApi(`berita`).then((val) => {
+      await getApi(`berita`).then((val) => {
         setBerita(val.data.data);
         setLoadBerita(false);
       });
@@ -43,6 +47,13 @@ export default function Detail() {
       setLoadDetail(true);
     }
   }, [pathname]);
+
+  React.useEffect(() => {
+    if (detail) {
+      document.title = detail.judul;
+    }
+  }, [detail]);
+  // console.log(berita.filter((berita) => berita.slug != slug).length);
   return (
     <>
       <div className="w-screen pt-[100px]">
@@ -55,38 +66,54 @@ export default function Detail() {
                   style={{ backgroundImage: `url(${detail.thumbnail})` }}
                   className="2xl:h-[659px] lg:h-[500px] h-[300px] bg-cover bg-center rounded-xl lg:mb-10 mb-0"
                 >
-                  <div className="h-full w-full bg-black bg-opacity-60 rounded-xl flex flex-col justify-end lg:p-8 p-4">
+                  <div className="h-full w-full bg-black bg-opacity-60 rounded-xl lg:flex hidden  flex-col justify-end lg:p-8 p-4">
                     {/* title for dektop */}
-                    <h1 className="title-font lg:text-4xl text-white lg:flex hidden text-xl mb-4 font-medium w-3/4">
-                      {detail.judul}
-                    </h1>
+                    <div className="flex flex-col text-white">
+                      <h1 className="title-font lg:text-4xl  flex  text-xl mb-4 font-medium w-3/4">
+                        {detail.judul}
+                      </h1>
+                      <div className=" flex  gap-x-2 text-sm">
+                        <p className="text-[#FF5252CC] capitalize">
+                          {detail.author.username}
+                        </p>
+                        <p>{moment(detail.createdAt).fromNow()}</p>
+                      </div>
+                    </div>
                     {/* title for dektop */}
                   </div>
                 </div>
                 {/* cover */}
                 {/* title for mobile */}
-                <h1 className="lg:hidden flex title-font text-3xl mb-4 font-bold pt-5 pb-2 ">
+                <h1 className="lg:hidden flex title-font text-2xl font-bold pt-5 pb-2 ">
                   {detail.judul}
                 </h1>
+                <div className=" lg:hidden flex gap-x-2 text-sm  mb-5">
+                  <p className="text-[#FF5252CC] capitalize">
+                    {detail.author.username}
+                  </p>
+                  <p>{moment(detail.createdAt).fromNow()}</p>
+                </div>
                 {/* title for mobile */}
 
                 <div className=" text-base pb-10">
-                  <p>{detail.konten}</p>
+                  <Isi text={detail.konten} />
                 </div>
               </div>
-              <div className="right 2xl:w-1/4 w-1/4 bg-white lg:flex hidden flex-col 2xl:px-10 px-5 py-8 rounded-[20px] gap-y-5 relative">
-                <h1 className="font-bold text-xl">Berita Terbaru</h1>
-                {berita
-                  .filter((berita) => berita._id != id)
-                  .slice(0, 5)
-                  .map((i, key) =>
-                    key == 0 ? (
-                      <TopCard i={i} key={key} />
-                    ) : (
-                      <MiniCard key={key} i={i} />
-                    )
-                  )}
-              </div>
+              {berita.filter((berita) => berita.slug != slug).length != 0 && (
+                <div className="right 2xl:w-1/4 w-1/4 bg-white lg:flex hidden flex-col 2xl:px-10 px-5 py-8 rounded-[20px] gap-y-5 h-3/4">
+                  <h1 className="font-bold text-xl">Berita Terbaru</h1>
+                  {berita
+                    .filter((berita) => berita.slug != slug)
+                    .slice(0, 5)
+                    .map((i, key) =>
+                      key == 0 ? (
+                        <TopCard i={i} key={key} />
+                      ) : (
+                        <MiniCard key={key} i={i} />
+                      )
+                    )}
+                </div>
+              )}
             </div>
           ) : (
             <>
@@ -162,7 +189,7 @@ function TopCard({ i }) {
     <>
       <div
         onClick={() => {
-          navigate(`/berita/${i._id}`);
+          navigate(`/berita/${i.slug}`);
         }}
         className="card-top flex flex-col mt-5 gap-y-2 cursor-pointer"
       >
@@ -172,7 +199,8 @@ function TopCard({ i }) {
         ></div>
         <h1 className="font-bold anti-blos 2xl:text-base text-sm">{i.judul}</h1>
         <div className="text-xs flex gap-x-2">
-          <p className="text-[#FF5252CC]">Berita OPD</p> <p>{timeAgo}</p>
+          <p className="text-[#FF5252CC] capitalize">{i.author.username}</p>{" "}
+          <p>{timeAgo}</p>
         </div>
       </div>
     </>
@@ -188,7 +216,7 @@ function MiniCard({ i }) {
     <>
       <div
         onClick={() => {
-          navigate(`/berita/${i._id}`);
+          navigate(`/berita/${i.slug}`);
         }}
         className="flex justify-between gap-x-1 cursor-pointer"
       >
@@ -201,12 +229,17 @@ function MiniCard({ i }) {
           <h1 className="anti-blos3 font-bold 2xl:text-base text-sm ">
             {i.judul}
           </h1>
-          <div className="bottom font-semibold text-xs flex 2xl:flex-row flex-col gap-x-3">
-            <p className="anti-blos2 text-[#FF5252CC]">Berita OPD</p>
+          <div className="text-xs flex gap-x-2">
+            <p className="text-[#FF5252CC] capitalize">{i.author.username}</p>{" "}
             <p>{timeAgo}</p>
           </div>
         </div>
       </div>
     </>
   );
+}
+
+function Isi({ text }) {
+  const reactElement = parse(`${text}`);
+  return reactElement;
 }

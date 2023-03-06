@@ -29,6 +29,10 @@ function App() {
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+
+  React.useEffect(() => {
+    document.title = "Kecamatan Jonggol";
+  }, [pathname]);
   return (
     !loading && (
       <>
@@ -36,14 +40,14 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="berita" element={<Berita />} />
-          <Route path="berita/:id" element={<Detail />} />
+          <Route path="berita/:slug" element={<Detail />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="video" element={<Video />} />
-          <Route path="video/:id" element={<DetailVideo />} />
           <Route path="foto" element={<Foto />} />
           <Route path="struktur-organisasi" element={<Struktur />} />
           <Route path="agenda" element={<Agenda />} />
           <Route path="agenda/:id" element={<DetailAgenda />} />
+          {/* <Route path="video" element={<Video />} />
+          <Route path="video/:id" element={<DetailVideo />} /> */}
         </Routes>
         <Footer />
       </>

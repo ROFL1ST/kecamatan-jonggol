@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://192.168.90.3:8000/api/";
+const BASE_URL = "http://localhost:8000/api/";
 
 function getApi(path_url) {
   // console.log(BASE_URL + path_url);

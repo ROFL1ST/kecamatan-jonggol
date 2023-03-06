@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import {
   ArrowDown2,
   ArrowUp2,
@@ -18,8 +19,8 @@ export default function Navbar() {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
 
   React.useEffect(() => {
-    setNavbarOpen(false)
-  }, [location.pathname])
+    setNavbarOpen(false);
+  }, [location.pathname]);
   return (
     <>
       <div className="fixed w-screen z-20">
@@ -209,9 +210,9 @@ function DropMobileMedia() {
                 >
                   <NavLink to={"/foto"}>Foto</NavLink>
                 </button>
-                <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
+                {/* <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
                   <NavLink to={"/video"}>Video</NavLink>
-                </button>
+                </button> */}
               </div>
             </Transition>
           </>
@@ -297,7 +298,7 @@ function DropMedia({ location }) {
                     )}
                   </Menu.Item>
                 </div>
-                <div className="px-1 py-1">
+                {/* <div className="px-1 py-1">
                   <Menu.Item>
                     {({ active }) => (
                       <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
@@ -312,7 +313,7 @@ function DropMedia({ location }) {
                       </button>
                     )}
                   </Menu.Item>
-                </div>
+                </div> */}
               </Menu.Items>
             </Transition>
           </>
@@ -332,18 +333,23 @@ function DropProfile({ location }) {
           <>
             <Menu.Button
               className={`px-5 inline-flex gap-x-3 w-full justify-center items-center text-sm transition-all  ${
-                open &&
-                "bg-white  py-1 rounded-full text-[#547153] font-bold transition-all"
+                open ||
+                location == "/profile" ||
+                location == "/struktur-organisasi"
+                  ? //  ||
+                    // location == "/berita"
+                    "bg-white  py-2 rounded-full text-[#547153] font-bold transition-all"
+                  : ""
               }`}
             >
               <p className="text-base">Profile</p>
               {open ? (
                 <>
-                  <ArrowDown2 className="h-4 w-4" color="#000000" />
+                  <ArrowUp2 className="h-4 w-4" color="#000000" />
                 </>
               ) : (
                 <>
-                  <ArrowUp2 className="h-4 w-4" color="#000000" />
+                  <ArrowDown2 className="h-4 w-4" color="#000000" />
                 </>
               )}
             </Menu.Button>
