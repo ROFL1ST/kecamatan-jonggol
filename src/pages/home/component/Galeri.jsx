@@ -221,7 +221,7 @@ function Modal({ open, setOpen, cancelButtonRef, foto }) {
     getList();
   }, []);
 
-  console.log(foto);
+  // console.log(foto);
   return (
     <>
       <Transition.Root show={open} as={React.Fragment}>

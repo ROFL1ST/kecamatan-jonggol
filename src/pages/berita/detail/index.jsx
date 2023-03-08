@@ -188,6 +188,7 @@ function TopCard({ i }) {
   return (
     <>
       <div
+       title={i.judul}
         onClick={() => {
           navigate(`/berita/${i.slug}`);
         }}
@@ -215,6 +216,7 @@ function MiniCard({ i }) {
   return (
     <>
       <div
+       title={i.judul}
         onClick={() => {
           navigate(`/berita/${i.slug}`);
         }}

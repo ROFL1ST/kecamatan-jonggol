@@ -68,7 +68,7 @@ export default function Home() {
   const getBerita = async () => {
     try {
       await getApi("berita").then((val) => {
-        console.log(val.data.data);
+        // console.log(val.data.data);
         setBerita(val.data.data);
         setLoadBerita(false);
       });

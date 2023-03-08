@@ -225,9 +225,9 @@ function DropMobileMedia() {
 function DropMedia({ location }) {
   const activeDrop = "text-[#547153] font-bold transition-all";
   const normalDrop = "transition-all";
-  const { id } = useParams();
+  const { slug } = useParams();
 
-  console.log(id);
+  // console.log(id);
   return (
     <>
       <Menu as={"div"} className="relative inline-block text-left">
@@ -239,7 +239,7 @@ function DropMedia({ location }) {
                 location == "/foto" ||
                 location == "/video" ||
                 location == "/berita" ||
-                location == `/berita/${id}`
+                location == `/berita/${slug}`
                   ? "bg-white  py-1 rounded-full text-[#547153] font-bold transition-all"
                   : ""
               }`}
