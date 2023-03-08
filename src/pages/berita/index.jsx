@@ -3,6 +3,7 @@ import { getApi } from "../../API/restApi";
 import { Listbox } from "@headlessui/react";
 import { useNavigate } from "react-router-dom";
 import notFound from "../../assets/Icon/berita not found.png";
+import Loading from "../../component/Loading";
 export default function Berita() {
   const [berita, setBerita] = React.useState([]);
   const [loadBerita, setLoadBerita] = React.useState(true);
@@ -98,16 +99,25 @@ export default function Berita() {
           ) : (
             <div className=" flex justify-center items-center mb-32">
               <button
+                disabled={loadBerita ? true : false}
                 onClick={() => setLimit(limit + 12)}
                 onMouseEnter={handleMouseOver2}
                 onMouseLeave={handleMouseOut2}
                 className={` px-5 py-2 2xl:py-3 rounded-full lg:text-sm 2xl:text-base font-semibold ${
-                  hoverButton2
+                  hoverButton2 || !loadBerita
                     ? "bg-[#3C903C] text-white transition-all border-2 border-[#3C903C]"
                     : "border-[#3C903C] border-2  text-[#3C903C] transition-all"
                 }`}
               >
-                Selengkapnya
+                {loadBerita ? (
+                  <>
+                    <div className="mx-auto ">
+                      <Loading />
+                    </div>
+                  </>
+                ) : (
+                  "Selengkapnya"
+                )}
               </button>
             </div>
           )}
@@ -175,8 +185,8 @@ function CardBerita({ i }) {
               {i.judul}
             </h3>
           </div>
-          <small className="text-xs font-bold  text-[#547153]">
-            {i.author.email}
+          <small className="text-xs font-bold  text-[#547153] capitalize">
+            {i.author.username}
           </small>
         </div>
       </div>

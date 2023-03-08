@@ -403,7 +403,7 @@ function CardBerita({ i }) {
               {i.judul}
             </h3>
           </div>
-          <small className="text-xs font-bold  text-[#547153]">
+          <small className="text-xs font-bold  text-[#547153] capitalize">
             {i.author.username}
           </small>
         </div>

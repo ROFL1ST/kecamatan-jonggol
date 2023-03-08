@@ -221,9 +221,15 @@ export default function Struktur() {
             <div className="right 2xl:w-1/3 w-1/2 bg-white lg:flex hidden flex-col px-10 py-8 rounded-[20px] gap-y-5">
               <h1 className="font-bold text-xl">Berita Terbaru</h1>
               {!loadBerita ? (
-                berita.slice(0, 4).map((i, key) =>
-                  key == 0 ? <TopCard i={i} /> : <MiniCard i={i} />
-                )
+                berita
+                  .slice(0, 4)
+                  .map((i, key) =>
+                    key == 0 ? (
+                      <TopCard key={key} i={i} />
+                    ) : (
+                      <MiniCard key={key} i={i} />
+                    )
+                  )
               ) : (
                 <div className="right  bg-white lg:flex hidden flex-col  rounded-[20px] gap-y-5">
                   <div className="card-top flex flex-col mt-5 gap-y-2 animate-pulse">
@@ -270,7 +276,7 @@ function TopCard({ i }) {
     <>
       <div
         onClick={() => {
-          navigate(`/berita/${i._id}`);
+          navigate(`/berita/${i.slug}`);
         }}
         className="card-top flex flex-col mt-5 gap-y-2 cursor-pointer"
       >
@@ -280,7 +286,8 @@ function TopCard({ i }) {
         ></div>
         <h1 className="font-bold anti-blos 2xl:text-base text-sm">{i.judul}</h1>
         <div className="text-xs flex gap-x-2">
-          <p className="text-[#FF5252CC]">Berita OPD</p> <p>{timeAgo}</p>
+          <p className="text-[#FF5252CC] capitalize">{i.author.username}</p>{" "}
+          <p>{timeAgo}</p>
         </div>
       </div>
     </>
@@ -296,7 +303,7 @@ function MiniCard({ i }) {
     <>
       <div
         onClick={() => {
-          navigate(`/berita/${i._id}`);
+          navigate(`/berita/${i.slug}`);
         }}
         className="flex justify-between gap-x-1 cursor-pointer"
       >
@@ -310,7 +317,9 @@ function MiniCard({ i }) {
             {i.judul}
           </h1>
           <div className="bottom font-semibold text-xs flex 2xl:flex-row flex-col gap-x-3">
-            <p className="anti-blos2 text-[#FF5252CC]">Berita OPD</p>
+            <p className="anti-blos2 text-[#FF5252CC] capitalize">
+              {i.author.username}
+            </p>
             <p>{timeAgo}</p>
           </div>
         </div>
@@ -337,8 +346,8 @@ function Card({ i }) {
           isHovering && "-translate-y-1 -translate-x-1 shadow-xl transition-all"
         }`}
       >
-        <h1 className="font-bold 2xl:text-base text-sm">{i.title}</h1>
-        <p className="2xl:text-base text-sm">{i.desc}</p>
+        <h1 className="font-bold 2xl:text-base lg:text-sm">{i.title}</h1>
+        <p className="2xl:text-base lg:text-sm">{i.desc}</p>
       </div>
     </>
   );

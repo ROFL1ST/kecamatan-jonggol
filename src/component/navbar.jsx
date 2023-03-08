@@ -21,6 +21,9 @@ export default function Navbar() {
   React.useEffect(() => {
     setNavbarOpen(false);
   }, [location.pathname]);
+  
+  const slug = useParams();
+
   return (
     <>
       <div className="fixed w-screen z-20">
@@ -57,7 +60,7 @@ export default function Navbar() {
             </div>
             <NavLink>Program</NavLink>
             <div className="w-1/4 text-center flex items-center justify-center my-auto">
-              <DropMedia location={location.pathname} />
+              <DropMedia location={location.pathname} slug={slug} />
             </div>
             <NavLink
               to={"/agenda"}
@@ -222,12 +225,11 @@ function DropMobileMedia() {
   );
 }
 
-function DropMedia({ location }) {
+function DropMedia({ location, slug }) {
   const activeDrop = "text-[#547153] font-bold transition-all";
   const normalDrop = "transition-all";
-  const { slug } = useParams();
 
-  // console.log(id);
+  console.log(slug);
   return (
     <>
       <Menu as={"div"} className="relative inline-block text-left">
