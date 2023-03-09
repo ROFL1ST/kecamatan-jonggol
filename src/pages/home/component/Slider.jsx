@@ -55,10 +55,8 @@ export default function Slider() {
           delay: 3500,
           disableOnInteraction: false,
         }}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[EffectFade, Pagination, Autoplay]}
+       
+        modules={[EffectFade,  Autoplay]}
         onSwiper={(swiper) => {
           setPage(swiper.realIndex);
           swiperRef.current = swiper;

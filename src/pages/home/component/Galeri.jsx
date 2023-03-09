@@ -207,7 +207,7 @@ function Modal({ open, setOpen, cancelButtonRef, foto }) {
   const [loadFoto, setLoadFoto] = React.useState(true);
   const getList = async () => {
     try {
-      getApi(`galeri/${foto.slug}`).then((res) => {
+      getApi(`galeri/${foto.cover.slug}`).then((res) => {
         setListFoto(res.data.data);
         setLoadFoto(false);
       });
@@ -292,6 +292,30 @@ function Modal({ open, setOpen, cancelButtonRef, foto }) {
                   ) : (
                     <></>
                   )}
+                  {/* <Swiper
+                    centeredSlides={true}
+                    slidesPerView={"auto"}
+                    spaceBetween={30}
+                    onSwiper={(swiper) => {
+                      swiperRef.current = swiper;
+                    }}
+                    className="modalSwiper"
+                  >
+                    {!loadFoto ? (
+                      listFoto.map((i, key) => (
+                        <SwiperSlide className="modalGalery" key={key}>
+                          <CardModal
+                            img={i.thumbnail}
+                            summary={i.desc}
+                            tgl={i.createdAt}
+                            place={i.nama}
+                          ></CardModal>
+                        </SwiperSlide>
+                      ))
+                    ) : (
+                      <></>
+                    )}
+                  </Swiper> */}
                   {/* <div className={`lg:flex hidden justify-center items-center`}>
                     <ArrowRight3
                       onClick={() => swiperRef.current.slideNext()}

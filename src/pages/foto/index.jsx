@@ -144,7 +144,7 @@ function Modal({ open, setOpen, cancelButtonRef, foto }) {
   const [loadFoto, setLoadFoto] = React.useState(true);
   const getList = async () => {
     try {
-      getApi(`galeri/${foto.id}`).then((res) => {
+      getApi(`galeri/${foto.cover.slug}`).then((res) => {
         setListFoto(res.data.data);
         setLoadFoto(false);
       });

@@ -1,7 +1,11 @@
 import React from "react";
 import CountUp from "react-countup";
-import Logoutama from "../../assets/logo/logo-utama.png";
-
+import ProfileLogo from "../../assets/Icon/Profile.png";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { ArrowRight2 } from "iconsax-react";
+import { Autoplay, Pagination } from "swiper";
 export default function Profile() {
   const data = [
     {
@@ -103,69 +107,58 @@ export default function Profile() {
   const handleMouseOut2 = () => {
     setHoverButton2(false);
   };
+
+  const datas = [1, 2, 3, 4, 5, 6];
   return (
     <>
       <div className="lg:pt-[100px] pt-[80px] w-screen">
-        {/* about for dekstop */}
-        <div className="mt-32 lg:flex hidden flex-row justify-between items-center 2xl:px-16 lg:px-10 px-8 mb-28 gap-x-96">
-          <div className="left flex flex-col gap-y-20 2xl:w-1/3 lg:w-11/12">
-            <h1 className="font-bold 2xl:text-6xl lg:text-5xl 2xl:w-3/4">
-              Welcome to <span className="font-mono">Jonggol</span>
+        <div className="flex lg:flex-row flex-col-reverse justify-between w-full  px-16 py-32 lg:items-center items-start bg-[#A8CAA8]">
+          <img src={ProfileLogo} className="lg:w-1/3" alt="" />
+          <div className="w-1/4">
+            <h1 className="lg:text-6xl text-4xl font-bold w-3/5 text-center text-white">
+              Profile Kecamatan Jonggol
             </h1>
-            <p>
-              Lorem ipsum dolor sit amet consectetur. Eget laoreet donec commodo
-              placerat viverra scelerisque ut. Sed lorem diam nunc cursus arcu
-              nulla sapien. Non tempor donec suspendisse suspendisse egestas
-              urna adipiscing feugiat. Sit velit eleifend eleifend felis arcu
-              nisi. Eu gravida ultricies amet ut pretium purus aliquam porta a.
-              Duis consectetur donec auctor lorem metus.
-            </p>
-          </div>
-          <div className="right flex justify-center items-center 2xl:w-1/6 lg:w-1/3 ">
-            <img src={Logoutama} className="w-full" alt="" />
           </div>
         </div>
-        {/* about for dekstop */}
-        {/* about for mobile */}
-        <div className="mt-20 lg:hidden flex flex-col justify-start items-start px-8">
-          <div className="top">
-            <h1 className="font-bold text-4xl w-3/4">
-              Welcome to <span className="font-mono">Jonggol</span>
-            </h1>
-            <img src={Logoutama} className="w-1/2" alt="" />
-          </div>
-          <div className="bottom w-3/4 mt-5">
-            <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi
-              molestias voluptatum dolores saepe et quasi voluptates
-              necessitatibus optio consequuntur maiores non, repudiandae esse
-              excepturi, sit, voluptatibus sint modi quod rem.
-            </p>
-          </div>
-        </div>
-        {/* about for mobile */}
-        {/* jumlah for dekstop */}
-        <div className="mt-10 mb-10 px-16 lg:flex hidden justify-center">
-          <div className=" rounded-xl bg-white flex lg:px-5 lg:py-5 ">
-            {data.map((i, key) => (
-              <CardInfo key={key} index={key} data={i} />
-            ))}
-          </div>
-        </div>
-        {/* jumlah for dekstop */}
-        {/* jumlah for mobile */}
-        <div className="mt-10 mb-10 px-8 lg:hidden flex justify-center">
-          <div className="rounded-xl bg-white grid grid-cols-2">
-            {data.map((i, key) => (
-              <CardInfoMobile key={key} index={key} data={i} />
-            ))}
+        {/* Informasi Desa */}
+        <div className="lg:px-16 px-5 py-10 lg:gap-y-0 gap-y-3 flex flex-col justify-center items-center bg-[#3C903C]">
+          <h1 className="text-2xl font-bold text-white">
+            Informasi Seputar Desa
+          </h1>
+          <div className="w-full">
+            <Swiper
+              className="mt-10 mySwiper"
+              spaceBetween={20}
+              breakpoints={{
+                640: {
+                  slidesPerView: 1,
+                  spaceBetween: 20,
+                },
+                768: {
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+                },
+                1024: {
+                  slidesPerView: 3,
+                  spaceBetween: 30,
+                },
+              }}
+              modules={[Pagination]}
+              pagination={true}
+            >
+              {datas.map((i, key) => (
+                <SwiperSlide key={key}>
+                  <Desa />
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         </div>
-        {/* jumlah for mobile */}
+        {/* Informasi Desa */}
         {/* Data Sekolah */}
         <div className="py-10 flex flex-col justify-center items-center mt-20 gap-y-10 px-16">
           <div className="top flex flex-col gap-y-5 justify-center items-center lg:w-3/5 text-center">
-            <h1 className="font-bold text-2xl">Data Sekolah</h1>
+            <h1 className="font-bold text-2xl">Informasi Seputar Pendidikan</h1>
             <p>
               Kecamatan Jonggol memiliki beragam sekolah yang meliputi jenjang
               pendidikan dari SMP ,SMA , dan SMK. Berikut total sekolah di
@@ -200,6 +193,71 @@ export default function Profile() {
         {/* Geografis Jonggol */}
         <div className="py-10 flex flex-col justify-center items-center mt-20 gap-y-10 px-16"></div>
         {/* Geografis Jonggol */}
+      </div>
+    </>
+  );
+}
+
+function Desa(params) {
+  const data = [1, 2, 3, 4, 5];
+  return (
+    <>
+      <div className="2xl:px-16 px-10 py-10 rounded-2xl bg-white flex flex-col items-center">
+        <div className="uppercase px-7 py-3 font-bold bg-[#3C903C] text-white rounded-2xl text-xl">
+          Cibodas
+        </div>
+        <div className="flex 2xl:flex-row flex-col justify-between w-full mt-5">
+          <div>
+            <h1 className="font-bold">Kepala Desa</h1>
+            <h1 className="flex justify-start items-start">
+              Suhanda Anda Permana
+            </h1>
+          </div>
+          <div className="flex gap-x-2 text-gray-300 cursor-pointer hover:text-[#3C903C] transition-all h-full">
+            <h1>Selengkapnya </h1>
+            <ArrowRight2 />
+          </div>
+        </div>
+      </div>
+      <div className="2xl:px-20 px-10 py-10 rounded-2xl bg-white flex flex-col items-center">
+        <div className="uppercase px-7 py-3 font-bold bg-[#3C903C] text-white rounded-2xl text-xl">
+          Potensi Desa
+        </div>
+        <div className="mt-5 mySwiper w-full">
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={20}
+            modules={[Autoplay]}
+            autoplay={{
+              delay: 3500,
+              disableOnInteraction: false,
+            }}
+          >
+            {data.map((i, key) => (
+              <SwiperSlide key={key}>
+                <CardFotoPotensi />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function CardFotoPotensi() {
+  return (
+    <>
+      <div
+        className="lg:h-96 2xl:min-h-[30rem]  h-96 rounded-2xl bg-cover bg-center shadow-2xl"
+        style={{
+          backgroundImage: `url(https://static.vecteezy.com/system/resources/previews/005/464/515/original/spring-landscape-with-mountains-natural-scenery-in-portrait-format-vector.jpg)`,
+        }}
+      >
+        <div className="w-full h-full bg-black bg-opacity-25 px-5 py-5 rounded-2xl flex flex-col justify-start items-center">
+          <h1 className="text-white font-bold text-2xl">Tempat Wisata</h1>
+          <h1 className="text-white font-semibold text-xl">Curug Kejora</h1>
+        </div>
       </div>
     </>
   );
