@@ -13,25 +13,72 @@ import beritaNotFound from "../../assets/Icon/berita not found.png";
 
 export default function Home() {
   const navigate = useNavigate();
+
+  const [penduduk, setPenduduk] = React.useState();
+  const getPenduduk = async () => {
+    try {
+      await getApi("penduduk/total").then((res) => {
+        setPenduduk(res.data.data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const [bumdes, setBumdes] = React.useState();
+  const getBumdes = async () => {
+    try {
+      await getApi("bumd/total").then((res) => {
+        setBumdes(res.data.data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const [asn, setAsn] = React.useState();
+  const getAsn = async () => {
+    try {
+      await getApi("pegawai/total").then((res) => {
+        setAsn(res.data.data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const [desa, setDesa] = React.useState([]);
+  const [loadDesa, setLoadDesa] = React.useState(true);
+  const getDesa = async () => {
+    try {
+      await getApi("desa").then((res) => {
+        setDesa(res.data.data);
+        setLoadDesa(false);
+      });
+    } catch (error) {
+      console.log(error);
+      setLoadDesa(false);
+    }
+  };
+
   const data = [
     {
       id: 1,
-      count: "1300",
+      count: penduduk,
       title: "Penduduk",
     },
     {
       id: 2,
-      count: "14",
+      count: desa.length,
       title: "Jumlah Desa",
     },
     {
       id: 3,
-      count: "16",
+      count: asn,
       title: "Jumlah ASN",
     },
     {
       id: 4,
-      count: "16",
+      count: bumdes,
       title: "Jumlah Bumdes",
     },
   ];
@@ -80,6 +127,10 @@ export default function Home() {
 
   React.useEffect(() => {
     getBerita();
+    getDesa();
+    getPenduduk();
+    getBumdes();
+    getAsn();
   }, []);
 
   return (

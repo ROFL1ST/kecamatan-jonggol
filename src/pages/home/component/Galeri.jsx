@@ -129,7 +129,7 @@ export default function Galeri() {
                 onMouseLeave={handleMouseOut}
                 className={` px-5 py-2 2xl:py-3 rounded-full lg:text-sm 2xl:text-base font-semibold mt-16 ${
                   hoverButton
-                    ? "bg-[#547153] text-white transition-all border-2 border-[#547153]"
+                    ? "bg-[#007100] text-white transition-all border-2 border-[#007100]"
                     : "border-white border-2  text-white transition-all"
                 }`}
               >

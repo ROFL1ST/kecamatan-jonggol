@@ -218,30 +218,32 @@ export default function Struktur() {
                 </li>
               </ol>
             </div>
-            <div className="right 2xl:w-1/3 w-1/2 bg-white lg:flex hidden flex-col px-10 py-8 rounded-[20px] gap-y-5">
-              <h1 className="font-bold text-xl">Berita Terbaru</h1>
-              {!loadBerita ? (
-                berita
-                  .slice(0, 4)
-                  .map((i, key) =>
-                    key == 0 ? (
-                      <TopCard key={key} i={i} />
-                    ) : (
-                      <MiniCard key={key} i={i} />
+            {berita.length != 0 && (
+              <div className="right 2xl:w-1/3 w-1/2 bg-white lg:flex hidden flex-col px-10 py-8 rounded-[20px] gap-y-5">
+                <h1 className="font-bold text-xl">Berita Terbaru</h1>
+                {!loadBerita ? (
+                  berita
+                    .slice(0, 4)
+                    .map((i, key) =>
+                      key == 0 ? (
+                        <TopCard key={key} i={i} />
+                      ) : (
+                        <MiniCard key={key} i={i} />
+                      )
                     )
-                  )
-              ) : (
-                <div className="right  bg-white lg:flex hidden flex-col  rounded-[20px] gap-y-5">
-                  <div className="card-top flex flex-col mt-5 gap-y-2 animate-pulse">
-                    <div className="h-[300px] rounded-[15px] bg-gray-300"></div>
-                    <div className="text-xs font-bold h-4 w-1/2 bg-gray-500 rounded-full"></div>
-                    <div className="text-xs font-bold h-4 w-1/4 bg-gray-500 rounded-full"></div>
+                ) : (
+                  <div className="right  bg-white lg:flex hidden flex-col  rounded-[20px] gap-y-5">
+                    <div className="card-top flex flex-col mt-5 gap-y-2 animate-pulse">
+                      <div className="h-[300px] rounded-[15px] bg-gray-300"></div>
+                      <div className="text-xs font-bold h-4 w-1/2 bg-gray-500 rounded-full"></div>
+                      <div className="text-xs font-bold h-4 w-1/4 bg-gray-500 rounded-full"></div>
+                    </div>
+                    <BottomCardLoader />
+                    <BottomCardLoader />
                   </div>
-                  <BottomCardLoader />
-                  <BottomCardLoader />
-                </div>
-              )}
-            </div>
+                )}
+              </div>
+            )}
           </div>
           {/* Bottom */}
         </div>

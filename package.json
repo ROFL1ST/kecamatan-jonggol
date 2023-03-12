@@ -25,6 +25,7 @@
     "react-share": "^4.4.1",
     "react-sticky": "^6.0.3",
     "recharts": "^2.4.3",
+    "lottie-react": "^2.4.0",
     "swiper": "^9.0.5",
     "web-vitals": "^2.1.4"
   },
