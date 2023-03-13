@@ -18,6 +18,7 @@ import Strategis from "./pages/rencana-strategis";
 import Aplikasi from "./pages/aplikasi";
 import DetailAplikasi from "./pages/aplikasi/detail";
 import Sejarah from "./pages/sejarah";
+import VisiMisi from "./pages/visi-misi";
 
 function App() {
   const { pathname } = useLocation();
@@ -56,6 +57,7 @@ function App() {
           <Route path="aplikasi" element={<Aplikasi />} />
           <Route path="aplikasi/:slug" element={<DetailAplikasi />} />
           <Route path="sejarah-jonggol" element={<Sejarah />} />
+          <Route path="visi-misi" element={<VisiMisi />} />
 
           {/* <Route path="video" element={<Video />} />
           <Route path="video/:id" element={<DetailVideo />} /> */}

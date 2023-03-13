@@ -481,7 +481,9 @@ function DropProfile({ location }) {
               className={`px-5 inline-flex gap-x-3 w-full justify-center items-center text-sm transition-all  ${
                 open ||
                 location == "/profile" ||
-                location == "/struktur-organisasi"
+                location == "/struktur-organisasi" ||
+                location == "/sejarah-jonggol" ||
+                location == "/visi-misi"
                   ? //  ||
                     // location == "/berita"
                     "bg-white  py-2 rounded-full text-[#547153] font-bold transition-all"
@@ -553,7 +555,7 @@ function DropProfile({ location }) {
                     {({ active }) => (
                       <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
                         <NavLink
-                          to={"/"}
+                          to={"/visi-misi"}
                           className={({ active }) =>
                             active ? activeDrop : normalDrop
                           }
