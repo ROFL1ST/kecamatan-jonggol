@@ -13,6 +13,11 @@ import Berita from "./pages/berita";
 import Detail from "./pages/berita/detail";
 import Agenda from "./pages/agenda";
 import DetailAgenda from "./pages/agenda/detail";
+import Kerja from "./pages/rencana-kerja";
+import Strategis from "./pages/rencana-strategis";
+import Aplikasi from "./pages/aplikasi";
+import DetailAplikasi from "./pages/aplikasi/detail";
+import Sejarah from "./pages/sejarah";
 
 function App() {
   const { pathname } = useLocation();
@@ -45,7 +50,13 @@ function App() {
           <Route path="foto" element={<Foto />} />
           <Route path="struktur-organisasi" element={<Struktur />} />
           <Route path="agenda" element={<Agenda />} />
-          <Route path="agenda/:id" element={<DetailAgenda />} />
+          <Route path="agenda/:slug" element={<DetailAgenda />} />
+          <Route path="rencana-kerja" element={<Kerja />} />
+          <Route path="rencana-strategis" element={<Strategis />} />
+          <Route path="aplikasi" element={<Aplikasi />} />
+          <Route path="aplikasi/:slug" element={<DetailAplikasi />} />
+          <Route path="sejarah-jonggol" element={<Sejarah />} />
+
           {/* <Route path="video" element={<Video />} />
           <Route path="video/:id" element={<DetailVideo />} /> */}
         </Routes>

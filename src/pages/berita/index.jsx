@@ -4,6 +4,8 @@ import { Listbox } from "@headlessui/react";
 import { useNavigate } from "react-router-dom";
 import notFound from "../../assets/Icon/berita not found.png";
 import Loading from "../../component/Loading";
+import Lottie from "lottie-react";
+import NotFound from "../../assets/json/93134-not-found.json";
 export default function Berita() {
   const [berita, setBerita] = React.useState([]);
   const [loadBerita, setLoadBerita] = React.useState(true);
@@ -85,8 +87,9 @@ export default function Berita() {
                 berita.map((i, key) => <CardBerita i={i} key={key} />)
               ) : (
                 <>
-                  <div className="relative flex justify-center items-center py-20">
-                    <img src={notFound} className="h-[200px]" alt="" />
+                  <div className="flex flex-col justify-center items-center">
+                    <Lottie animationData={NotFound} />
+                    <h1 className="font-bold">Berita Tidak Tersedia</h1>
                   </div>
                 </>
               )

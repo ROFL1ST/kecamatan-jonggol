@@ -10,7 +10,8 @@ import CountUp from "react-countup";
 import { getApi } from "../../API/restApi";
 import { useNavigate } from "react-router-dom";
 import beritaNotFound from "../../assets/Icon/berita not found.png";
-
+import Lottie from "lottie-react";
+import NotFound from "../../assets/json/93134-not-found.json";
 export default function Home() {
   const navigate = useNavigate();
 
@@ -101,6 +102,15 @@ export default function Home() {
     },
   ];
 
+  const [hoverButton, setHoverButton] = React.useState(false);
+  const handleMouseOver = () => {
+    setHoverButton(true);
+  };
+
+  const handleMouseOut = () => {
+    setHoverButton(false);
+  };
+
   const [hoverButton2, setHoverButton2] = React.useState(false);
   const handleMouseOver2 = () => {
     setHoverButton2(true);
@@ -153,7 +163,7 @@ export default function Home() {
             </p>
           </div>
           <div className="right flex justify-center items-center 2xl:w-1/6 lg:w-1/3 ">
-            <img src={Logoutama} className="w-full" alt="" />
+            <img src={Logoutama} draggable="false" className="w-full" alt="" />
           </div>
         </div>
         {/* about for dekstop */}
@@ -163,7 +173,7 @@ export default function Home() {
             <h1 className="font-bold text-4xl w-3/4">
               Welcome to <span className="font-mono">Jonggol</span>
             </h1>
-            <img src={Logoutama} className="w-1/2" alt="" />
+            <img src={Logoutama} draggable="false" className="w-1/2" alt="" />
           </div>
           <div className="bottom w-3/4 mt-5">
             <p>
@@ -207,7 +217,8 @@ export default function Home() {
             ))}
             {/* box */}
           </div>
-          {/* <div
+          <div
+          onClick={() => navigate('/aplikasi')}
             onMouseEnter={handleMouseOver}
             onMouseLeave={handleMouseOut}
             className={`border-2 border-gray-400 rounded-full px-6 py-3 cursor-pointer ${
@@ -216,8 +227,8 @@ export default function Home() {
                 : "text-gray-400 transition-all"
             }`}
           >
-            <p className="font-semibold ">See More</p>
-          </div> */}
+            <p className="font-semibold ">Lebih Banyak</p>
+          </div>
         </div>
         {/* program */}
         {/* Gallery */}
@@ -277,8 +288,9 @@ export default function Home() {
               berita.slice(0, 4).map((i, key) => <CardBerita key={key} i={i} />)
             ) : (
               <>
-                <div className="relative flex justify-center items-center py-20">
-                  <img src={beritaNotFound} className="h-[200px]" alt="" />
+                <div className="flex flex-col justify-center items-center">
+                  <Lottie animationData={NotFound} />
+                  <h1 className="font-bold">Berita Tidak Tersedia</h1>
                 </div>
               </>
             )}
@@ -381,6 +393,8 @@ function CardApp({ data }) {
   const handleMouseOut = () => {
     setIsHovering(false);
   };
+
+  const navigate = useNavigate();
   return (
     <>
       <div className="flex flex-col bg-[#007100]  rounded-xl">
@@ -396,6 +410,7 @@ function CardApp({ data }) {
           </p>
           <div className="2xl:text-xl  justify-end font-bold 2xl:mb-10 mb-5 2xl:mr-10 mr-5  flex items-center ">
             <p
+              onClick={() => navigate(`/aplikasi/${data.id}`)}
               onMouseEnter={handleMouseOver}
               onMouseLeave={handleMouseOut}
               className={`cursor-pointer ${

@@ -21,7 +21,7 @@ export default function Navbar() {
   React.useEffect(() => {
     setNavbarOpen(false);
   }, [location.pathname]);
-  
+
   const slug = useParams();
 
   return (
@@ -58,17 +58,19 @@ export default function Navbar() {
             <div>
               <DropProfile location={location.pathname} />
             </div>
-            <NavLink>Program</NavLink>
+            <NavLink>
+              <DropProgram location={location.pathname} />
+            </NavLink>
             <div className="w-1/4 text-center flex items-center justify-center my-auto">
               <DropMedia location={location.pathname} slug={slug} />
             </div>
             <NavLink
-              to={"/agenda"}
+              to={"/aplikasi"}
               className={({ isActive }) =>
                 isActive ? activePage : normalPages
               }
             >
-              Agenda
+              Aplikasi
             </NavLink>
           </nav>
         </div>
@@ -87,19 +89,144 @@ export default function Navbar() {
               <DropProfileMobile />
             </li>
             <li className="cursor-pointer flex items-center gap-x-5">
-              Program
-              <ArrowDown2 className="h-4 w-4" color="#ffffff" />
+              <DropProgramMobile />
             </li>
             <li className="cursor-pointer flex items-center gap-x-5">
               <DropMobileMedia />
             </li>
-            <NavLink to={"/agenda"}>
-              <li className="cursor-pointer">Agenda</li>
+            <NavLink to={"/aplikasi"}>
+              <li className="cursor-pointer">Aplikasi</li>
             </NavLink>
           </ul>
         </div>
         {/* Mobile */}
       </div>
+    </>
+  );
+}
+function DropProgram({ location }) {
+  const activeDrop = "text-[#547153] font-bold transition-all";
+  const normalDrop = "transition-all";
+  return (
+    <>
+      <Menu as={"div"} className="relative inline-block text-left">
+        {({ open }) => (
+          <>
+            <Menu.Button
+              className={`px-6 inline-flex gap-x-3 w-full justify-center items-center text-sm transition-all  ${
+                open ||
+                location == "/rencana-strategis" ||
+                location == "/rencana-kerja"
+                  ? //  ||
+                    // location == "/berita"
+                    "bg-white  py-2 rounded-full text-[#547153] font-bold transition-all"
+                  : ""
+              }`}
+            >
+              <p className="text-base">Program</p>
+              {open ? (
+                <>
+                  <ArrowUp2 className="h-4 w-4" color="#000000" />
+                </>
+              ) : (
+                <>
+                  <ArrowDown2 className="h-4 w-4" color="#000000" />
+                </>
+              )}
+            </Menu.Button>
+            <Transition
+              show={open}
+              as={React.Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items className="absolute text-left right-0 mt-2 w-full rounded-xl origin-top-right divide-y divide-[#547153]  bg-white  ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div className="px-1 py-1">
+                  <Menu.Item>
+                    {({ active }) => (
+                      <NavLink to={"/rencana-strategis"}>
+                        <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
+                          Rencana Strategis
+                        </button>
+                      </NavLink>
+                    )}
+                  </Menu.Item>
+                </div>
+                <div className="px-1 py-1">
+                  <Menu.Item>
+                    {({ active }) => (
+                      <NavLink to={"/rencana-kerja"}>
+                        <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
+                          Rencana Kerja
+                        </button>
+                      </NavLink>
+                    )}
+                  </Menu.Item>
+                </div>
+              </Menu.Items>
+            </Transition>
+          </>
+        )}
+      </Menu>
+    </>
+  );
+}
+
+function DropProgramMobile(params) {
+  return (
+    <>
+      <Menu as={"div"} className="relative inline-block text-left">
+        {({ open }) => (
+          <>
+            <Menu.Button className={"flex flex-col w-full  "}>
+              <div className="flex gap-x-3 justify-center items-center">
+                Program
+                {open ? (
+                  <>
+                    <ArrowUp2 className="h-6 w-6" color="#ffffff" />
+                  </>
+                ) : (
+                  <>
+                    <ArrowDown2 className="h-6 w-6" color="#ffffff" />
+                  </>
+                )}
+              </div>
+            </Menu.Button>
+            <Transition
+              show={open}
+              as={React.Fragment}
+              enter="transition-all ease-in duration-100"
+              enterFrom="transform opacity-0 scale-95 translate-y-1"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95 -translate-y-1"
+            >
+              <div
+                className={`mt-3 ${
+                  open ? "flex-col gap-y-5 list-disc px-5" : "hidden"
+                }`}
+              >
+                <button
+                  className={`text-white group flex justify-start w-full items-center rounded-md px-2 py-1 text-sm    `}
+                >
+                  <NavLink to={"/rencana-strategis"}>Rencana Strategis</NavLink>
+                </button>
+
+                <button
+                  className={`text-white group flex justify-start w-full items-center rounded-md px-2 py-1 text-sm    `}
+                >
+                  <NavLink to={"/rencana-kerja"}>Rencana Kerja</NavLink>
+                </button>
+              </div>
+            </Transition>
+          </>
+        )}
+      </Menu>
     </>
   );
 }
@@ -153,7 +280,7 @@ function DropProfileMobile() {
                   </NavLink>
                 </button>
                 <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
-                  <NavLink to={"/sejarah"}>Sejarah</NavLink>
+                  <NavLink to={"/sejarah-jonggol"}>Sejarah</NavLink>
                 </button>
                 <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
                   <NavLink to={"/visi-misi"}>Visi dan Misi</NavLink>
@@ -241,12 +368,13 @@ function DropMedia({ location, slug }) {
                 location == "/foto" ||
                 location == "/video" ||
                 location == "/berita" ||
+                location == "/agenda" ||
                 location == `/berita/${slug}`
                   ? "bg-white  py-1 rounded-full text-[#547153] font-bold transition-all"
                   : ""
               }`}
             >
-              Media & Informasi
+              <p className="text-sm ">Media & Informasi</p>
               {open ? (
                 <>
                   <ArrowUp2 className="h-6 w-6" color="#000000" />
@@ -316,6 +444,22 @@ function DropMedia({ location, slug }) {
                     )}
                   </Menu.Item>
                 </div> */}
+                <div className="px-1 py-1">
+                  <Menu.Item>
+                    {({ active }) => (
+                      <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
+                        <NavLink
+                          to={"/agenda"}
+                          className={({ active }) =>
+                            active ? activeDrop : normalDrop
+                          }
+                        >
+                          Agenda
+                        </NavLink>
+                      </button>
+                    )}
+                  </Menu.Item>
+                </div>
               </Menu.Items>
             </Transition>
           </>
@@ -393,7 +537,7 @@ function DropProfile({ location }) {
                     {({ active }) => (
                       <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
                         <NavLink
-                          to={"/"}
+                          to={"/sejarah-jonggol"}
                           className={({ active }) =>
                             active ? activeDrop : normalDrop
                           }

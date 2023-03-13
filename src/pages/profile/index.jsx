@@ -1,6 +1,5 @@
 import React from "react";
 import CountUp from "react-countup";
-import ProfileLogo from "../../assets/Icon/Profile.png";
 import { Dialog, Transition } from "@headlessui/react";
 import Lottie from "lottie-react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -11,6 +10,7 @@ import { Autoplay, Pagination } from "swiper";
 import { getApi } from "../../API/restApi";
 import Kesehatan from "./component/Kesehatan";
 import ProfilePic from "../../assets/json/27562-searching-for-profile.json";
+import NotFound from "../../assets/json/93134-not-found.json";
 export default function Profile() {
   const [penduduk, setPenduduk] = React.useState();
   const getPenduduk = async () => {
@@ -417,11 +417,26 @@ function Desa({ i }) {
               disableOnInteraction: false,
             }}
           >
-            {potensi.map((i, key) => (
-              <SwiperSlide key={key}>
-                <CardFotoPotensi i={i} />
-              </SwiperSlide>
-            ))}
+            {!loadPotensi ? (
+              potensi.length != 0 ? (
+                potensi.map((i, key) => (
+                  <SwiperSlide key={key}>
+                    <CardFotoPotensi i={i} />
+                  </SwiperSlide>
+                ))
+              ) : (
+                <>
+                  <SwiperSlide>
+                    <div className="flex flex-col justify-center items-center">
+                      <Lottie animationData={NotFound} />
+                      <h1 className="font-bold">Tidak ada data</h1>
+                    </div>
+                  </SwiperSlide>
+                </>
+              )
+            ) : (
+              <></>
+            )}
           </Swiper>
         </div>
       </div>
@@ -438,7 +453,7 @@ function CardFotoPotensi({ i }) {
         onClick={() => {
           setOpen(true);
         }}
-        className="lg:h-96 2xl:min-h-[30rem]  h-96 rounded-2xl bg-cover bg-center shadow-2xl"
+        className="lg:h-96 2xl:min-h-[27.5rem]  h-96 rounded-2xl bg-cover bg-center shadow-2xl"
         style={{
           backgroundImage: `url(${i.thumbnail})`,
         }}
