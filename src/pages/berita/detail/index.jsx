@@ -6,17 +6,11 @@ import { getApi } from "../../../API/restApi";
 import moment from "moment";
 import parse from "html-react-parser";
 import {
-  FacebookIcon,
   FacebookShareButton,
   TwitterShareButton,
   WhatsappShareButton,
 } from "react-share";
 import { FloatButton } from "antd";
-import {
-  CommentOutlined,
-  CustomerServiceOutlined,
-  ShareAltOutlined,
-} from "@ant-design/icons";
 import { Share } from "iconsax-react";
 
 export default function Detail() {
@@ -330,7 +324,6 @@ function BottomCardLoader(params) {
 
 function TopCard({ i }) {
   const navigate = useNavigate();
-  const create = "2023-02-28T10:30:00Z";
   const timeAgo = moment(i.createdAt).fromNow();
   return (
     <>

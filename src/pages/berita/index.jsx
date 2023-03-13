@@ -1,8 +1,6 @@
 import React from "react";
 import { getApi } from "../../API/restApi";
-import { Listbox } from "@headlessui/react";
 import { useNavigate } from "react-router-dom";
-import notFound from "../../assets/Icon/berita not found.png";
 import Loading from "../../component/Loading";
 import Lottie from "lottie-react";
 import NotFound from "../../assets/json/93134-not-found.json";

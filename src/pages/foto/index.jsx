@@ -4,7 +4,6 @@ import { Dialog, Transition } from "@headlessui/react";
 import React from "react";
 import "swiper/css";
 import { getApi } from "../../API/restApi";
-import galeriNotFound from "../../assets/Icon/galery not found.png";
 import Lottie from "lottie-react";
 import NotFound from "../../assets/json/93134-not-found.json";
 export default function Foto() {

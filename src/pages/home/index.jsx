@@ -9,7 +9,6 @@ import { ArrowRight2 } from "iconsax-react";
 import CountUp from "react-countup";
 import { getApi } from "../../API/restApi";
 import { useNavigate } from "react-router-dom";
-import beritaNotFound from "../../assets/Icon/berita not found.png";
 import Lottie from "lottie-react";
 import NotFound from "../../assets/json/93134-not-found.json";
 export default function Home() {
@@ -48,16 +47,14 @@ export default function Home() {
     }
   };
   const [desa, setDesa] = React.useState([]);
-  const [loadDesa, setLoadDesa] = React.useState(true);
+
   const getDesa = async () => {
     try {
       await getApi("desa").then((res) => {
         setDesa(res.data.data);
-        setLoadDesa(false);
       });
     } catch (error) {
       console.log(error);
-      setLoadDesa(false);
     }
   };
 
@@ -218,7 +215,7 @@ export default function Home() {
             {/* box */}
           </div>
           <div
-          onClick={() => navigate('/aplikasi')}
+            onClick={() => navigate("/aplikasi")}
             onMouseEnter={handleMouseOver}
             onMouseLeave={handleMouseOut}
             className={`border-2 border-gray-400 rounded-full px-6 py-3 cursor-pointer ${

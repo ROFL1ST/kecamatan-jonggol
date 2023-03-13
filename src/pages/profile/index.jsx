@@ -5,7 +5,6 @@ import Lottie from "lottie-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { ArrowRight2 } from "iconsax-react";
 import { Autoplay, Pagination } from "swiper";
 import { getApi } from "../../API/restApi";
 import Kesehatan from "./component/Kesehatan";
@@ -368,7 +367,6 @@ function CardIbadah() {
 }
 
 function Desa({ i }) {
-  const data = [1, 2, 3, 4, 5];
   const [potensi, setPotensi] = React.useState([]);
   const [loadPotensi, setLoadPotensi] = React.useState(true);
   const getPotensi = async () => {
