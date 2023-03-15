@@ -43,7 +43,7 @@ export default function Kerja() {
               <img src={Renkes} className="w-full" draggable="false" alt="" />
             </div>
             {berita.length != 0 && (
-              <div className="right 2xl:w-1/3 w-1/2 bg-white lg:flex hidden flex-col h-[50vh] px-10 py-8 rounded-[20px] gap-y-5">
+              <div className="right 2xl:w-1/3 w-1/2 bg-white lg:flex hidden flex-col h-[100vh] px-10 py-8 rounded-[20px] gap-y-5">
                 <h1 className="font-bold text-xl">Berita Terbaru</h1>
                 {!loadBerita ? (
                   berita

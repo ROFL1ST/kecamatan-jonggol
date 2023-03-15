@@ -5,7 +5,9 @@ import { getApi } from "../../API/restApi";
 import Logoutama from "../../assets/logo/logo-utama.png";
 import Spiritual from "../../assets/logo/spiritual.png";
 import Kinerja from "../../assets/logo/kinerja.png";
-import Ekonomi from "../../assets/logo/kinerja.png";
+import Ekonomi from "../../assets/logo/ekonomi.png";
+import Kualitas from "../../assets/logo/kualitas.png";
+import Infrastruktur from "../../assets/logo/infrastruktur.png";
 
 export default function VisiMisi() {
   const [berita, setBerita] = React.useState([]);
@@ -31,20 +33,35 @@ export default function VisiMisi() {
     {
       id: 1,
       logo: Spiritual,
+      desc: "Meningkatkan kehidupan keagamaan dalam kehidupan kemasyarakatan",
     },
     {
       id: 2,
       logo: Kinerja,
+      desc: "Meningkatkan profesionalisme aparatur dan kinerja Kecamatan",
     },
     {
       id: 3,
       logo: Ekonomi,
+      desc: "Meningkatkan perekonomian masyarakat melalui pembangunan Potensi Wilayah",
+    },
+  ];
+  const data2 = [
+    {
+      id: 1,
+      logo: Kualitas,
+      desc: "Meningkatkan kehidupan keagamaan dalam kehidupan kemasyarakatan",
+    },
+    {
+      id: 2,
+      logo: Infrastruktur,
+      desc: "Meningkatkan profesionalisme aparatur dan kinerja Kecamatan",
     },
   ];
   return (
     <>
       <div className="w-screen pt-[100px]">
-        <div className="2xl:px-28 lg:px-6 px-5 pb-20">
+        <div className="2xl:px-28 lg:px-6 px-8 pb-20">
           {/* Section */}
           <div className="mt-20 flex justify-center lg:px-0 px-10">
             <div className=" rounded-full px-10 py-3 bg-[#3C903C] cursor-default">
@@ -54,16 +71,16 @@ export default function VisiMisi() {
             </div>
           </div>
           {/* Section */}
-          <div className="flex mt-20 justify-between w-full items-center">
+          <div className="flex lg:flex-row flex-col mt-20 justify-between w-full items-center">
             <div className="right flex justify-center items-center 2xl:w-1/5 lg:w-1/3 ">
               <img
                 src={Logoutama}
                 draggable="false"
-                className="w-full"
+                className="lg:w-full w-1/2"
                 alt=""
               />
             </div>
-            <div className="left w-1/2 flex flex-col gap-y-10">
+            <div className="left lg:w-1/2 flex flex-col gap-y-10">
               <h1 className="text-4xl font-bold">Kecamatan Jonggol</h1>
               <p className="text-lg font-semibold">
                 Kecamatan Jonggol adalah salah satu kecamatan yang terletak di
@@ -107,10 +124,19 @@ export default function VisiMisi() {
                     <h1 className="text-xl font-bold">
                       Misi Kecamatan Jonggol
                     </h1>
-                    <div className="mt-10 grid grid-cols-3">
-                        {data.map((i, key) => (
-                            <></>
-                        ))}
+                    <div className="mt-10 grid lg:grid-cols-3 grid-cols-1 gap-16">
+                      {data.map((i, key) => (
+                        <>
+                          <CardVisi1 i={i} key={key} />
+                        </>
+                      ))}
+                    </div>
+                    <div className="mt-10 grid lg:grid-cols-2 grid-cols-1 gap-16 lg:w-[65%]">
+                      {data2.map((i, key) => (
+                        <>
+                          <CardVisi1 i={i} key={key} />
+                        </>
+                      ))}
                     </div>
                   </div>
                   {/* misi */}
@@ -145,6 +171,19 @@ export default function VisiMisi() {
             </div>
           </div>
         </div>
+      </div>
+    </>
+  );
+}
+
+function CardVisi1({ i }) {
+  return (
+    <>
+      <div className="bg-white px-5 py-5 rounded-2xl shadow-xl flex flex-col items-center gap-y-2 justify-center">
+        <div className="w-1/3">
+          <img src={i.logo} alt="" />
+        </div>
+        <p className="font-semibold text-center text-lg">{i.desc}</p>
       </div>
     </>
   );

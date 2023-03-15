@@ -10,6 +10,7 @@ import { getApi } from "../../API/restApi";
 import Kesehatan from "./component/Kesehatan";
 import ProfilePic from "../../assets/json/27562-searching-for-profile.json";
 import NotFound from "../../assets/json/93134-not-found.json";
+import { useNavigate } from "react-router-dom";
 export default function Profile() {
   const [penduduk, setPenduduk] = React.useState();
   const getPenduduk = async () => {
@@ -149,13 +150,16 @@ export default function Profile() {
 
   const [agama, setAgama] = React.useState([]);
   const [loadAgama, setLoadAgama] = React.useState(true);
+  const [search, setSearch] = React.useState("");
 
   const getAgama = async () => {
     try {
-      await getApi("sarana-keagamaan").then((res) => {
-        setAgama(res.data.data);
-        setLoadAgama(false);
-      });
+      await getApi(`sarana-keagamaan?${search !== "" && `key=${search}`}`).then(
+        (res) => {
+          setAgama(res.data.data);
+          setLoadAgama(false);
+        }
+      );
     } catch (error) {
       console.log(error);
       setLoadAgama(false);
@@ -178,8 +182,12 @@ export default function Profile() {
     getPenduduk();
     getBumdes();
     getAsn();
-    getAgama();
   }, []);
+
+  React.useEffect(() => {
+    getAgama();
+  }, [search]);
+
   return (
     <>
       <div className="lg:pt-[100px] pt-[80px] w-screen">
@@ -256,11 +264,13 @@ export default function Profile() {
               </h1>
               <p className="text-white">
                 Kecamatan Jonggol memiliki beragam sekolah yang meliputi jenjang
-                pendidikan dari SMP ,SMA , dan SMK. Berikut total sekolah di
+                pendidikan dari SMP, SMA, dan SMK. Berikut total sekolah di
                 kecamatan Jonggol mencakup sekolah negeri dan swasta
               </p>
             </div>
-            <div className="content grid lg:grid-cols-4 grid-cols-1 gap-16 w-full justify-center items-center">
+            <div
+              className={`content  gap-16 w-full justify-center items-center grid lg:grid-cols-4 grid-cols-1`}
+            >
               {dataSekolah.slice(0, limit).map((i, key) => (
                 <CardSekolah key={key} i={i} />
               ))}
@@ -268,7 +278,7 @@ export default function Profile() {
             {limit > 4 ? (
               <></>
             ) : (
-              <div className=" flex justify-center items-center mb-32">
+              <div className=" flex justify-center items-center">
                 <button
                   onClick={() => setLimit(limit + 12)}
                   onMouseEnter={handleMouseOver2}
@@ -296,9 +306,9 @@ export default function Profile() {
         {/* Kesehatan */}
 
         {/* Keagamaan */}
-        <div className="flex flex-col justify-center items-center py-20 px-28 mb-20 bg-[#3C903C] rounded-xl">
+        <div className="flex flex-col justify-center items-center py-20 lg:px-28 px-10 mb-20 bg-[#3C903C] rounded-xl">
           {/* top */}
-          <div className="flex justify-between w-full items-center">
+          <div className="flex lg:flex-row flex-col-reverse lg:gap-y-0 gap-y-5 justify-between w-full items-center">
             <div className="left relative lg:w-auto w-full">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -315,6 +325,9 @@ export default function Profile() {
                 />
               </svg>
               <input
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                }}
                 type="text"
                 className="block w-full placeholder:text-white text-white pl-12 px-4 py-3 bg-[#3C903C] border rounded-xl focus:border-white focus:ring-white focus:outline-none focus:ring focus:ring-opacity-40"
                 placeholder="Search..."
@@ -332,12 +345,27 @@ export default function Profile() {
           {/* top */}
           {/* content */}
           <div className=" py-5 w-full">
-            <div className="grid grid-cols-3 gap-10">
+            <div
+              className={`${
+                loadAgama
+                  ? "grid lg:grid-cols-3 grid-cols-1"
+                  : agama.length == 0
+                  ? ""
+                  : "grid lg:grid-cols-3 grid-cols-1"
+              } mb-20 gap-4 `}
+            >
               {!loadAgama ? (
                 agama.length != 0 ? (
                   agama.map((i, key) => <CardIbadah key={key} />)
                 ) : (
-                  <></>
+                  <>
+                    <div className="flex flex-col justify-center items-center">
+                      <Lottie animationData={NotFound} className="lg:w-1/4" />
+                      <h1 className="font-bold text-white">
+                        Sarana Keagaman Tidak Tersedia
+                      </h1>
+                    </div>
+                  </>
                 )
               ) : (
                 <></>
@@ -427,7 +455,7 @@ function Desa({ i }) {
                   <SwiperSlide>
                     <div className="flex flex-col justify-center items-center">
                       <Lottie animationData={NotFound} />
-                      <h1 className="font-bold">Tidak ada data</h1>
+                      <h1 className="font-bold text-lg">Tidak ada data</h1>
                     </div>
                   </SwiperSlide>
                 </>
@@ -627,12 +655,58 @@ function CardSekolah({ i }) {
   const handleMouseOut = () => {
     setIsHovering(false);
   };
+
+  const [isHovering2, setIsHovering2] = React.useState(false);
+  const handleMouseOver2 = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseOut2 = () => {
+    setIsHovering2(false);
+  };
+  const navigate = useNavigate();
+
+  const [countSekolah, setCountSekolah] = React.useState({
+    swasta: 0,
+    negeri: 0,
+  });
+
+  const getCountSwasta = async () => {
+    try {
+      await getApi(
+        `sekolah/total?bentuk_pendidikan=${i.nama}&status=Swasta`
+      ).then((res) => {
+        console.log(res.data.data);
+        setCountSekolah((s) => ({ ...s, swasta: res.data.data }));
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getCountNegeri = async () => {
+    try {
+      await getApi(
+        `sekolah/total?bentuk_pendidikan=${i.nama}&status=Negeri`
+      ).then((res) => {
+        console.log(res.data.data);
+        setCountSekolah((s) => ({ ...s, negeri: res.data.data }));
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  React.useEffect(() => {
+    getCountSwasta();
+    getCountNegeri();
+  }, []);
   return (
     <>
       <div
         onMouseEnter={handleMouseOver}
         onMouseLeave={handleMouseOut}
-        className={`card flex flex-col text-center items-center gap-y-5 bg-white  w-full 2xl:px-4 lg:px-3 px-4 py-20 rounded-[20px] cursor-pointer transition-all  ${
+        className={`card flex flex-col text-center items-center gap-y-5 bg-white  w-full 2xl:px-4 lg:px-3 px-4 pt-20 pb-10 rounded-[20px] cursor-pointer transition-all  ${
           isHovering && "-translate-y-1 -translate-x-1 shadow-xl transition-all"
         }`}
       >
@@ -654,14 +728,24 @@ function CardSekolah({ i }) {
         <p>{i.desc}</p>
         <div className="jumlahSekolah flex gap-x-5 font-bold">
           <div className="swasta flex flex-col items-center">
-            <p>{i.swasta}</p>
+            <p>{countSekolah.swasta}</p>
             <p>Swasta</p>
           </div>
           <div className="border-l-2 border-black "></div>
           <div className="swasta flex flex-col items-center">
-            <p>{i.negri}</p>
+            <p>{countSekolah.negeri}</p>
             <p>Negeri</p>
           </div>
+        </div>
+        <div className="flex justify-center items-center">
+          <button
+            onClick={() => navigate(`/sekolah/${i.nama}&${i.initial}`)}
+            onMouseEnter={handleMouseOver2}
+            onMouseLeave={handleMouseOut2}
+            className={` px-5 py-2 2xl:py-3 rounded-full lg:text-sm 2xl:text-base font-semibold mt-5 bg-[#2F872F] text-white transition-all border-2 border-[#2F872F] `}
+          >
+            Selengkapnya
+          </button>
         </div>
       </div>
     </>

@@ -19,6 +19,8 @@ import Aplikasi from "./pages/aplikasi";
 import DetailAplikasi from "./pages/aplikasi/detail";
 import Sejarah from "./pages/sejarah";
 import VisiMisi from "./pages/visi-misi";
+import { putViwes } from "./API/restApi";
+import DetailSekolah from "./pages/profile/component/detailSekolah";
 
 function App() {
   const { pathname } = useLocation();
@@ -39,6 +41,20 @@ function App() {
   React.useEffect(() => {
     document.title = "Kecamatan Jonggol";
   }, [pathname]);
+
+  const putViews = async () => {
+    try {
+      await putViwes("traffic/create").then((res) => {
+        console.log(res.data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  React.useEffect(() => {
+    putViews();
+  }, []);
   return (
     !loading && (
       <>
@@ -58,7 +74,7 @@ function App() {
           <Route path="aplikasi/:slug" element={<DetailAplikasi />} />
           <Route path="sejarah-jonggol" element={<Sejarah />} />
           <Route path="visi-misi" element={<VisiMisi />} />
-
+          <Route path="sekolah/:slug" element={<DetailSekolah />} />
           {/* <Route path="video" element={<Video />} />
           <Route path="video/:id" element={<DetailVideo />} /> */}
         </Routes>

@@ -49,7 +49,7 @@ export default function Foto() {
                 <>
                   <div className="flex flex-col justify-center items-center">
                     <Lottie animationData={NotFound} />
-                    <h1 className="font-bold">Foto Tidak Tersedia</h1>
+                    <h1 className="font-bold text-lg">Foto Tidak Tersedia</h1>
                   </div>
                 </>
               )
