@@ -3,6 +3,7 @@ import SO from "../../assets/images/struktur.png";
 import { getApi } from "../../API/restApi";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+import { Dialog, Transition } from "@headlessui/react";
 
 export default function Struktur() {
   const data = [
@@ -81,6 +82,9 @@ export default function Struktur() {
   React.useEffect(() => {
     getBerita();
   }, []);
+
+  const [open, setOpen] = React.useState(false);
+  const cancelButtonRef = React.useRef(null);
   return (
     <>
       <div className="pt-[100px]  w-full">
@@ -96,6 +100,9 @@ export default function Struktur() {
           {/* Section */}
           <div className="mt-20 flex justify-center mb-10">
             <div
+              onClick={() => {
+                setOpen(true);
+              }}
               style={{ backgroundImage: `url(${SO})` }}
               className="w-[1308px] lg:h-[759px] h-[300px] bg-cover bg-center rounded-xl"
             ></div>
@@ -212,6 +219,12 @@ export default function Struktur() {
           {/* Bottom */}
         </div>
       </div>
+      <Modal
+        thumbnail={SO}
+        open={open}
+        setOpen={setOpen}
+        cancelButtonRef={cancelButtonRef}
+      />
     </>
   );
 }
@@ -314,6 +327,102 @@ function Card({ i }) {
       >
         <h1 className="font-bold 2xl:text-base lg:text-sm">{i.title}</h1>
         <p className="2xl:text-base lg:text-sm">{i.desc}</p>
+      </div>
+    </>
+  );
+}
+
+function Modal({ open, setOpen, cancelButtonRef, thumbnail }) {
+  return (
+    <>
+      <Transition.Root show={open} as={React.Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-40"
+          initialFocus={cancelButtonRef}
+          onClose={setOpen}
+        >
+          <Transition.Child
+            as={React.Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-75 transition-opacity" />
+          </Transition.Child>
+
+          <div className="fixed z-10 inset-0 overflow-y-auto">
+            <div className="flex items-center md:pt-32 md:pb-28 md:my-0 py-32 justify-center min-h-full p-4 text-center ">
+              <div className="cursor-pointer flex absolute xl:right-[19.5rem] lg:right-10 right-5 2xl:top-16 top-10 text-white">
+                <svg
+                  onClick={() => {
+                    setOpen(false);
+                  }}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6 "
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </div>
+              <Transition.Child
+                as={React.Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                enterTo="opacity-100 translate-y-0 sm:scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              >
+                <Dialog.Panel className=" relative flex justify-center items-center lg:gap-x-20 lg:space-y-0 space-y-20  text-center overflow-hidden transform transition-all  ">
+                  {/* <div className={`lg:flex hidden justify-center items-center`}>
+                    <ArrowLeft3
+                      onClick={() => swiperRef.current.slidePrev()}
+                      size="42"
+                      color="#FFFFFF"
+                      className="cursor-pointer"
+                    />
+                  </div> */}
+                  <CardModal img={thumbnail}></CardModal>
+                  {/* <div className={`lg:flex hidden justify-center items-center`}>
+                    <ArrowRight3
+                      onClick={() => swiperRef.current.slideNext()}
+                      size="42"
+                      color="#FFFFFF"
+                      className="cursor-pointer"
+                    />
+                  </div> */}
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition.Root>
+    </>
+  );
+}
+
+function CardModal({ img }) {
+  return (
+    <>
+      <div className=" items-center flex flex-col justify-center">
+        <div className="flex justify-center items-center">
+        <img
+          className=" rounded-lg  2xl:min-w-[680px] 2xl:min-h-[443px] 2xl:max-h-[443px] md:min-w-[490px] md:min-h-[318px] md:max-h-[318px] min-w-[353px] min-h-[215px] max-h-[215px]"
+          src={img}
+          alt="gambar album"
+        />
+        </div>
       </div>
     </>
   );

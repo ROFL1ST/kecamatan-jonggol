@@ -1,7 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { getApi } from "../../../API/restApi";
-
+import Lottie from "lottie-react";
+import NotFound from "../../../assets/json/93134-not-found.json";
 export default function DetailSekolah() {
   const { slug } = useParams();
   //   console.log(slug);
@@ -39,7 +40,7 @@ export default function DetailSekolah() {
           <div className="flex justify-between w-full mt-20 mb-10">
             <div
               onClick={() => {}}
-              className="flex border cursor-pointer border-[#3C903C] rounded-xl px-5 py-3 gap-x-4"
+              className="flex border cursor-pointer border-[#3C903C] rounded-xl px-5 py-3 gap-x-4 items-center justify-center"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +48,7 @@ export default function DetailSekolah() {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-8 h-8 text-[#3C903C]"
+                className="lg:w-8 lg:h-8 w-6 h-6 text-[#3C903C]"
               >
                 <path
                   strokeLinecap="round"
@@ -55,13 +56,10 @@ export default function DetailSekolah() {
                   d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75"
                 />
               </svg>
-              <p className="text-2xl text-[#3C903C]">Filter</p>
+              <p className="lg:text-2xl text-lg text-[#3C903C]">Filter</p>
             </div>
-            <div
-              onClick={() => {}}
-              className="flex bg-[#3C903C] cursor-default  rounded-xl px-7 py-3 gap-x-4"
-            >
-              <p className="text-2xl text-white font-semibold">
+            <div className="lg:flex hidden bg-[#3C903C] cursor-default  rounded-xl lg:px-7 px-4 py-3 gap-x-4">
+              <p className="lg:text-2xl text-white font-semibold">
                 {name} ({initial})
               </p>
             </div>
@@ -122,6 +120,12 @@ export default function DetailSekolah() {
                 )}
               </tbody>
             </table>
+            {sekolah.loading != true && sekolah.data.length == 0 && (
+              <div className="flex flex-col justify-center items-center w-full mx-auto">
+                <Lottie animationData={NotFound} />
+                <h1 className="font-bold">Data Sekolah Tidak Tersedia</h1>
+              </div>
+            )}
           </div>
           {/* table */}
         </div>

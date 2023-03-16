@@ -191,10 +191,10 @@ export default function Profile() {
   return (
     <>
       <div className="lg:pt-[100px] pt-[80px] w-screen">
-        <div className="flex lg:flex-row flex-col-reverse justify-between w-full  px-16 py-32 lg:items-center items-start bg-[#A8CAA8]">
-          <Lottie animationData={ProfilePic} className="w-1/3" />
-          <div className="w-1/4">
-            <h1 className="lg:text-6xl text-4xl font-bold w-3/5 text-center text-white">
+        <div className="flex lg:flex-row flex-col justify-between w-full  px-16 py-32 lg:items-center items-start bg-[#A8CAA8]">
+          <Lottie animationData={ProfilePic} className="lg:w-1/3" />
+          <div className="lg:w-1/4">
+            <h1 className="lg:text-6xl text-4xl font-bold lg:w-3/5 lg:text-center text-white">
               Profile Kecamatan Jonggol
             </h1>
           </div>
@@ -238,6 +238,9 @@ export default function Profile() {
           </div>
           {/* Informasi Desa */}
           {/* jumlah for dekstop */}
+          <h1 className="text-4xl mt-10 font-bold text-white px-10 text-center">
+            Informasi Seputar Jonggol
+          </h1>
           <div className="mt-10 mb-10 px-16 lg:flex hidden justify-center">
             <div className=" rounded-xl bg-white flex lg:px-5 lg:py-5 ">
               {data.map((i, key) => (
@@ -257,7 +260,7 @@ export default function Profile() {
           {/* jumlah for mobile */}
           <div className="border-b-2  lg:w-3/5 w-1/2"></div>
           {/* Data Sekolah */}
-          <div className="py-10 flex flex-col justify-center items-center mt-10 gap-y-10 px-16">
+          <div className="py-10 flex flex-col justify-center items-center mt-10 gap-y-10 lg:px-16">
             <div className="top flex flex-col gap-y-5 justify-center items-center lg:w-3/5 text-center">
               <h1 className="font-bold text-4xl text-white">
                 Informasi Seputar Pendidikan
@@ -787,7 +790,15 @@ function CardInfoMobile({ data }) {
   return (
     <>
       <div
-        className={`penduduk flex flex-col justify-center text-center  items-center  gap-y-1  px-5 border-[0.5px]  py-5 `}
+        className={`penduduk flex flex-col justify-center text-center  items-center  gap-y-1  px-5 border-[0.5px]  py-5 ${
+          data.id == 1
+            ? "rounded-tl-xl"
+            : data.id == 2
+            ? "rounded-tr-xl"
+            : data.id == 3
+            ? "rounded-bl-xl"
+            : "rounded-br-xl"
+        }`}
       >
         <CountUp
           className="font-bold text-2xl "

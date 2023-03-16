@@ -370,18 +370,18 @@ function DropMedia({ location, slug }) {
                 location == "/berita" ||
                 location == "/agenda" ||
                 location == `/berita/${slug}`
-                  ? "bg-white  py-1 rounded-full text-[#547153] font-bold transition-all"
+                  ? "bg-white  py-2 rounded-full text-[#547153] font-bold transition-all"
                   : ""
               }`}
             >
-              <p className="text-sm ">Media & Informasi</p>
+              <p className="text-sm mr-2">Media & Informasi</p>
               {open ? (
                 <>
-                  <ArrowUp2 className="h-6 w-6" color="#000000" />
+                  <ArrowUp2 className="h-5 w-5" color="#000000" />
                 </>
               ) : (
                 <>
-                  <ArrowDown2 className="h-6 w-6" color="#000000" />
+                  <ArrowDown2 className="h-5 w-5" color="#000000" />
                 </>
               )}
             </Menu.Button>

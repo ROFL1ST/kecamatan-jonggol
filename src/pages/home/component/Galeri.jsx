@@ -115,7 +115,7 @@ export default function Galeri() {
               {!loadGaleri ? (
                 dataGaleri.map((i, key) => (
                   <SwiperSlide className="swiper-image" key={key}>
-                    <CardFoto i={i} />
+                    {i.cover != null && <CardFoto i={i} />}
                   </SwiperSlide>
                 ))
               ) : (

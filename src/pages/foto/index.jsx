@@ -44,7 +44,9 @@ export default function Foto() {
           >
             {!loadGaleri ? (
               dataGaleri.length != 0 ? (
-                dataGaleri.map((i, key) => <CardFoto key={key} data={i} />)
+                dataGaleri.map((i, key) =>
+                  i.cover != null ? <CardFoto key={key} data={i} /> : <></>
+                )
               ) : (
                 <>
                   <div className="flex flex-col justify-center items-center">

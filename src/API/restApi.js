@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8000/api/";
+const BASE_URL = "https://kec.giriwangi.com/api/";
 
 function getApi(path_url) {
   // console.log(BASE_URL + path_url);

@@ -181,7 +181,7 @@ function CardVisi1({ i }) {
     <>
       <div className="bg-white px-5 py-5 rounded-2xl shadow-xl flex flex-col items-center gap-y-2 justify-center">
         <div className="w-1/3">
-          <img src={i.logo} alt="" />
+          <img src={i.logo} draggable="false" alt="" />
         </div>
         <p className="font-semibold text-center text-lg">{i.desc}</p>
       </div>

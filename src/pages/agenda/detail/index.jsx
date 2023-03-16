@@ -80,7 +80,31 @@ export default function DetailAgenda() {
               {/* Content */}
             </div>
           ) : (
-            <></>
+            <>
+              <div className="flex flex-col justify-center w-full">
+                <div className="flex w-full bg-gray-500 animate-pulse rounded-xl 2xl:h-[659px] lg:h-[500px] h-[300px]"></div>
+              </div>
+              {/*title */}
+              <div className="flex justify-between w-full animate-pulse">
+                <div className="space-y-2 pt-10 w-3/4">
+                  <div className="text-xs font-bold h-4 w-1/2 bg-gray-500 rounded-full"></div>
+                  <div className="text-xs font-bold h-4 w-1/4 bg-gray-500 rounded-full"></div>
+                </div>
+                <div className="space-y-2 pt-10 w-1/4 items-end flex flex-col justify-end">
+                  <div className="text-xs font-bold h-4 w-1/2 bg-gray-500 rounded-full"></div>
+                  <div className="text-xs font-bold h-4 w-1/4 bg-gray-500 rounded-full"></div>
+                </div>
+              </div>
+              {/*title */}
+              <div className="flex pt-20 ">
+                <div className="space-y-2  animate-pulse w-full">
+                  <div className="text-xs font-bold h-4  bg-gray-500 rounded-full"></div>
+                  <div className="text-xs font-bold h-4 w-3/4 bg-gray-500 rounded-full"></div>
+                  <div className="text-xs font-bold h-4  bg-gray-500 rounded-full"></div>
+                  <div className="text-xs font-bold h-4 w-1/4 bg-gray-500 rounded-full"></div>
+                </div>
+              </div>
+            </>
           )}
         </div>
       </div>

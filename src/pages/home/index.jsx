@@ -367,7 +367,15 @@ function CardInfoMobile({ data }) {
   return (
     <>
       <div
-        className={`penduduk flex flex-col justify-center text-center  items-center  gap-y-1  px-5 border-[0.5px]  py-5 `}
+        className={`penduduk flex flex-col justify-center text-center  items-center  gap-y-1  px-5 border-[0.5px]  py-5 ${
+          data.id == 1
+            ? "rounded-tl-xl"
+            : data.id == 2
+            ? "rounded-tr-xl"
+            : data.id == 3
+            ? "rounded-bl-xl"
+            : "rounded-br-xl"
+        }`}
       >
         <CountUp
           className="font-bold text-2xl "
