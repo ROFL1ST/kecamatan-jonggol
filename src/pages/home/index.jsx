@@ -11,6 +11,8 @@ import { getApi } from "../../API/restApi";
 import { useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import NotFound from "../../assets/json/93134-not-found.json";
+import ErrorIndicator from "../../assets/json/98642-error-404.json";
+
 export default function Home() {
   const navigate = useNavigate();
 
@@ -118,6 +120,8 @@ export default function Home() {
   };
 
   const [berita, setBerita] = React.useState([]);
+  const [beritaError, setBeritaError] = React.useState(false);
+
   const [loadBerita, setLoadBerita] = React.useState(true);
   const getBerita = async () => {
     try {
@@ -129,6 +133,7 @@ export default function Home() {
     } catch (error) {
       console.log(error);
       setLoadBerita(false);
+      setBeritaError(true);
     }
   };
 
@@ -283,6 +288,13 @@ export default function Home() {
               </>
             ) : berita.length != 0 ? (
               berita.slice(0, 4).map((i, key) => <CardBerita key={key} i={i} />)
+            ) : beritaError ? (
+              <>
+                <div className="flex flex-col justify-center items-center">
+                  <Lottie animationData={ErrorIndicator} />
+                  <h1 className="font-bold">Terjadi Kesalahan</h1>
+                </div>
+              </>
             ) : (
               <>
                 <div className="flex flex-col justify-center items-center">

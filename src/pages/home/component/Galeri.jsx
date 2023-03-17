@@ -7,6 +7,8 @@ import slide2 from "../../../assets/images/save-rohingya.jpg";
 import slide3 from "../../../assets/images/sri-mulyani.jpg";
 import { Dialog, Transition } from "@headlessui/react";
 import { getApi } from "../../../API/restApi";
+import parse from "html-react-parser";
+import NoImage from "../../../assets/images/thumbnail.jpg";
 
 export default function Galeri() {
   const navigate = useNavigate();
@@ -115,7 +117,7 @@ export default function Galeri() {
               {!loadGaleri ? (
                 dataGaleri.map((i, key) => (
                   <SwiperSlide className="swiper-image" key={key}>
-                    {i.cover != null && <CardFoto i={i} />}
+                    <CardFoto i={i} />
                   </SwiperSlide>
                 ))
               ) : (
@@ -150,10 +152,16 @@ function CardFoto({ i }) {
     <>
       <div
         onClick={() => {
-          setOpen(true);
+          if (i.cover != null) {
+            setOpen(true);
+          }
         }}
         className="lg:h-96 2xl:min-h-[30rem]  h-96 rounded-2xl w-full bg-cover bg-center shadow-2xl"
-        style={{ backgroundImage: `url(${i.cover.thumbnail})` }}
+        style={{
+          backgroundImage: `url(${
+            i.cover != null ? i.cover.thumbnail : NoImage
+          })`,
+        }}
       >
         <div className="w-full h-full bg-black bg-opacity-25 px-5 py-5 rounded-2xl flex flex-col justify-end">
           <h1 className="text-white font-semibold">{i.nama_album}</h1>
@@ -365,10 +373,15 @@ function CardModal({ img, tgl, nama, summary }) {
           </h1>
 
           <p className="text-white lg:w-3/4 md:w-full sm:w-1/2 w-4/5  2xl:text-sm text-xs font-extralight">
-            {summary}
+            <Isi text={summary} />
           </p>
         </div>
       </div>
     </>
   );
+}
+
+function Isi({ text }) {
+  const reactElement = parse(`${text}`);
+  return reactElement;
 }

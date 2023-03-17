@@ -6,20 +6,27 @@ import "swiper/css";
 import { getApi } from "../../API/restApi";
 import Lottie from "lottie-react";
 import NotFound from "../../assets/json/93134-not-found.json";
+import NoImage from "../../assets/images/thumbnail.jpg";
+import ErrorIndicator from "../../assets/json/98642-error-404.json";
+import parse from "html-react-parser";
+
 export default function Foto() {
   const [dataGaleri, setDataGaleri] = React.useState([]);
   const [loadGaleri, setLoadGaleri] = React.useState(true);
+  const [galeriError, setGaleriError] = React.useState(false);
   const getGaleri = async () => {
     try {
-      getApi("album").then((res) => {
+      await getApi("album").then((res) => {
         setDataGaleri(res.data.data);
         setLoadGaleri(false);
       });
     } catch (error) {
       console.log(error);
       setLoadGaleri(false);
+      setGaleriError(true);
     }
   };
+  // console.log(dataGaleri);
 
   React.useEffect(() => {
     getGaleri();
@@ -37,16 +44,21 @@ export default function Foto() {
             className={` mb-20 gap-4 mt-20 ${
               loadGaleri
                 ? "grid lg:grid-cols-3 grid-cols-1"
-                : dataGaleri.length == 0
+                : dataGaleri.length == 0 || galeriError
                 ? ""
                 : "grid lg:grid-cols-3 grid-cols-1"
             }`}
           >
             {!loadGaleri ? (
               dataGaleri.length != 0 ? (
-                dataGaleri.map((i, key) =>
-                  i.cover != null ? <CardFoto key={key} data={i} /> : <></>
-                )
+                dataGaleri.map((i, key) => <CardFoto key={key} data={i} />)
+              ) : galeriError ? (
+                <>
+                  <div className="flex flex-col justify-center items-center">
+                    <Lottie animationData={ErrorIndicator} />
+                    <h1 className="font-bold text-lg">Terjadi Kesalahan</h1>
+                  </div>
+                </>
               ) : (
                 <>
                   <div className="flex flex-col justify-center items-center">
@@ -94,19 +106,25 @@ function CardFoto({ data }) {
   const handleMouseOut = () => {
     setIsHovering(false);
   };
+
+  console.log(data.cover != null, "foto");
   return (
     <>
       <div
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}
         onClick={() => {
-          setOpen(true);
+          if (data.cover != null) {
+            setOpen(true);
+          }
         }}
         className="my-auto items-center"
       >
         <div
           style={{
-            backgroundImage: `url(${data.cover.thumbnail})`,
+            backgroundImage: `url(${
+              data.cover != null ? data.cover.thumbnail : NoImage
+            })`,
           }}
           className=" rounded-lg mx-auto max-h-96 min-w-full bg-no-repeat bg-cover relative"
         >
@@ -281,10 +299,15 @@ function CardModal({ img, tgl, nama, summary }) {
           </h1>
 
           <p className="text-white lg:w-3/4 md:w-full sm:w-1/2 w-4/5  2xl:text-sm text-xs font-extralight">
-            {summary}
+            <Isi text={summary} />
           </p>
         </div>
       </div>
     </>
   );
+}
+
+function Isi({ text }) {
+  const reactElement = parse(`${text}`);
+  return reactElement;
 }

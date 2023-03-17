@@ -1,15 +1,23 @@
 import React from "react";
 import { getApi } from "../../API/restApi";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Loading from "../../component/Loading";
 import Lottie from "lottie-react";
 import NotFound from "../../assets/json/93134-not-found.json";
+import ErrorIndicator from "../../assets/json/98642-error-404.json";
+
 export default function Berita() {
+  const location = useLocation();
+
+  const query = new URLSearchParams(location.search).get("search");
+  const navigate = useNavigate();
   const [berita, setBerita] = React.useState([]);
   const [loadBerita, setLoadBerita] = React.useState(true);
+  const [beritaError, setBeritaError] = React.useState(false);
+
   const [limit, setLimit] = React.useState(12);
   const [hoverButton2, setHoverButton2] = React.useState(false);
-  const [search, setSearch] = React.useState("");
+  const [searches, setSearch] = React.useState("");
   const load = [1, 2, 3, 4, 5, 6, 7, 8];
   const handleMouseOver2 = () => {
     setHoverButton2(true);
@@ -20,21 +28,52 @@ export default function Berita() {
   };
   const getBerita = async () => {
     try {
-      getApi(`berita?limit=${limit}&${search !== "" && `key=${search}`}`).then(
-        (val) => {
-          setBerita(val.data.data);
-          setLoadBerita(false);
-        }
-      );
+      await getApi(
+        `berita?limit=${limit}&${
+          query !== "" || (query !== "null" && `key=${query}`)
+        }`
+      ).then((val) => {
+        setBerita(val.data.data);
+        setLoadBerita(false);
+      });
     } catch (error) {
       console.log(error);
       setLoadBerita(false);
+      setBeritaError(true);
     }
   };
 
+  // const query2 = new URLSearchParams(location.search).set("search")
+
+  function handleKeyDown(event) {
+    // console.log(event);
+    if (event.key === "enter") {
+      event.preventDefault(); // Prevent default form submission behavior
+      event.target.blur(); // Remove focus from the input field
+      event.target.form.submit(); // Trigger form submission
+    }
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const submittedValue = formData.get("search");
+    // setSearch(event.target.value);
+    navigate(`/berita?search=${submittedValue}`);
+  }
+
+  console.log(query);
+
+  React.useEffect(() => {
+    setSearch(query);
+  }, [query]);
+
   React.useEffect(() => {
     getBerita();
-  }, [limit, search]);
+    if (query) {
+      setLoadBerita(true);
+    }
+  }, [limit, query]);
 
   return (
     <>
@@ -61,21 +100,33 @@ export default function Berita() {
                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 />
               </svg>
-              <input
-                onChange={(e) => {
-                  setSearch(e.target.value);
-                }}
-                type="text"
-                className="block w-full pl-12 px-4 py-2  bg-white border rounded-full focus:border-[#3C903C] focus:ring-[#3C903C] focus:outline-none focus:ring focus:ring-opacity-40"
-                placeholder="Search..."
-              />
+              <form onSubmit={handleSubmit}>
+                <input
+                  onKeyDown={handleKeyDown}
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                  }}
+                  // onChange={(e) => {
+                  //   setSearch(e.target.value);
+                  //   navigate(`/berita?search=${e.target.value}`);
+                  //   // if (e.target.value == undefined || e.target.value == null) {
+                  //   //   navigate("/berita");
+                  //   // }
+                  // }}
+                  value={searches}
+                  name="search"
+                  type="text"
+                  className="block w-full pl-12 px-4 py-2  bg-white border rounded-full focus:border-[#3C903C] focus:ring-[#3C903C] focus:outline-none focus:ring focus:ring-opacity-40"
+                  placeholder="Search..."
+                />
+              </form>
             </div>
           </div>
           <div
             className={`${
               loadBerita
                 ? "grid lg:grid-cols-4 grid-cols-1"
-                : berita.length == 0
+                : berita.length == 0 || beritaError
                 ? ""
                 : "grid lg:grid-cols-4 grid-cols-1"
             } mb-20 gap-4 `}
@@ -83,6 +134,13 @@ export default function Berita() {
             {!loadBerita ? (
               berita.length != 0 ? (
                 berita.map((i, key) => <CardBerita i={i} key={key} />)
+              ) : beritaError ? (
+                <>
+                  <div className="flex flex-col justify-center items-center">
+                    <Lottie animationData={ErrorIndicator} />
+                    <h1 className="font-bold">Terjadi Kesalahan</h1>
+                  </div>
+                </>
               ) : (
                 <>
                   <div className="flex flex-col justify-center items-center">

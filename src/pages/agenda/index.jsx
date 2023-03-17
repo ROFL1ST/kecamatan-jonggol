@@ -5,6 +5,7 @@ import { getApi } from "../../API/restApi";
 import Loading from "../../component/Loading";
 import Lottie from "lottie-react";
 import NotFound from "../../assets/json/93134-not-found.json";
+import ErrorIndicator from "../../assets/json/98642-error-404.json";
 
 export default function Agenda() {
   const [hoverButton2, setHoverButton2] = React.useState(false);
@@ -20,6 +21,8 @@ export default function Agenda() {
 
   const [agenda, setAgenda] = React.useState([]);
   const [loadAgenda, setLoadAgenda] = React.useState(true);
+  const [agendaError, setAgendaError] = React.useState(false);
+
   const load = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const getAgenda = async () => {
     try {
@@ -31,6 +34,7 @@ export default function Agenda() {
     } catch (error) {
       console.log(error);
       setLoadAgenda(false);
+      setAgendaError(true);
     }
   };
 
@@ -50,7 +54,7 @@ export default function Agenda() {
             className={` mb-20 gap-y-10 gap-x-10 mt-20 ${
               loadAgenda
                 ? "grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1"
-                : agenda.length == 0
+                : agenda.length == 0 || agendaError
                 ? ""
                 : "grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1"
             }`}
@@ -58,6 +62,13 @@ export default function Agenda() {
             {!loadAgenda ? (
               agenda.length != 0 ? (
                 agenda.map((i, key) => <Card key={key} data={i} />)
+              ) : agendaError ? (
+                <>
+                  <div className="flex flex-col justify-center items-center">
+                    <Lottie animationData={ErrorIndicator} />
+                    <h1 className="font-bold">Terjadi Kesalahan</h1>
+                  </div>
+                </>
               ) : (
                 <>
                   <div className="flex flex-col justify-center items-center">

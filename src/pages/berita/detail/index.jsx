@@ -103,7 +103,6 @@ export default function Detail() {
                   <p>{moment(detail.createdAt).fromNow()}</p>
                 </div>
                 {/* title for mobile */}
-
                 <div className=" text-base pb-10">
                   <Isi text={detail.konten} />
                 </div>

@@ -4,11 +4,13 @@ import {
   ArrowUp2,
   CloseCircle,
   HambergerMenu,
+  SearchNormal,
 } from "iconsax-react";
 import React from "react";
 import { NavLink, useLocation, useParams } from "react-router-dom";
 import Logo from "../assets/logo/Logo.png";
 import { Menu, Transition } from "@headlessui/react";
+import Search from "./search";
 
 export default function Navbar() {
   const location = useLocation();
@@ -23,6 +25,8 @@ export default function Navbar() {
   }, [location.pathname]);
 
   const slug = useParams();
+  const [open, setOpen] = React.useState(false);
+  const cancelButtonRef = React.useRef(null);
 
   return (
     <>
@@ -72,6 +76,10 @@ export default function Navbar() {
             >
               Aplikasi
             </NavLink>
+            <div onClick={() => setOpen(true)} className="cursor-pointer flex gap-x-3 text-sm items-center px-4 py-2 rounded-full bg-white">
+              <SearchNormal className="w-5 h-5" />
+              Search
+            </div>
           </nav>
         </div>
         {/* Dekstop */}
@@ -101,6 +109,7 @@ export default function Navbar() {
         </div>
         {/* Mobile */}
       </div>
+      <Search open={open} setOpen={setOpen} cancelButtonRef={cancelButtonRef} />
     </>
   );
 }
@@ -343,6 +352,11 @@ function DropMobileMedia() {
                 {/* <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
                   <NavLink to={"/video"}>Video</NavLink>
                 </button> */}
+                <button
+                  className={`text-white group flex justify-start w-full items-center rounded-md px-2 py-1 text-sm    `}
+                >
+                  <NavLink to={"/agenda"}>Agenda</NavLink>
+                </button>
               </div>
             </Transition>
           </>
