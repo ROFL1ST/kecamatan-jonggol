@@ -30,7 +30,7 @@ export default function Berita() {
     try {
       await getApi(
         `berita?limit=${limit}&${
-          query !== "" || (query !== "null" && `key=${query}`)
+          query !== "" && query !== "null" && `key=${query}`
         }`
       ).then((val) => {
         setBerita(val.data.data);
