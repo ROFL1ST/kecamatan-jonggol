@@ -1,6 +1,6 @@
 import React from "react";
 import { getApi } from "../../API/restApi";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "../../component/Loading";
 import Lottie from "lottie-react";
 import NotFound from "../../assets/json/93134-not-found.json";
@@ -14,7 +14,6 @@ export default function Berita() {
   const [berita, setBerita] = React.useState([]);
   const [loadBerita, setLoadBerita] = React.useState(true);
   const [beritaError, setBeritaError] = React.useState(false);
-
   const [limit, setLimit] = React.useState(12);
   const [hoverButton2, setHoverButton2] = React.useState(false);
   const [searches, setSearch] = React.useState("");
@@ -30,7 +29,7 @@ export default function Berita() {
     try {
       await getApi(
         `berita?limit=${limit}&${
-          query !== "" && query !== "null" && `key=${query}`
+          query !== "" && query != null && `key=${query}`
         }`
       ).then((val) => {
         setBerita(val.data.data);
@@ -62,10 +61,13 @@ export default function Berita() {
     navigate(`/berita?search=${submittedValue}`);
   }
 
-  console.log(query);
+  // console.log(query);
 
   React.useEffect(() => {
     setSearch(query);
+    if (query == null || query == "") {
+      navigate("/berita");
+    }
   }, [query]);
 
   React.useEffect(() => {
@@ -105,6 +107,7 @@ export default function Berita() {
                   onKeyDown={handleKeyDown}
                   onChange={(e) => {
                     setSearch(e.target.value);
+                    navigate(`/berita?search=${e.target.value}`);
                   }}
                   // onChange={(e) => {
                   //   setSearch(e.target.value);

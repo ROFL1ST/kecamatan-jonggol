@@ -28,6 +28,20 @@ export default function Navbar() {
   const [open, setOpen] = React.useState(false);
   const cancelButtonRef = React.useRef(null);
 
+  React.useEffect(() => {
+    function handleKeyDown(event) {
+      if (event.ctrlKey && event.key === "k") {
+        event.preventDefault();
+        setOpen(true);
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   return (
     <>
       <div className="fixed w-screen z-20">
@@ -37,19 +51,28 @@ export default function Navbar() {
           <NavLink to={"/"}>
             <img src={Logo} className="lg:w-full w-4/5" alt="" />
           </NavLink>
-          <button onClick={() => setNavbarOpen(!navbarOpen)}>
-            {navbarOpen ? (
-              <CloseCircle
-                className="h-8 w-8 xl:hidden lg:hidden transition-all"
-                color="#ffffff"
-              />
-            ) : (
-              <HambergerMenu
-                className="h-8 w-8 xl:hidden lg:hidden transition-all"
-                color="#ffffff"
-              />
-            )}
-          </button>
+          <div className="flex items-center justify-center gap-x-4">
+            <SearchNormal
+              onClick={() => {
+                setOpen(true);
+              }}
+              className="w-5 h-5 xl:hidden lg:hidden text-white"
+            />
+            <button onClick={() => setNavbarOpen(!navbarOpen)}>
+              {navbarOpen ? (
+                <CloseCircle
+                  className="h-8 w-8 xl:hidden lg:hidden transition-all"
+                  color="#ffffff"
+                />
+              ) : (
+                <HambergerMenu
+                  className="h-8 w-8 xl:hidden lg:hidden transition-all"
+                  color="#ffffff"
+                />
+              )}
+            </button>
+          </div>
+
           <nav className="lg:flex hidden space-x-7 items-center font-bold">
             <NavLink
               to={"/"}
@@ -76,7 +99,10 @@ export default function Navbar() {
             >
               Aplikasi
             </NavLink>
-            <div onClick={() => setOpen(true)} className="cursor-pointer flex gap-x-3 text-sm items-center px-4 py-2 rounded-full bg-white">
+            <div
+              onClick={() => setOpen(true)}
+              className="cursor-pointer flex gap-x-5 text-sm items-center px-4 py-3 rounded-full bg-white"
+            >
               <SearchNormal className="w-5 h-5" />
               Search
             </div>
@@ -370,7 +396,6 @@ function DropMedia({ location, slug }) {
   const activeDrop = "text-[#547153] font-bold transition-all";
   const normalDrop = "transition-all";
 
-  console.log(slug);
   return (
     <>
       <Menu as={"div"} className="relative inline-block text-left">
