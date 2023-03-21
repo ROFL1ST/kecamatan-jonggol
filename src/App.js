@@ -21,6 +21,7 @@ import Sejarah from "./pages/sejarah";
 import VisiMisi from "./pages/visi-misi";
 import { putViwes } from "./API/restApi";
 import DetailSekolah from "./pages/profile/component/detailSekolah";
+import LogRocket from "logrocket";
 
 function App() {
   const { pathname } = useLocation();
@@ -55,6 +56,24 @@ function App() {
   React.useEffect(() => {
     putViews();
   }, []);
+
+  // IP
+  const [ipAddress, setIpAddress] = React.useState("");
+  const [loadIp, setLoadIP] = React.useState(true);
+  React.useEffect(() => {
+    fetch("https://api.ipify.org?format=json")
+      .then((res) => res.json())
+      .then((data) => {
+        setIpAddress(data.ip);
+        console.log(data);
+        setLoadIP(false);
+      })
+      .catch((er) => console.log(er));
+  }, []);
+
+  if (!loadIp) {
+    LogRocket.identify(ipAddress);
+  }
   return (
     !loading && (
       <>
