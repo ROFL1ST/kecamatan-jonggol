@@ -491,7 +491,7 @@ function Desa({ i }) {
         <div className="uppercase px-7 py-3 font-bold bg-[#3C903C] text-white rounded-2xl text-xl">
           {i.nama_desa}
         </div>
-        <div className="flex 2xl:flex-row flex-col justify-between w-full mt-5 items-end">
+        <div className="flex  justify-between w-full mt-5 items-end">
           <div>
             <h1 className="font-bold">Kepala Desa</h1>
             <h1 className="flex justify-start items-start">{i.kepala_desa}</h1>
