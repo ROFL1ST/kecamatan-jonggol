@@ -11,6 +11,9 @@ import Kesehatan from "./component/Kesehatan";
 import ProfilePic from "../../assets/json/27562-searching-for-profile.json";
 import NotFound from "../../assets/json/93134-not-found.json";
 import { useNavigate } from "react-router-dom";
+import ErrorIndicator from "../../assets/json/98642-error-404.json";
+import { ArrowRight2 } from "iconsax-react";
+
 export default function Profile() {
   const [penduduk, setPenduduk] = React.useState();
   const getPenduduk = async () => {
@@ -46,6 +49,8 @@ export default function Profile() {
   };
 
   const [desa, setDesa] = React.useState([]);
+  const listLoad = [1, 2, 3, 4, 5, 6, 7, 8];
+  const [desaError, setDesaError] = React.useState(false);
   const [loadDesa, setLoadDesa] = React.useState(true);
   const getDesa = async () => {
     try {
@@ -56,6 +61,7 @@ export default function Profile() {
     } catch (error) {
       console.log(error);
       setLoadDesa(false);
+      setDesaError(true);
     }
   };
   const data = [
@@ -150,6 +156,7 @@ export default function Profile() {
 
   const [agama, setAgama] = React.useState([]);
   const [loadAgama, setLoadAgama] = React.useState(true);
+  const [agamaError, setAgamaError] = React.useState(false);
   const [search, setSearch] = React.useState("");
 
   const getAgama = async () => {
@@ -163,6 +170,7 @@ export default function Profile() {
     } catch (error) {
       console.log(error);
       setLoadAgama(false);
+      setAgamaError(true);
     }
   };
 
@@ -226,13 +234,56 @@ export default function Profile() {
               pagination={true}
             >
               {!loadDesa ? (
-                desa.map((i, key) => (
-                  <SwiperSlide key={key}>
-                    <Desa i={i} />
+                desa.length != 0 ? (
+                  desa.map((i, key) => (
+                    <SwiperSlide key={key}>
+                      <Desa i={i} />
+                    </SwiperSlide>
+                  ))
+                ) : desaError ? (
+                  <>
+                    <div className="flex flex-col justify-center items-center">
+                      <Lottie animationData={ErrorIndicator} />
+                      <h1 className="font-bold text-white">
+                        Terjadi Kesalahan
+                      </h1>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="flex flex-col justify-center items-center">
+                      <Lottie animationData={NotFound} />
+                      <h1 className="font-bold text-white">
+                        Desa Tidak Tersedia
+                      </h1>
+                    </div>
+                  </>
+                )
+              ) : (
+                listLoad.map((i, key) => (
+                  <SwiperSlide>
+                    <div className="2xl:px-16 px-10 py-10 rounded-2xl bg-white flex flex-col items-center ">
+                      <div className="uppercase px-7 py-3 font-bold bg-[#3C903C] text-white rounded-2xl text-xl animate-pulse">
+                        <div className="w-20 h-5 bg-cover rounded-2xl bg-center bg-gray-300"></div>
+                      </div>
+                      <div className="flex justify-between w-full animate-pulse mt-10">
+                        <div className="flex flex-col h-full w-1/2 gap-y-2">
+                          <div className="w-1/2 h-5 bg-cover rounded-2xl bg-center bg-gray-300"></div>
+                          <div className="w-1/3 h-5 bg-cover rounded-2xl bg-center bg-gray-300"></div>
+                        </div>
+                        <div className="w-1/3 h-5 bg-cover rounded-2xl bg-center bg-[#3C903C]"></div>
+                      </div>
+                    </div>
+                    <div className="2xl:px-20 px-10 py-10 rounded-2xl bg-white flex flex-col items-center">
+                      <div className="uppercase px-7 py-3 font-bold bg-[#3C903C] text-white rounded-2xl text-xl animate-pulse">
+                        <div className="w-20 h-5 bg-cover rounded-2xl bg-center bg-gray-300"></div>
+                      </div>
+                      <div className=" h-96 rounded-2xl bg-gray-300 animate-pulse w-full mt-10">
+                        <div className="w-full h-full flex flex-col justify-center items-center "></div>
+                      </div>
+                    </div>
                   </SwiperSlide>
                 ))
-              ) : (
-                <></>
               )}
             </Swiper>
           </div>
@@ -360,12 +411,21 @@ export default function Profile() {
               {!loadAgama ? (
                 agama.length != 0 ? (
                   agama.map((i, key) => <CardIbadah key={key} />)
+                ) : agamaError ? (
+                  <>
+                    <div className="flex flex-col justify-center items-center">
+                      <Lottie animationData={ErrorIndicator} />
+                      <h1 className="font-bold text-white">
+                        Terjadi Kesalahan
+                      </h1>
+                    </div>
+                  </>
                 ) : (
                   <>
                     <div className="flex flex-col justify-center items-center">
-                      <Lottie animationData={NotFound} className="lg:w-1/4" />
+                      <Lottie animationData={NotFound} />
                       <h1 className="font-bold text-white">
-                        Sarana Keagaman Tidak Tersedia
+                        Agama Tidak Tersedia
                       </h1>
                     </div>
                   </>
@@ -398,6 +458,8 @@ function CardIbadah() {
 }
 
 function Desa({ i }) {
+  const navigate = useNavigate();
+
   const [potensi, setPotensi] = React.useState([]);
   const [loadPotensi, setLoadPotensi] = React.useState(true);
   const getPotensi = async () => {
@@ -421,14 +483,23 @@ function Desa({ i }) {
         <div className="uppercase px-7 py-3 font-bold bg-[#3C903C] text-white rounded-2xl text-xl">
           {i.nama_desa}
         </div>
-        <div className="flex 2xl:flex-row flex-col justify-between w-full mt-5">
+        <div className="flex 2xl:flex-row flex-col justify-between w-full mt-5 items-end">
           <div>
             <h1 className="font-bold">Kepala Desa</h1>
             <h1 className="flex justify-start items-start">{i.kepala_desa}</h1>
           </div>
-          <div className="flex flex-col items-end gap-y-2 text-gray-300 cursor-pointer hover:text-[#3C903C] transition-all h-full">
+          {/* <div className="flex flex-col items-end gap-y-2 text-gray-300 cursor-pointer hover:text-[#3C903C] transition-all h-full">
             <h1>Longtitude : {i.longtitude}</h1>
             <h1>Latitude : {i.latitude}</h1>
+          </div> */}
+          <div
+            onClick={() => {
+              navigate(`desa/${i.slug}`);
+            }}
+            className="flex flex-row gap-x-2 items-end gap-y-2 text-gray-300 cursor-pointer hover:text-[#3C903C] transition-all h-full justify-end"
+          >
+            <h1>Selengkapnya</h1>
+            <ArrowRight2 />
           </div>
         </div>
       </div>
@@ -464,7 +535,11 @@ function Desa({ i }) {
                 </>
               )
             ) : (
-              <></>
+              <>
+                <div className=" h-96 rounded-2xl bg-gray-300 animate-pulse w-full mt-10">
+                  <div className="w-full h-full flex flex-col justify-center items-center "></div>
+                </div>
+              </>
             )}
           </Swiper>
         </div>
@@ -521,7 +596,7 @@ function Modal({ open, setOpen, cancelButtonRef, foto }) {
     getList();
   }, []);
 
-  console.log(foto);
+  // console.log(foto);
   return (
     <>
       <Transition.Root show={open} as={React.Fragment}>
@@ -679,7 +754,7 @@ function CardSekolah({ i }) {
       await getApi(
         `sekolah/total?bentuk_pendidikan=${i.nama}&status=Swasta`
       ).then((res) => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         setCountSekolah((s) => ({ ...s, swasta: res.data.data }));
       });
     } catch (error) {
@@ -692,7 +767,7 @@ function CardSekolah({ i }) {
       await getApi(
         `sekolah/total?bentuk_pendidikan=${i.nama}&status=Negeri`
       ).then((res) => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         setCountSekolah((s) => ({ ...s, negeri: res.data.data }));
       });
     } catch (error) {

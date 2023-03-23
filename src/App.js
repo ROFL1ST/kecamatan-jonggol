@@ -22,6 +22,7 @@ import VisiMisi from "./pages/visi-misi";
 import { putViwes } from "./API/restApi";
 import DetailSekolah from "./pages/profile/component/detailSekolah";
 import LogRocket from "logrocket";
+import DetailDesa from "./pages/profile/desa";
 
 function App() {
   const { pathname } = useLocation();
@@ -83,6 +84,7 @@ function App() {
           <Route path="berita" element={<Berita />} />
           <Route path="berita/:slug" element={<Detail />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="desa/:slug" element={<DetailDesa />} />
           <Route path="foto" element={<Foto />} />
           <Route path="struktur-organisasi" element={<Struktur />} />
           <Route path="agenda" element={<Agenda />} />

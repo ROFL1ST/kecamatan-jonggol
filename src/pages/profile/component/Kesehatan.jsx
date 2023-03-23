@@ -8,6 +8,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Scrollbar, Mousewheel } from "swiper";
 import { Link21, Map } from "iconsax-react";
 import { getApi } from "../../../API/restApi";
+import ErrorIndicator from "../../../assets/json/98642-error-404.json";
+
 export default function Kesehatan() {
   const [kesehatan, setKesehatan] = React.useState({
     data: [],
@@ -47,6 +49,15 @@ export default function Kesehatan() {
                   <Isi i={i} />
                 </SwiperSlide>
               ))
+            ) : kesehatan.error ? (
+              <>
+                <SwiperSlide>
+                  <div className="flex flex-col justify-center items-center">
+                    <Lottie animationData={ErrorIndicator} />
+                    <h1 className="font-bold">Terjadi Kesalahan</h1>
+                  </div>
+                </SwiperSlide>
+              </>
             ) : (
               <>
                 <SwiperSlide>
