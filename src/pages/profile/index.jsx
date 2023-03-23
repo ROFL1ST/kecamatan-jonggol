@@ -261,27 +261,8 @@ export default function Profile() {
                 )
               ) : (
                 listLoad.map((i, key) => (
-                  <SwiperSlide>
-                    <div className="2xl:px-16 px-10 py-10 rounded-2xl bg-white flex flex-col items-center ">
-                      <div className="uppercase px-7 py-3 font-bold bg-[#3C903C] text-white rounded-2xl text-xl animate-pulse">
-                        <div className="w-20 h-5 bg-cover rounded-2xl bg-center bg-gray-300"></div>
-                      </div>
-                      <div className="flex justify-between w-full animate-pulse mt-10">
-                        <div className="flex flex-col h-full w-1/2 gap-y-2">
-                          <div className="w-1/2 h-5 bg-cover rounded-2xl bg-center bg-gray-300"></div>
-                          <div className="w-1/3 h-5 bg-cover rounded-2xl bg-center bg-gray-300"></div>
-                        </div>
-                        <div className="w-1/3 h-5 bg-cover rounded-2xl bg-center bg-[#3C903C]"></div>
-                      </div>
-                    </div>
-                    <div className="2xl:px-20 px-10 py-10 rounded-2xl bg-white flex flex-col items-center">
-                      <div className="uppercase px-7 py-3 font-bold bg-[#3C903C] text-white rounded-2xl text-xl animate-pulse">
-                        <div className="w-20 h-5 bg-cover rounded-2xl bg-center bg-gray-300"></div>
-                      </div>
-                      <div className=" h-96 rounded-2xl bg-gray-300 animate-pulse w-full mt-10">
-                        <div className="w-full h-full flex flex-col justify-center items-center "></div>
-                      </div>
-                    </div>
+                  <SwiperSlide key={key}>
+                    <CardLoadingDesa />
                   </SwiperSlide>
                 ))
               )}
@@ -438,6 +419,33 @@ export default function Profile() {
           {/* content */}
         </div>
         {/* Keagamaan */}
+      </div>
+    </>
+  );
+}
+
+function CardLoadingDesa(params) {
+  return (
+    <>
+      <div className="2xl:px-16 px-10 py-10 rounded-2xl bg-white flex flex-col items-center ">
+        <div className="uppercase px-7 py-3 font-bold bg-[#3C903C] text-white rounded-2xl text-xl animate-pulse">
+          <div className="w-20 h-5 bg-cover rounded-2xl bg-center bg-gray-300"></div>
+        </div>
+        <div className="flex justify-between w-full animate-pulse mt-10">
+          <div className="flex flex-col h-full w-1/2 gap-y-2">
+            <div className="w-1/2 h-5 bg-cover rounded-2xl bg-center bg-gray-300"></div>
+            <div className="w-1/3 h-5 bg-cover rounded-2xl bg-center bg-gray-300"></div>
+          </div>
+          <div className="w-1/3 h-5 bg-cover rounded-2xl bg-center bg-[#3C903C]"></div>
+        </div>
+      </div>
+      <div className="2xl:px-20 px-10 py-10 rounded-2xl bg-white flex flex-col items-center">
+        <div className="uppercase px-7 py-3 font-bold bg-[#3C903C] text-white rounded-2xl text-xl animate-pulse">
+          <div className="w-20 h-5 bg-cover rounded-2xl bg-center bg-gray-300"></div>
+        </div>
+        <div className=" h-96 rounded-2xl bg-gray-300 animate-pulse w-full mt-10">
+          <div className="w-full h-full flex flex-col justify-center items-center "></div>
+        </div>
       </div>
     </>
   );
