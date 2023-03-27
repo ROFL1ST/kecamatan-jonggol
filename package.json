@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
+    "@chakra-ui/react": "^2.5.3",
     "@headlessui/react": "^1.7.12",
     "@react-spring/parallax": "^9.7.1",
     "@react-spring/web": "^9.7.1",

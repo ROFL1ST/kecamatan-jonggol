@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getApi } from "../../../API/restApi";
 import Lottie from "lottie-react";
 import NotFound from "../../../assets/json/93134-not-found.json";
+import { Spinner } from "@chakra-ui/react";
 export default function DetailSekolah() {
   const { slug } = useParams();
   //   console.log(slug);
@@ -127,6 +128,19 @@ export default function DetailSekolah() {
               </div>
             )}
           </div>
+          {sekolah.loading == true && (
+            <>
+              <div className="flex justify-center items-center h-screen">
+                <Spinner
+                  thickness="4px"
+                  speed="0.65s"
+                  emptyColor="gray.200"
+                  color="blue.500"
+                  size="xl"
+                />
+              </div>
+            </>
+          )}
           {/* table */}
         </div>
       </div>
