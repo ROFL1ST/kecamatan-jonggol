@@ -23,6 +23,13 @@ export default function DetailAgenda() {
     getDetail();
   }, [pathname]);
 
+
+  React.useEffect(() => {
+    if (detail) {
+      document.title = detail.nama_agenda;
+    }
+  }, [detail]);
+
   var months = [
     "Januari",
     "Februari",

@@ -77,6 +77,10 @@ export default function Berita() {
     }
   }, [limit, query]);
 
+  React.useEffect(() => {
+    document.title = "Berita";
+  });
+
   return (
     <>
       <div className="w-screen pt-[100px]">

@@ -84,7 +84,7 @@ function App() {
           <Route path="berita" element={<Berita />} />
           <Route path="berita/:slug" element={<Detail />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="desa/:slug" element={<DetailDesa />} />
+          <Route path="profile/desa/:slug" element={<DetailDesa />} />
           <Route path="foto" element={<Foto />} />
           <Route path="struktur-organisasi" element={<Struktur />} />
           <Route path="agenda" element={<Agenda />} />

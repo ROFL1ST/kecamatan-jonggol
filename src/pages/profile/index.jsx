@@ -26,17 +26,6 @@ export default function Profile() {
     }
   };
 
-  const [bumdes, setBumdes] = React.useState();
-  const getBumdes = async () => {
-    try {
-      await getApi("bumd/total").then((res) => {
-        setBumdes(res.data.data);
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const [asn, setAsn] = React.useState();
   const getAsn = async () => {
     try {
@@ -82,8 +71,8 @@ export default function Profile() {
     },
     {
       id: 4,
-      count: bumdes,
-      title: "Jumlah Bumdes",
+      count: 158.9,
+      title: "Luas Wilayah",
     },
   ];
 
@@ -188,7 +177,6 @@ export default function Profile() {
   React.useEffect(() => {
     getDesa();
     getPenduduk();
-    getBumdes();
     getAsn();
   }, []);
 
@@ -544,9 +532,11 @@ function Desa({ i }) {
               )
             ) : (
               <>
-                <div className=" h-96 rounded-2xl bg-gray-300 animate-pulse w-full mt-10">
-                  <div className="w-full h-full flex flex-col justify-center items-center "></div>
-                </div>
+                <SwiperSlide>
+                  <div className=" h-96 rounded-2xl bg-gray-300 animate-pulse w-full mt-10">
+                    <div className="w-full h-full flex flex-col justify-center items-center "></div>
+                  </div>
+                </SwiperSlide>
               </>
             )}
           </Swiper>
@@ -857,12 +847,15 @@ function CardInfo({ index, data }) {
           // eslint-disable-next-line eqeqeq
         } ${index != 0 && !isHovering ? "border-l-2" : "rounded-xl"}`}
       >
-        <CountUp
-          className="font-bold lg:text-2xl text-base"
-          duration={5}
-          decimal={data.count}
-          end={data.count}
-        />
+        <div className="flex gap-x-3">
+          <CountUp
+            className="font-bold text-2xl "
+            duration={5}
+            decimal={data.count}
+            end={data.count}
+          />
+          {data.title == "Luas Wilayah" && "KM"}
+        </div>
         <p className="lg:text-xl text-sm">{data.title}</p>
       </div>
     </>
@@ -883,12 +876,15 @@ function CardInfoMobile({ data }) {
             : "rounded-br-xl"
         }`}
       >
-        <CountUp
-          className="font-bold text-2xl "
-          duration={5}
-          decimal={data.count}
-          end={data.count}
-        />
+        <div className="flex gap-x-3">
+          <CountUp
+            className="font-bold text-2xl "
+            duration={5}
+            decimal={data.count}
+            end={data.count}
+          />
+          {data.title == "Luas Wilayah" && "KM"}
+        </div>
         <p className="text-xl ">{data.title}</p>
       </div>
     </>

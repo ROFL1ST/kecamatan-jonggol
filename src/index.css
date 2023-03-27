@@ -145,3 +145,13 @@ table tr:first-child th:last-child {
 
 }
 
+.navbar{
+  top: 0;
+  translate: 0 -102px;
+  transition: 0.3s
+}
+
+.navbar.visible{
+  top: 0;
+  translate: 0;
+}

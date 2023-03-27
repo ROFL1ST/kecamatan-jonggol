@@ -5,6 +5,8 @@ import Banner1 from "../../../assets/images/banner1.jpg";
 import Banner2 from "../../../assets/images/banner2.jpg";
 import Banner3 from "../../../assets/images/banner3.jpg";
 import Banner4 from "../../../assets/images/banner4.jpg";
+import Banner5 from "../../../assets/images/banner5.jpg";
+
 
 import "swiper/css/effect-fade";
 import "swiper/css";
@@ -15,25 +17,31 @@ export default function Slider() {
     {
       id: 1,
       url: Banner1,
-      title: "Clean",
+      title: "Bersama",
       desc: "di kelola secara profesional, menghindari benturan kepentingan, tidak menoleransi suap, menjunjung tinggi kepercayaan dan integritas. Berpedoman pada asas tata kelola pemerintah yang bersih dan baik",
     },
     {
       id: 2,
       url: Banner2,
-      title: "Confident",
+      title: "Ekonomis",
       desc: "berperan dalam pembangunan ekonomi nasional, menjadi pelopor dalam mewujudkan kabupaten bogor yang termaju dan berkeradaban",
     },
     {
       id: 3,
       url: Banner3,
-      title: "Commercial",
+      title: "Komunikatif",
       desc: "Menciptakan nilai tambah dengan orientasi komersial, mengambil keputusan berdasarkan prinsip-prinsip bisnis yang sehat",
     },
     {
       id: 4,
       url: Banner4,
-      title: "COMPETITIVE",
+      title: "Aman",
+      desc: "Mampu berkompetisi dalam skala regional maupun internasional, mendorong pertumbuhan investasi, membangun budaya sadar biaya dan menghargai kinerja",
+    },
+    {
+      id: 5,
+      url: Banner5,
+      title: "Harmonis",
       desc: "Mampu berkompetisi dalam skala regional maupun internasional, mendorong pertumbuhan investasi, membangun budaya sadar biaya dan menghargai kinerja",
     },
   ];

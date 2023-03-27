@@ -27,17 +27,6 @@ export default function Home() {
     }
   };
 
-  const [bumdes, setBumdes] = React.useState();
-  const getBumdes = async () => {
-    try {
-      await getApi("bumd/total").then((res) => {
-        setBumdes(res.data.data);
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const [asn, setAsn] = React.useState();
   const getAsn = async () => {
     try {
@@ -78,8 +67,8 @@ export default function Home() {
     },
     {
       id: 4,
-      count: bumdes,
-      title: "Jumlah Bumdes",
+      count: 158.9,
+      title: "Luas Wilayah",
     },
   ];
 
@@ -141,7 +130,6 @@ export default function Home() {
     getBerita();
     getDesa();
     getPenduduk();
-    getBumdes();
     getAsn();
   }, []);
 
@@ -149,7 +137,7 @@ export default function Home() {
     <>
       <div className=" lg:pt-[100px] pt-[80px] w-full">
         <Slider />
-        {/* about for dekstop */}
+        {/* 
         <div className="mt-32 lg:flex hidden flex-row justify-between items-center 2xl:px-16 lg:px-10 px-8 mb-20 gap-x-96">
           <div className="left flex flex-col gap-y-20 2xl:w-1/3 lg:w-11/12">
             <h1 className="font-bold 2xl:text-6xl lg:text-5xl 2xl:w-3/4">
@@ -168,8 +156,7 @@ export default function Home() {
             <img src={Logoutama} draggable="false" className="w-full" alt="" />
           </div>
         </div>
-        {/* about for dekstop */}
-        {/* about for mobile */}
+      
         <div className="mt-20 lg:hidden flex flex-col justify-start items-start px-8">
           <div className="top">
             <h1 className="font-bold text-4xl w-3/4">
@@ -185,17 +172,23 @@ export default function Home() {
               excepturi, sit, voluptatibus sint modi quod rem.
             </p>
           </div>
-        </div>
-        {/* about for mobile */}
+        </div> 
+
 
         {/* jumlah for dekstop */}
-        <div className="mt-10 mb-10 px-16 lg:flex hidden justify-center">
-          <div className=" rounded-xl bg-white flex lg:px-5 lg:py-5 ">
+        <div className="mt-20 mb-10 px-24 lg:flex hidden justify-center">
+          {/* <div className=" rounded-xl bg-white flex lg:px-5 lg:py-5 ">
+            {data.map((i, key) => (
+              <CardInfo key={key} index={key} data={i} />
+            ))}
+          </div> */}
+          <div className="grid grid-cols-4 gap-x-5 w-full">
             {data.map((i, key) => (
               <CardInfo key={key} index={key} data={i} />
             ))}
           </div>
         </div>
+
         {/* jumlah for dekstop */}
         {/* jumlah for mobile */}
         <div className="mt-10 mb-10 px-8 lg:hidden flex justify-center">
@@ -206,7 +199,9 @@ export default function Home() {
           </div>
         </div>
         {/* jumlah for mobile */}
-
+        {/* Potensi Desa */}
+        <Potensi />
+        {/* Potensi Desa */}
         {/* program */}
         <div className="mt-28 mb-10 2xl:px-16 lg:px-10 px-8 flex flex-col items-center justify-center">
           <h1 className="text-4xl font-bold capitalize underline decoration-[#3C903C]">
@@ -358,18 +353,22 @@ function CardInfo({ index, data }) {
       <div
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}
-        className={`penduduk flex flex-col  items-center lg:gap-y-5 gap-y-1 lg:px-12 px-5  lg:py-5 py-2 transition-all cursor-default ${
-          isHovering && "-translate-y-1 -translate-x-1 shadow-xl transition-all"
+        className={`penduduk flex flex-col  items-center lg:gap-y-5 gap-y-1 lg:px-12 px-5  lg:py-16 py-10 transition-all cursor-default rounded-2xl border-2 ${
+          isHovering &&
+          "-translate-y-1 -translate-x-1 shadow-xl transition-all bg-white border-0"
           // eslint-disable-next-line eqeqeq
-        } ${index != 0 && !isHovering ? "border-l-2" : "rounded-xl"}`}
+        } `}
       >
-        <CountUp
-          className="font-bold lg:text-2xl text-base"
-          duration={5}
-          decimal={data.count}
-          end={data.count}
-        />
-        <p className="lg:text-xl text-sm">{data.title}</p>
+        <div className="flex gap-x-3">
+          <CountUp
+            className="font-bold text-4xl text-[#007100]"
+            duration={5}
+            decimal={data.count}
+            end={data.count}
+          />
+          {data.title == "Luas Wilayah" && "KM"}
+        </div>
+        <p className="lg:text-2xl text-lg">{data.title}</p>
       </div>
     </>
   );
@@ -389,12 +388,15 @@ function CardInfoMobile({ data }) {
             : "rounded-br-xl"
         }`}
       >
-        <CountUp
-          className="font-bold text-2xl "
-          duration={5}
-          decimal={data.count}
-          end={data.count}
-        />
+        <div className="flex gap-x-3">
+          <CountUp
+            className="font-bold text-2xl "
+            duration={5}
+            decimal={data.count}
+            end={data.count}
+          />
+          {data.title == "Luas Wilayah" && "KM"}
+        </div>
         <p className="text-xl ">{data.title}</p>
       </div>
     </>
@@ -490,6 +492,115 @@ function CardBerita({ i }) {
             {i.author.username}
           </small>
         </div>
+      </div>
+    </>
+  );
+}
+
+function Potensi() {
+  const [potensi, setPotensi] = React.useState([]);
+  const [loadPotensi, setLoadPotensi] = React.useState(true);
+  const loader = [1, 2, 3, 4, 5, 6];
+
+  const getPotensi = async () => {
+    try {
+      await getApi(`potensi-desa`).then((res) => {
+        setPotensi(res.data.data);
+        setLoadPotensi(false);
+      });
+    } catch (error) {
+      console.log(error);
+      setLoadPotensi(false);
+    }
+  };
+
+  React.useEffect(() => {
+    getPotensi();
+  }, []);
+  return (
+    <>
+      <div className="flex flex-col justify-center items-center py-20  mb-20 bg-[#3C903C] lg:px-20 px-8">
+        <div className="flex lg:flex-row flex-col lg:gap-y-0 gap-y-5 justify-between w-full items-end">
+          <div className="left title flex flex-col gap-y-5 lg:w-1/3 text-white">
+            <div className="h1">
+              <div className="  capitalize text-3xl font-bold">
+                Potensi Desa
+              </div>
+              <div className={`flex  my-2 h-0.5 w-44 bg-white`}></div>
+            </div>
+            <p>
+              Potensi desa Kecamatan Jonggol sangat besar, terutama dalam bidang
+              pertanian dan pariwisata. Desa-desa di Jonggol memiliki lahan yang
+              subur dan cocok untuk bercocok tanam, seperti padi, sayuran, dan
+              buah-buahan. Selain itu, desa-desa di Jonggol juga memiliki
+              keindahan alam yang memikat, seperti air terjun, danau, dan
+              bukit-bukit yang hijau, yang dapat menjadi destinasi wisata yang
+              menarik bagi wisatawan lokal maupun mancanegara.
+            </p>
+          </div>
+          <div className="right relative lg:w-auto w-full">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="absolute top-0 bottom-0 w-6 h-6 my-auto text-gray-400 left-3"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+            <input
+              onChange={(e) => {
+                // setSearch(e.target.value);
+              }}
+              type="text"
+              className="block w-full placeholder:text-gray-400 text-gray-400 pl-12 px-4 py-3 bg-white border rounded-xl focus:border-white focus:ring-white focus:outline-none focus:ring focus:ring-opacity-40"
+              placeholder="Search..."
+            />
+          </div>
+        </div>
+        <div className="mt-20 grid lg:grid-cols-3 grid-cols-1 gap-10 w-full">
+          {!loadPotensi
+            ? potensi.map((i, key) => (
+                <>
+                  <CardPotensi key={key} data={i} />
+                </>
+              ))
+            : loader.map((i, key) => <CardPotensiLoading />)}
+        </div>
+      </div>
+    </>
+  );
+}
+
+function CardPotensi({ data }) {
+  return (
+    <>
+      <div className="bg-black p-3 h-full w-full rounded-xl cursor-pointer">
+        <div
+          className="lg:min-h-[17.5rem] h-56 rounded-lg p-8 items-end flex transition duration-500 transform hover:scale-[1.07]"
+          style={{ backgroundImage: `url(${data.thumbnail})` }}
+        >
+          <div className="bg-white px-5 py-2 rounded-full ">
+            <h1 className="text-[#3C903C] font-medium lg:text-xl">
+              {data.nama_potensi}
+            </h1>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function CardPotensiLoading(params) {
+  return (
+    <>
+      <div className=" h-80 rounded-2xl bg-gray-300 animate-pulse">
+        <div className="w-full h-full flex flex-col justify-center items-center "></div>
       </div>
     </>
   );

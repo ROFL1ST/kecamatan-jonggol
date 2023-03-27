@@ -41,6 +41,10 @@ export default function Agenda() {
   React.useEffect(() => {
     getAgenda();
   }, [limit]);
+
+  React.useEffect(() => {
+    document.title = "Agenda";
+  });
   return (
     <>
       <div className="w-screen pt-[100px]">

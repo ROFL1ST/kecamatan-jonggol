@@ -108,7 +108,7 @@ export default function Detail() {
                 </div>
               </div>
               {berita.filter((berita) => berita.slug != slug).length != 0 && (
-                <div className="right 2xl:w-1/4 w-1/4 bg-white lg:flex hidden flex-col 2xl:px-10 px-5 py-8 rounded-[20px] gap-y-5 h-3/4">
+                <div className="right 2xl:w-1/4 w-1/4 bg-white lg:flex sticky  hidden flex-col 2xl:px-10 px-5 py-8 rounded-[20px] gap-y-5 h-3/4">
                   <h1 className="font-bold text-xl">Berita Terbaru</h1>
                   {berita
                     .filter((berita) => berita.slug != slug)

@@ -15,8 +15,10 @@
     "html-react-parser": "^3.0.11",
     "iconsax-react": "^0.0.8",
     "logrocket": "^3.0.1",
+    "lottie-react": "^2.4.0",
     "moment": "^2.29.4",
     "react": "^18.2.0",
+    "react-burger-icons": "^1.1.8",
     "react-countup": "^6.4.1",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.2",
@@ -25,7 +27,6 @@
     "react-share": "^4.4.1",
     "react-sticky": "^6.0.3",
     "recharts": "^2.4.3",
-    "lottie-react": "^2.4.0",
     "swiper": "^9.0.5",
     "web-vitals": "^2.1.4"
   },

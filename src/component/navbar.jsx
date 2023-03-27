@@ -11,6 +11,7 @@ import { NavLink, useLocation, useParams } from "react-router-dom";
 import Logo from "../assets/logo/Logo.png";
 import { Menu, Transition } from "@headlessui/react";
 import Search from "./search";
+import { BurgerClose as Burger } from "react-burger-icons";
 
 export default function Navbar() {
   const location = useLocation();
@@ -42,9 +43,22 @@ export default function Navbar() {
     };
   }, []);
 
+  const [isVisible, setIsVisible] = React.useState(true);
+  React.useEffect(() => {
+    let prevScrollPosition = window.pageYOffset;
+    const handleScroll = () => {
+      const currentScrollPosition = window.pageYOffset;
+      setIsVisible(prevScrollPosition > currentScrollPosition);
+      prevScrollPosition = currentScrollPosition;
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   return (
     <>
-      <div className="fixed w-screen z-20">
+      <div
+        className={`fixed w-screen z-20 navbar ${isVisible ? "visible" : ""}`}
+      >
         {/* Dekstop */}
         <div className="lg:flex hidden bg-[#007100] h-6"></div>
         <div className="w-full h-20 lg:bg-[#007100] bg-[#007100]   lg:bg-opacity-20 lg:backdrop-blur-lg lg:drop-shadow-lg flex items-center justify-between px-5 2xl:px-16 lg:px-10">
@@ -58,8 +72,11 @@ export default function Navbar() {
               }}
               className="w-5 h-5 xl:hidden lg:hidden text-white"
             />
-            <button onClick={() => setNavbarOpen(!navbarOpen)}>
-              {navbarOpen ? (
+            <button
+              onClick={() => setNavbarOpen(!navbarOpen)}
+              className="xl:hidden lg:hidden h-8 w-8"
+            >
+              {/* {navbarOpen ? (
                 <CloseCircle
                   className="h-8 w-8 xl:hidden lg:hidden transition-all"
                   color="#ffffff"
@@ -69,7 +86,8 @@ export default function Navbar() {
                   className="h-8 w-8 xl:hidden lg:hidden transition-all"
                   color="#ffffff"
                 />
-              )}
+              )} */}
+              <Burger isClosed={navbarOpen} />
             </button>
           </div>
 
@@ -112,8 +130,9 @@ export default function Navbar() {
         {/* Mobile */}
         <div
           className={`${
-            navbarOpen ? "flex transition-all" : "hidden transition-all"
-          } top-0 fixed flex-col z-30 bg-[#007100] w-full  mt-[78px] px-10 py-10 pb-10 overflow-y-auto rounded-b-2xl  `}
+            navbarOpen ? "  translate-y-[78px]" : "-translate-y-[1000px] "
+          } top-0 fixed flex-col lg:hidden flex -z-10 bg-[#007100] w-full transition-[0.3s]
+             px-10 py-10 pb-10 overflow-y-auto rounded-b-2xl  `}
         >
           <ul className="flex flex-col gap-y-5 font-bold text-white">
             <NavLink to={"/"}>
@@ -140,8 +159,6 @@ export default function Navbar() {
   );
 }
 function DropProgram({ location }) {
-  const activeDrop = "text-[#547153] font-bold transition-all";
-  const normalDrop = "transition-all";
   return (
     <>
       <Menu as={"div"} className="relative inline-block text-left">
