@@ -8,7 +8,7 @@ export default function DetailSekolah() {
   const { slug } = useParams();
   //   console.log(slug);
   const [name, initial] = slug.split("&");
-  console.log(name);
+  // console.log(name);
 
   const [sekolah, setSekolah] = React.useState({
     data: [],

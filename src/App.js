@@ -47,7 +47,7 @@ function App() {
   const putViews = async () => {
     try {
       await putViwes("traffic/create").then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
       });
     } catch (error) {
       console.log(error);
@@ -66,7 +66,7 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         setIpAddress(data.ip);
-        console.log(data);
+        // console.log(data);
         setLoadIP(false);
       })
       .catch((er) => console.log(er));

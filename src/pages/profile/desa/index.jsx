@@ -1,6 +1,13 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 
 export default function DetailDesa() {
+  const { slug } = useParams();
+  const [name] = slug.split("-");
+
+  React.useEffect(() => {
+    document.title = `Desa ${name}`;
+  });
   return (
     <>
       <div className="pt-[100px]  w-full">
@@ -9,7 +16,9 @@ export default function DetailDesa() {
           <div className="flex flex-col gap-y-10 mb-20">
             <div className="mt-20 flex justify-start">
               <div className="flex  bg-[#3C903C] cursor-default  rounded-xl lg:px-7 px-4 py-3 gap-x-4">
-                <p className="text-3xl text-white font-semibold">Sukamaju</p>
+                <p className="text-3xl text-white font-semibold capitalize">
+                  {name}
+                </p>
               </div>
             </div>
             <p className="font-medium">
@@ -26,7 +35,7 @@ export default function DetailDesa() {
           </div>
           {/* top */}
           {/* Penduduk */}
-          
+
           {/* Penduduk */}
         </div>
       </div>

@@ -500,23 +500,28 @@ function CardBerita({ i }) {
 function Potensi() {
   const [potensi, setPotensi] = React.useState([]);
   const [loadPotensi, setLoadPotensi] = React.useState(true);
+  const [potensiError, setPotensiError] = React.useState(false);
+  const [search, setSearch] = React.useState("");
   const loader = [1, 2, 3, 4, 5, 6];
 
   const getPotensi = async () => {
     try {
-      await getApi(`potensi-desa`).then((res) => {
+      await getApi(
+        `potensi-desa?limit=9&${search != "" && `key=${search}`}`
+      ).then((res) => {
         setPotensi(res.data.data);
         setLoadPotensi(false);
       });
     } catch (error) {
       console.log(error);
       setLoadPotensi(false);
+      setPotensiError(true);
     }
   };
 
   React.useEffect(() => {
     getPotensi();
-  }, []);
+  }, [search]);
   return (
     <>
       <div className="flex flex-col justify-center items-center py-20  mb-20 bg-[#3C903C] lg:px-20 px-8">
@@ -524,7 +529,7 @@ function Potensi() {
           <div className="left title flex flex-col gap-y-5 lg:w-1/3 text-white">
             <div className="h1">
               <div className="  capitalize text-3xl font-bold">
-                Potensi Desa
+                Wisata Jonggol
               </div>
               <div className={`flex  my-2 h-0.5 w-44 bg-white`}></div>
             </div>
@@ -555,7 +560,7 @@ function Potensi() {
             </svg>
             <input
               onChange={(e) => {
-                // setSearch(e.target.value);
+                setSearch(e.target.value);
               }}
               type="text"
               className="block w-full placeholder:text-gray-400 text-gray-400 pl-12 px-4 py-3 bg-white border rounded-xl focus:border-white focus:ring-white focus:outline-none focus:ring focus:ring-opacity-40"
@@ -563,14 +568,42 @@ function Potensi() {
             />
           </div>
         </div>
-        <div className="mt-20 grid lg:grid-cols-3 grid-cols-1 gap-10 w-full">
-          {!loadPotensi
-            ? potensi.map((i, key) => (
+        <div
+          className={`mt-20  gap-10 w-full ${
+            loadPotensi
+              ? "grid lg:grid-cols-3 grid-cols-1"
+              : potensi.length == 0 || potensiError
+              ? ""
+              : "grid lg:grid-cols-3 grid-cols-1"
+          }`}
+        >
+          {!loadPotensi ? (
+            potensi.length != 0 ? (
+              potensi.map((i, key) => (
                 <>
                   <CardPotensi key={key} data={i} />
                 </>
               ))
-            : loader.map((i, key) => <CardPotensiLoading />)}
+            ) : potensiError ? (
+              <>
+                <div className="flex flex-col justify-center items-center">
+                  <Lottie animationData={ErrorIndicator} />
+                  <h1 className="font-bold">Terjadi Kesalahan</h1>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="flex flex-col justify-center items-center">
+                  <Lottie animationData={NotFound} />
+                  <h1 className="font-bold text-white">
+                    Potensi Tidak Tersedia
+                  </h1>
+                </div>
+              </>
+            )
+          ) : (
+            loader.map((i, key) => <CardPotensiLoading />)
+          )}
         </div>
       </div>
     </>

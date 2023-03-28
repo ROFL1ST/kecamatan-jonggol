@@ -1,6 +1,7 @@
 import React from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { getApi } from "../API/restApi";
 
 const getHistory = () => {
   let list = localStorage.getItem("history");
@@ -54,26 +55,42 @@ export default function Search({ open, setOpen, cancelButtonRef }) {
     event.preventDefault();
     const formData = new FormData(event.target); // Create a new FormData object from the form
     const submittedValue = formData.get("search");
-    navigate(`berita?search=${submittedValue}`);
-    addItem();
+    if (submittedValue.length < 4) {
+      getBerita(submittedValue);
+      // navigate(`berita?search=${submittedValue}`);
+      addItem();
+    }
     // const updatedSearch = { ...recent, search: submittedValue };
     // setRecent(updatedSearch);
     // localStorage.setItem("recent-search", JSON.stringify(updatedSearch));
-    setOpen(false);
+    // setOpen(false);
   }
 
   React.useEffect(() => {
     setSearches(query);
   }, [query]);
 
-  //   React.useEffect(() => {
-  //     const storedUser = localStorage.getItem("recent-search");
-  //     if (storedUser) {
-  //       setRecent(JSON.parse(storedUser));
-  //     }
-  //   }, []);
-  console.log(recent.filter((i) => i.includes(searches)));
-  console.log(searches, "p");
+  // Search
+  const [berita, setBerita] = React.useState([]);
+  const [loadBerita, setLoadBerita] = React.useState(true);
+  const [beritaError, setBeritaError] = React.useState(false);
+
+  const getBerita = async (val) => {
+    try {
+      await getApi(`berita?${val !== "" && val != null && `key=${val}`}`).then(
+        (val) => {
+          setBerita(val.data.data);
+          console.log(berita);
+          setLoadBerita(false);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+      setLoadBerita(false);
+      setBeritaError(true);
+    }
+  };
+  console.log(searches);
   return (
     <>
       <Transition.Root show={open} appear as={React.Fragment}>
@@ -129,6 +146,10 @@ export default function Search({ open, setOpen, cancelButtonRef }) {
                             onKeyDown={handleKeyDown}
                             onChange={(e) => {
                               setSearches(e.target.value);
+                              // console.log(searches.length);
+                              if (e.target.value.length > 4) {
+                                getBerita(e.target.value);
+                              }
 
                               // if (e.target.value == undefined || e.target.value == null) {
                               //   navigate("/berita");
@@ -150,15 +171,103 @@ export default function Search({ open, setOpen, cancelButtonRef }) {
                         ESC
                       </button>
                     </div>
-                    {recent.length != 0 &&
-                    recent.filter((i) => i.includes(searches == null ? "" : searches)).length != 0 ? (
+                    {searches == null || searches == "" ? (
+                      recent.filter((i) =>
+                        i.includes(searches == null ? "" : searches)
+                      ).length != 0 ? (
+                        <div className="flex flex-col gap-y-3 ">
+                          <h1 className="font-bold mb-2 px-6 pt-6 text-lg">
+                            Recent
+                          </h1>
+                          <div className="flex flex-col mb-2">
+                            {recent
+                              .filter((i) =>
+                                i.includes(searches == null ? "" : searches)
+                              )
+                              .map((i, key) => (
+                                <>
+                                  <div
+                                    key={key}
+                                    className="flex justify-between w-full py-4 px-6 cursor-pointer items-center hover:bg-[#F3F2F3]"
+                                  >
+                                    <h3
+                                      onClick={() => {
+                                        navigate(`berita?search=${i}`);
+                                        addItem();
+                                        setOpen(false);
+                                      }}
+                                    >
+                                      {i}
+                                    </h3>
+                                    <svg
+                                      onClick={() => {
+                                        deleteItem(key);
+                                      }}
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      className="w-5 h-5 hover:text-gray-400"
+                                      viewBox="0 0 256 256"
+                                    >
+                                      <path
+                                        fill="currentColor"
+                                        d="M208.49 191.51a12 12 0 0 1-17 17L128 145l-63.51 63.49a12 12 0 0 1-17-17L111 128L47.51 64.49a12 12 0 0 1 17-17L128 111l63.51-63.52a12 12 0 0 1 17 17L145 128Z"
+                                      />
+                                    </svg>
+                                  </div>
+                                </>
+                              ))}
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          <div className="px-10 py-16 flex justify-center items-center">
+                            <h1 className="text-gray-300 font-medium">
+                              Tidak Ada Riwayat
+                            </h1>
+                          </div>
+                        </>
+                      )
+                    ) : searches.length > 4 && !loadBerita ? (
+                      berita.map((i, key) => (
+                        <div
+                          key={key}
+                          className="flex justify-between w-full py-4 px-6 cursor-pointer items-center hover:bg-[#F3F2F3]"
+                        >
+                          <h3
+                            onClick={() => {
+                              navigate(`berita?search=${i}`);
+                              addItem();
+                              setOpen(false);
+                            }}
+                          >
+                            {i.judul}
+                          </h3>
+                          <svg
+                            onClick={() => {
+                              deleteItem(key);
+                            }}
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-5 h-5 hover:text-gray-400"
+                            viewBox="0 0 256 256"
+                          >
+                            <path
+                              fill="currentColor"
+                              d="M208.49 191.51a12 12 0 0 1-17 17L128 145l-63.51 63.49a12 12 0 0 1-17-17L111 128L47.51 64.49a12 12 0 0 1 17-17L128 111l63.51-63.52a12 12 0 0 1 17 17L145 128Z"
+                            />
+                          </svg>
+                        </div>
+                      ))
+                    ) : recent.filter((i) =>
+                        i.includes(searches == null ? "" : searches)
+                      ).length != 0 ? (
                       <div className="flex flex-col gap-y-3 ">
                         <h1 className="font-bold mb-2 px-6 pt-6 text-lg">
                           Recent
                         </h1>
                         <div className="flex flex-col mb-2">
                           {recent
-                            .filter((i) => i.includes(searches == null ? "" : searches))
+                            .filter((i) =>
+                              i.includes(searches == null ? "" : searches)
+                            )
                             .map((i, key) => (
                               <>
                                 <div
