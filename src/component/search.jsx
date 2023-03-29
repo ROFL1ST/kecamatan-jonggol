@@ -19,13 +19,13 @@ export default function Search({ open, setOpen, cancelButtonRef }) {
   const [searches, setSearches] = React.useState("");
 
   // recent history
-  const addItem = () => {
+  const addItem = (data) => {
     let list = JSON.parse(localStorage.getItem("history"));
-    if (!searches) {
+    if (!data) {
     } else {
-      if (list.find((item) => item === searches)) {
+      if (list.find((item) => item.title === data)) {
       } else {
-        setRecent([...recent, searches]);
+        setRecent([...recent, data]);
       }
     }
   };
@@ -58,7 +58,7 @@ export default function Search({ open, setOpen, cancelButtonRef }) {
     if (submittedValue.length < 4) {
       getBerita(submittedValue);
       // navigate(`berita?search=${submittedValue}`);
-      addItem();
+      addItem(submittedValue);
     }
     // const updatedSearch = { ...recent, search: submittedValue };
     // setRecent(updatedSearch);
@@ -126,20 +126,24 @@ export default function Search({ open, setOpen, cancelButtonRef }) {
                   <div className="flex flex-col w-full">
                     <div className="flex justify-between w-full gap-x-2 items-center  p-6 border-b-[0.5px] border-b-gray-400">
                       <div className="left relative  w-full">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="absolute top-0 bottom-0 w-6 h-6 my-auto text-gray-400 left-3"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                          />
-                        </svg>
+                        {!loadBerita ? (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="absolute top-0 bottom-0 w-6 h-6 my-auto text-gray-400 left-3"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                            />
+                          </svg>
+                        ) : (
+                          <></>
+                        )}
                         <form onSubmit={handleSubmit}>
                           <input
                             value={searches}
@@ -147,7 +151,7 @@ export default function Search({ open, setOpen, cancelButtonRef }) {
                             onChange={(e) => {
                               setSearches(e.target.value);
                               // console.log(searches.length);
-                              if (e.target.value.length > 4) {
+                              if (e.target.value.length != 0) {
                                 getBerita(e.target.value);
                               }
 
@@ -177,7 +181,7 @@ export default function Search({ open, setOpen, cancelButtonRef }) {
                       ).length != 0 ? (
                         <div className="flex flex-col gap-y-3 ">
                           <h1 className="font-bold mb-2 px-6 pt-6 text-lg">
-                            Recent
+                            Riwayat
                           </h1>
                           <div className="flex flex-col mb-2">
                             {recent
@@ -191,13 +195,17 @@ export default function Search({ open, setOpen, cancelButtonRef }) {
                                     className="flex justify-between w-full py-4 px-6 cursor-pointer items-center hover:bg-[#F3F2F3]"
                                   >
                                     <h3
+                                      className="anti-blos2 w-11/12"
                                       onClick={() => {
-                                        navigate(`berita?search=${i}`);
-                                        addItem();
+                                        // navigate(`berita?search=${i}`);
+                                        addItem({
+                                          title: i.judul,
+                                          slug: i.slug,
+                                        });
                                         setOpen(false);
                                       }}
                                     >
-                                      {i}
+                                      {i.title}
                                     </h3>
                                     <svg
                                       onClick={() => {
@@ -226,42 +234,71 @@ export default function Search({ open, setOpen, cancelButtonRef }) {
                           </div>
                         </>
                       )
-                    ) : searches.length > 4 && !loadBerita ? (
-                      berita.map((i, key) => (
-                        <div
-                          key={key}
-                          className="flex justify-between w-full py-4 px-6 cursor-pointer items-center hover:bg-[#F3F2F3]"
-                        >
-                          <h3
-                            onClick={() => {
-                              navigate(`berita?search=${i}`);
-                              addItem();
-                              setOpen(false);
-                            }}
-                          >
-                            {i.judul}
-                          </h3>
-                          <svg
-                            onClick={() => {
-                              deleteItem(key);
-                            }}
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="w-5 h-5 hover:text-gray-400"
-                            viewBox="0 0 256 256"
-                          >
-                            <path
-                              fill="currentColor"
-                              d="M208.49 191.51a12 12 0 0 1-17 17L128 145l-63.51 63.49a12 12 0 0 1-17-17L111 128L47.51 64.49a12 12 0 0 1 17-17L128 111l63.51-63.52a12 12 0 0 1 17 17L145 128Z"
-                            />
-                          </svg>
-                        </div>
-                      ))
+                    ) : searches.length != 0 && !loadBerita ? (
+                      // List  berita
+                      <div className="flex flex-col gap-y-3">
+                        <h1 className="font-bold mb-2 px-6 pt-6 text-lg">
+                          Hasil
+                        </h1>
+                        {berita.length != 0 ? (
+                          <div className="flex flex-col mb-2">
+                            {berita.map((i, key) => (
+                              <div
+                                key={key}
+                                className="flex justify-between w-full py-4 px-6 cursor-pointer items-center hover:bg-[#F3F2F3]"
+                              >
+                                <h3
+                                  className="anti-blos2 w-11/12"
+                                  onClick={() => {
+                                    navigate(`berita/${i.slug}`);
+                                    addItem({ title: i.judul, slug: i.slug });
+                                    setOpen(false);
+                                  }}
+                                >
+                                  {i.judul}
+                                </h3>
+                                {/* <svg
+                                  onClick={() => {
+                                    deleteItem(key);
+                                  }}
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  className="w-5 h-5 hover:text-gray-400"
+                                  viewBox="0 0 256 256"
+                                >
+                                  <path
+                                    fill="currentColor"
+                                    d="M208.49 191.51a12 12 0 0 1-17 17L128 145l-63.51 63.49a12 12 0 0 1-17-17L111 128L47.51 64.49a12 12 0 0 1 17-17L128 111l63.51-63.52a12 12 0 0 1 17 17L145 128Z"
+                                  />
+                                </svg> */}
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  className="w-3 h-3 hover:text-gray-400"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    fill="currentColor"
+                                    d="M7.15 21.1q-.375-.375-.375-.888t.375-.887L14.475 12l-7.35-7.35q-.35-.35-.35-.875t.375-.9q.375-.375.888-.375t.887.375l8.4 8.425q.15.15.213.325T17.6 12q0 .2-.063.375t-.212.325L8.9 21.125q-.35.35-.863.35T7.15 21.1Z"
+                                  />
+                                </svg>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <>
+                            <div className="px-10 py-16 flex justify-center items-center">
+                              <h1 className="text-gray-300 font-medium">
+                                Berita tidak ditemukan
+                              </h1>
+                            </div>
+                          </>
+                        )}
+                      </div>
                     ) : recent.filter((i) =>
                         i.includes(searches == null ? "" : searches)
                       ).length != 0 ? (
                       <div className="flex flex-col gap-y-3 ">
                         <h1 className="font-bold mb-2 px-6 pt-6 text-lg">
-                          Recent
+                          Riwayat
                         </h1>
                         <div className="flex flex-col mb-2">
                           {recent
@@ -275,13 +312,17 @@ export default function Search({ open, setOpen, cancelButtonRef }) {
                                   className="flex justify-between w-full py-4 px-6 cursor-pointer items-center hover:bg-[#F3F2F3]"
                                 >
                                   <h3
+                                    className="anti-blos2 w-11/12"
                                     onClick={() => {
-                                      navigate(`berita?search=${i}`);
-                                      addItem();
+                                      navigate(`berita/${i.slug}`);
+                                      addItem({
+                                        title: i.judul,
+                                        slug: i.slug,
+                                      });
                                       setOpen(false);
                                     }}
                                   >
-                                    {i}
+                                    {i.title}
                                   </h3>
                                   <svg
                                     onClick={() => {
