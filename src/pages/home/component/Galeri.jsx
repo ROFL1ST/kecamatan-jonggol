@@ -2,6 +2,7 @@ import { ArrowRight3, ArrowLeft3 } from "iconsax-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Scrollbar } from "swiper";
 import slide1 from "../../../assets/images/kevinmarcus.jpg";
 import slide2 from "../../../assets/images/save-rohingya.jpg";
 import slide3 from "../../../assets/images/sri-mulyani.jpg";
@@ -12,34 +13,7 @@ import NoImage from "../../../assets/images/thumbnail.jpg";
 
 export default function Galeri() {
   const navigate = useNavigate();
-
-  const sliderData = [
-    {
-      id: 1,
-      url: slide1,
-      title: "Badminton",
-    },
-    {
-      id: 2,
-      url: slide2,
-      title: "Rohingnya",
-    },
-    {
-      id: 3,
-      url: slide3,
-      title: "Sri Mulyani",
-    },
-    {
-      id: 4,
-      url: slide3,
-      title: "Sri Mulyani",
-    },
-    {
-      id: 5,
-      url: slide2,
-      title: "Rohingnya",
-    },
-  ];
+  // const swiperRef = React.useRef(null);
 
   const [hoverButton, setHoverButton] = React.useState(false);
   const handleMouseOver = () => {
@@ -50,6 +24,7 @@ export default function Galeri() {
     setHoverButton(false);
   };
 
+  const load = [1, 2, 3, 5, 6, 7];
   const [dataGaleri, setDataGaleri] = React.useState([]);
   const [loadGaleri, setLoadGaleri] = React.useState(true);
   const getGaleri = async () => {
@@ -67,9 +42,12 @@ export default function Galeri() {
   React.useEffect(() => {
     getGaleri();
   }, []);
+
+  const swiperRef = React.useRef(null);
+
   return (
     <>
-      <div className="mt-28 mb-10 2xl:pl-16 lg:pl-10 lg:py-20 flex flex-col items-center justify-center bg-[#3C903C]">
+      <div className="mt-28 mb-10 2xl:pl-16 lg:pl-10 lg:pt-20 lg:pb-10 flex flex-col items-center justify-center bg-[#3C903C]">
         <div className="w-full  flex lg:flex-row flex-col lg:justify-between justify-center gap-x-10 mt-20 mb-20 items-center">
           <div className="kiri lg:px-0 px-8 lg:w-1/3 flex flex-col lg:items-start items-center lg:mb-0 mb-10 lg:gap-y-0 gap-y-5">
             <h1 className="text-6xl text-white font-semibold">Foto</h1>
@@ -96,9 +74,16 @@ export default function Galeri() {
             <Swiper
               spaceBetween={20}
               //   controller={{ control: firstSwiper }}
-
-              onSwiper={(swiper) => {}}
-              className="mySwiper"
+              scrollbar={{
+                el: ".swiper-scrollbar",
+                draggable: true,
+                hide: false,
+              }}
+              onSwiper={(swiper) => {
+                swiperRef.current = swiper;
+              }}
+              modules={[Scrollbar]}
+              className="myGaleri"
               breakpoints={{
                 640: {
                   slidesPerView: 1,
@@ -124,6 +109,7 @@ export default function Galeri() {
                 <></>
               )}
             </Swiper>
+            <div className="swiper-scrollbar my-scrollbar mt-20"></div>
             <div className="lg:hidden flex justify-center">
               <button
                 onClick={() => navigate("/foto")}
