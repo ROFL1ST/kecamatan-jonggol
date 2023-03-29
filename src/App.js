@@ -1,37 +1,37 @@
-import React from "react";
-import "./App.css";
-import { Route, Routes, useLocation } from "react-router-dom";
-import Home from "./pages/home";
-import Navbar from "./component/navbar";
-import Profile from "./pages/profile";
-import Footer from "./component/footer";
-// import Video from "./pages/video";
-// import DetailVideo from "./pages/video/detail";
-import Foto from "./pages/foto";
-import Struktur from "./pages/struktur";
-import Berita from "./pages/berita";
-import Detail from "./pages/berita/detail";
-import Agenda from "./pages/agenda";
-import DetailAgenda from "./pages/agenda/detail";
-import Kerja from "./pages/rencana-kerja";
-import Strategis from "./pages/rencana-strategis";
-import Aplikasi from "./pages/aplikasi";
-import DetailAplikasi from "./pages/aplikasi/detail";
-import Sejarah from "./pages/sejarah";
-import VisiMisi from "./pages/visi-misi";
-import { putViwes } from "./API/restApi";
-import DetailSekolah from "./pages/profile/component/detailSekolah";
-import LogRocket from "logrocket";
-import DetailDesa from "./pages/profile/desa";
+import React from 'react';
+import './App.css';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import { putViwes } from './API/restApi';
+import Navbar from './component/navbar';
+import LogRocket from 'logrocket';
+import Footer from './component/footer';
+import {
+  Agenda,
+  Aplikasi,
+  Berita,
+  Detail,
+  DetailAgenda,
+  DetailAplikasi,
+  DetailDesa,
+  DetailSekolah,
+  Foto,
+  Home,
+  Kerja,
+  Profile,
+  Sejarah,
+  Strategis,
+  Struktur,
+  VisiMisi,
+} from './pages';
 
 function App() {
   const { pathname } = useLocation();
   // load
   const [loading, setLoading] = React.useState(true);
-  const spinner = document.getElementById("spinner");
+  const spinner = document.getElementById('spinner');
   if (spinner) {
     setTimeout(() => {
-      spinner.style.display = "none";
+      spinner.style.display = 'none';
       setLoading(false);
     }, 2000);
   }
@@ -41,12 +41,12 @@ function App() {
   }, [pathname]);
 
   React.useEffect(() => {
-    document.title = "Kecamatan Jonggol";
+    document.title = 'Kecamatan Jonggol';
   }, [pathname]);
 
   const putViews = async () => {
     try {
-      await putViwes("traffic/create").then((res) => {
+      await putViwes('traffic/create').then((res) => {
         // console.log(res.data);
       });
     } catch (error) {
@@ -59,10 +59,10 @@ function App() {
   }, []);
 
   // IP
-  const [ipAddress, setIpAddress] = React.useState("");
+  const [ipAddress, setIpAddress] = React.useState('');
   const [loadIp, setLoadIP] = React.useState(true);
   React.useEffect(() => {
-    fetch("https://api.ipify.org?format=json")
+    fetch('https://api.ipify.org?format=json')
       .then((res) => res.json())
       .then((data) => {
         setIpAddress(data.ip);
