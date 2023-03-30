@@ -206,7 +206,7 @@ export default function Home() {
         <Potensi />
 
         {/* Agenda */}
-        {/* <Agenda /> */}
+        <Agenda />
 
 
         {/* program */}
