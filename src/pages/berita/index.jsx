@@ -5,6 +5,9 @@ import Loading from "../../component/Loading";
 import Lottie from "lottie-react";
 import NotFound from "../../assets/json/93134-not-found.json";
 import ErrorIndicator from "../../assets/json/98642-error-404.json";
+import { Listbox } from "@headlessui/react";
+import { ArrowDown2 } from "iconsax-react";
+import { Dialog, Transition } from "@headlessui/react";
 
 export default function Berita() {
   const location = useLocation();
@@ -25,12 +28,16 @@ export default function Berita() {
   const handleMouseOut2 = () => {
     setHoverButton2(false);
   };
+
+  const pilihan = ["terbaru", "terlama"];
+  const [selectedChoice, setSelectedChoice] = React.useState(pilihan[0]);
+
   const getBerita = async () => {
     try {
       await getApi(
         `berita?limit=${limit}&${
           query !== "" && query != null && `key=${query}`
-        }`
+        }&sort=${selectedChoice}`
       ).then((val) => {
         setBerita(val.data.data);
         setLoadBerita(false);
@@ -75,7 +82,7 @@ export default function Berita() {
     if (query) {
       setLoadBerita(true);
     }
-  }, [limit, query]);
+  }, [limit, query, selectedChoice]);
 
   React.useEffect(() => {
     document.title = "Berita";
@@ -90,7 +97,7 @@ export default function Berita() {
               <h1 className="font-bold text-4xl text-white">Berita</h1>
             </div>
           </div>
-          <div className="flex justify-start w-full mt-20 mb-10 items-center">
+          <div className="flex justify-between gap-x-5 w-full mt-20 mb-10 items-center">
             <div className="left relative lg:w-auto w-full">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -127,6 +134,60 @@ export default function Berita() {
                   placeholder="Search..."
                 />
               </form>
+            </div>
+            <div className="right">
+              <Listbox value={selectedChoice} onChange={setSelectedChoice}>
+                <div className="relative mt-1">
+                  <Listbox.Button className="bg-[#007100] py-2 pl-5 pr-10 rounded-md text-white font-semibold w-full flex justify-between items-center">
+                    <span className="block truncate capitalize">
+                      {selectedChoice}{" "}
+                    </span>
+                    <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                      <ArrowDown2
+                        className="h-5 w-5 text-white"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </Listbox.Button>
+                  <Transition
+                    as={React.Fragment}
+                    leave="transition ease-in duration-100"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                  >
+                    <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-[#007100] py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm text-white">
+                      {pilihan.map((pilihan, id) => (
+                        <Listbox.Option
+                          key={id}
+                          className={({ active }) =>
+                            `relative cursor-default select-none py-2 pl-6 pr-4 ${
+                              active
+                                ? "bg-green-100 text-[#007100]"
+                                : "text-white "
+                            }`
+                          }
+                          value={pilihan}
+                        >
+                          {({ selectedChoice }) => (
+                            <>
+                              <span
+                                // onClick={() => {
+                                //   window.open(pilihan.url);
+                                // }}
+                                className={`block truncate cursor-pointer capitalize ${
+                                  selectedChoice ? "font-medium" : "font-normal"
+                                }`}
+                              >
+                                {pilihan}
+                              </span>
+                            </>
+                          )}
+                        </Listbox.Option>
+                      ))}
+                    </Listbox.Options>
+                  </Transition>
+                </div>
+              </Listbox>
             </div>
           </div>
           <div
