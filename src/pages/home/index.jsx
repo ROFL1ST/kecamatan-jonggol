@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import Slider from "./component/Slider";
 import Logoutama from "../../assets/logo/logo-utama.png";
@@ -15,6 +16,25 @@ import ErrorIndicator from "../../assets/json/98642-error-404.json";
 import CustomButton from "./component/customButton";
 import Agenda from "../agenda";
 import Potensi from "./component/Potensi";
+=======
+import React from 'react';
+import Slider from './component/Slider';
+import Logoutama from '../../assets/logo/logo-utama.png';
+import siapmasjo from '../../assets/logo/siapmasjo.png';
+import sipahadasi from '../../assets/logo/sipahadesi.png';
+import sipaojol from '../../assets/logo/sipaojol.png';
+import Galeri from './component/Galeri';
+import { ArrowRight2, Calendar, Location } from 'iconsax-react';
+import CountUp from 'react-countup';
+import { getApi } from '../../API/restApi';
+import { useNavigate } from 'react-router-dom';
+import Lottie from 'lottie-react';
+import NotFound from '../../assets/json/93134-not-found.json';
+import ErrorIndicator from '../../assets/json/98642-error-404.json';
+import CustomButton from './component/customButton';
+import Agenda from '../agenda';
+import Potensi from './component/Potensi';
+>>>>>>> dev2
 
 export default function Home() {
   const navigate = useNavigate();
@@ -117,7 +137,11 @@ export default function Home() {
   const [loadBerita, setLoadBerita] = React.useState(true);
   const getBerita = async () => {
     try {
+<<<<<<< HEAD
       await getApi("berita").then((val) => {
+=======
+      await getApi('berita?sort=terbaru').then((val) => {
+>>>>>>> dev2
         // console.log(val.data.data);
         setBerita(val.data.data);
         setLoadBerita(false);
@@ -206,8 +230,13 @@ export default function Home() {
         <Potensi />
 
         {/* Agenda */}
+<<<<<<< HEAD
         {/* <Agenda />
          */}
+=======
+        {/* <Agenda /> */}
+
+>>>>>>> dev2
 
         {/* program */}
         <div className="mt-28 mb-10 2xl:px-16 lg:px-10 px-8 flex flex-col items-center justify-center">
@@ -504,6 +533,7 @@ function CardBerita({ i }) {
   );
 }
 
+<<<<<<< HEAD
 
 
 function CardPotensi({ data }) {
@@ -564,3 +594,5 @@ function CardAgenda({ dariJam, sampaiJam, lokasi, tanggal, agenda, key }) {
     </section>
   );
 }
+=======
+>>>>>>> dev2

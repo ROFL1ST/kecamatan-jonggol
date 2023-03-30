@@ -214,4 +214,25 @@ table tr:first-child th:last-child {
   opacity: 0.7;
 }
 
-/* agenda home */
+/* scroll */
+
+
+.scrollbar::-webkit-scrollbar {
+  width: 15px;
+  height: 20px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  border-radius: 100vh;
+  background: #f7f4ed;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #007100;
+  border-radius: 100vh;
+  border: 3px solid #f6f7ed;
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #035703;
+}
