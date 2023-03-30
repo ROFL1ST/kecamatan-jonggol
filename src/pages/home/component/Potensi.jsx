@@ -163,7 +163,10 @@ export default function Potensi() {
             <>
               <div className="flex flex-col justify-center items-center">
                 <Lottie animationData={NotFound} />
-                <h1 className="font-bold">Potensi "{search}" Tidak Tersedia</h1>
+                <h1 className="font-bold">
+                  Potensi {search != null && search != "" && `"${search}"`}
+                  Tidak Tersedia
+                </h1>
               </div>
             </>
           )}
