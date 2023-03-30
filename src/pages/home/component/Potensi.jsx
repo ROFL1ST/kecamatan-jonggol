@@ -167,7 +167,7 @@ export default function Potensi() {
               </div>
             </>
           )}
-          <div className="swiper-scrollbar2 my-scrollbar mt-20"></div>
+          <div className="swiper-scrollbar2 my-scrollbar mt-20 lg:flex !hidden"></div>
           <div className="lg:hidden flex justify-center">
             <button
               //   onClick={() => navigate("/foto")}

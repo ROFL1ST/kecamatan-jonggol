@@ -117,7 +117,7 @@ export default function Home() {
   const [loadBerita, setLoadBerita] = React.useState(true);
   const getBerita = async () => {
     try {
-      await getApi('berita').then((val) => {
+      await getApi('berita?sort=terbaru').then((val) => {
         // console.log(val.data.data);
         setBerita(val.data.data);
         setLoadBerita(false);

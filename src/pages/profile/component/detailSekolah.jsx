@@ -26,8 +26,8 @@ export default function DetailSekolah() {
     try {
       await getApi(
         `sekolah?bentuk_pendidikan=${name}&${
-          desa_id != undefined ? `id_desa=${desa_id}` : ""
-        }&${status != undefined ? `status=${status}` : ""}`
+          desa_id != undefined && desa_id != "" ? `id_desa=${desa_id}` : ""
+        }&${status != "" && status != undefined ? `status=${status}` : ""}`
       ).then((res) => {
         setSekolah((s) => ({ ...s, data: res.data.data, loading: false }));
       });
@@ -43,6 +43,8 @@ export default function DetailSekolah() {
   React.useEffect(() => {
     getDesa();
   }, [state?.desa_id, state?.status]);
+
+  console.log(state?.desa_id, "HAI");
   return (
     <>
       <div className="w-screen pt-[100px]">
@@ -162,12 +164,23 @@ export default function DetailSekolah() {
 }
 
 function Sidebar({ setSort, sort, getData }) {
+  const [isVisible, setIsVisible] = React.useState(true);
+  React.useEffect(() => {
+    let prevScrollPosition = window.pageYOffset;
+    const handleScroll = () => {
+      const currentScrollPosition = window.pageYOffset;
+      setIsVisible(prevScrollPosition > currentScrollPosition);
+      prevScrollPosition = currentScrollPosition;
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   return (
     <>
       <div
         className={`${
           sort ? "flex" : "hidden"
-        } top-0 fixed  flex-col z-30 bg-black  bg-opacity-60 backdrop-blur-lg drop-shadow-lg 2xl:w-1/4 xl:w-1/3 lg:w-1/2 w-full h-full mt-[104px] px-10 py-10 pb-10 overflow-y-auto`}
+        } top-0 fixed  flex-col z-30 bg-black  bg-opacity-60 backdrop-blur-lg drop-shadow-lg 2xl:w-1/4 xl:w-1/3 lg:w-1/2 w-full h-full transition-[0.3s] ${!isVisible ? "" : "lg:mt-[104px] mt-[80px]"} px-10 py-10 pb-10 overflow-y-auto`}
       >
         {/* Top */}
         <div className="flex justify-between items-center mb-7">

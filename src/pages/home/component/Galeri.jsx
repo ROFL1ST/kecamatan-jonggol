@@ -109,7 +109,7 @@ export default function Galeri() {
                 <></>
               )}
             </Swiper>
-            <div className="swiper-scrollbar my-scrollbar mt-20"></div>
+            <div className="swiper-scrollbar my-scrollbar mt-20 lg:flex !hidden"></div>
             <div className="lg:hidden flex justify-center">
               <button
                 onClick={() => navigate("/foto")}
