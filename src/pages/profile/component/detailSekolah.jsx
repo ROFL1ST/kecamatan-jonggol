@@ -26,8 +26,8 @@ export default function DetailSekolah() {
     try {
       await getApi(
         `sekolah?bentuk_pendidikan=${name}&${
-          desa_id != undefined ? `id_desa=${desa_id}` : ""
-        }&${status != undefined ? `status=${status}` : ""}`
+          desa_id != undefined && desa_id != "" ? `id_desa=${desa_id}` : ""
+        }&${status != "" && status != undefined ? `status=${status}` : ""}`
       ).then((res) => {
         setSekolah((s) => ({ ...s, data: res.data.data, loading: false }));
       });
