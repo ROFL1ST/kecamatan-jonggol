@@ -140,13 +140,7 @@ export default function Berita() {
               <Listbox value={selectedChoice} onChange={setSelectedChoice}>
                 <div className="relative mt-1">
                   <Listbox.Button className="bg-[#007100] py-2 pl-5 pr-10 rounded-md text-white font-semibold w-full flex justify-between items-center">
-<<<<<<< HEAD
-                    <span className="block truncate capitalize">
-                      {selectedChoice}{" "}
-                    </span>
-=======
                     <span className="block truncate capitalize">{selectedChoice} </span>
->>>>>>> dev2
                     <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                       <ArrowDown2
                         className="h-5 w-5 text-white"
