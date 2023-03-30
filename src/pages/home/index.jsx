@@ -1,22 +1,3 @@
-<<<<<<< HEAD
-import React from "react";
-import Slider from "./component/Slider";
-import Logoutama from "../../assets/logo/logo-utama.png";
-import siapmasjo from "../../assets/logo/siapmasjo.png";
-import sipahadasi from "../../assets/logo/sipahadesi.png";
-import sipaojol from "../../assets/logo/sipaojol.png";
-import Galeri from "./component/Galeri";
-import { ArrowRight2, Calendar, Location } from "iconsax-react";
-import CountUp from "react-countup";
-import { getApi } from "../../API/restApi";
-import { useNavigate } from "react-router-dom";
-import Lottie from "lottie-react";
-import NotFound from "../../assets/json/93134-not-found.json";
-import ErrorIndicator from "../../assets/json/98642-error-404.json";
-import CustomButton from "./component/customButton";
-import Agenda from "../agenda";
-import Potensi from "./component/Potensi";
-=======
 import React from 'react';
 import Slider from './component/Slider';
 import Logoutama from '../../assets/logo/logo-utama.png';
@@ -34,7 +15,6 @@ import ErrorIndicator from '../../assets/json/98642-error-404.json';
 import CustomButton from './component/customButton';
 import Agenda from '../agenda';
 import Potensi from './component/Potensi';
->>>>>>> dev2
 
 export default function Home() {
   const navigate = useNavigate();
@@ -137,11 +117,7 @@ export default function Home() {
   const [loadBerita, setLoadBerita] = React.useState(true);
   const getBerita = async () => {
     try {
-<<<<<<< HEAD
-      await getApi("berita").then((val) => {
-=======
       await getApi('berita?sort=terbaru').then((val) => {
->>>>>>> dev2
         // console.log(val.data.data);
         setBerita(val.data.data);
         setLoadBerita(false);
@@ -230,13 +206,8 @@ export default function Home() {
         <Potensi />
 
         {/* Agenda */}
-<<<<<<< HEAD
-        {/* <Agenda />
-         */}
-=======
         {/* <Agenda /> */}
 
->>>>>>> dev2
 
         {/* program */}
         <div className="mt-28 mb-10 2xl:px-16 lg:px-10 px-8 flex flex-col items-center justify-center">
@@ -533,66 +504,3 @@ function CardBerita({ i }) {
   );
 }
 
-<<<<<<< HEAD
-
-
-function CardPotensi({ data }) {
-  return (
-    <>
-      <div className="bg-black p-3 h-full w-full rounded-xl cursor-pointer">
-        <div
-          className="lg:min-h-[17.5rem] h-56 rounded-lg p-8 items-end flex transition duration-500 transform hover:scale-[1.07]"
-          style={{ backgroundImage: `url(${data.thumbnail})` }}
-        >
-          <div className="bg-white px-5 py-2 rounded-full ">
-            <h1 className="text-[#3C903C] font-medium lg:text-xl">
-              {data.nama_potensi}
-            </h1>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-}
-
-function CardPotensiLoading(params) {
-  return (
-    <>
-      <div className=" h-80 rounded-2xl bg-gray-300 animate-pulse">
-        <div className="w-full h-full flex flex-col justify-center items-center "></div>
-      </div>
-    </>
-  );
-}
-
-function CardAgenda({ dariJam, sampaiJam, lokasi, tanggal, agenda, key }) {
-  return (
-    <section
-      className="w-[575px] h-[318px] rounded shadow border border-black"
-      key={key}
-    >
-      <div>
-        <div className="flex items-center">
-          <p>10:00 - 11:00</p>
-          <div>
-            <Location size="32" color="#FF8A65" />
-            <p>Desa singasari</p>
-          </div>
-        </div>
-        <div>
-          <h1>Pelantikan Pengurus Gerakan Pramuka Kwartir Ranting Jonggol</h1>
-        </div>
-      </div>
-
-      <div>
-        <CustomButton label={"detail"} stylingButton={""} />
-        <div>
-          <Calendar size="32" color="#FF8A65" />
-          <p>27 agustus 2023</p>
-        </div>
-      </div>
-    </section>
-  );
-}
-=======
->>>>>>> dev2

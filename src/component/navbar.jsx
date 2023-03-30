@@ -126,13 +126,7 @@ export default function Navbar() {
               <SearchNormal className="w-5 h-5" />
               Search
             </div>
-<<<<<<< HEAD
-            <p className="font-semibold">
-              Ctrl <span className="font-bold">K</span>
-            </p>
-=======
             <p className="font-semibold">Ctrl <span className="font-bold">K</span></p>
->>>>>>> dev2
           </div>
         </div>
         {/* Dekstop */}
