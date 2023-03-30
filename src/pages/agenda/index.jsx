@@ -1,24 +1,14 @@
-import { Calendar, Location } from 'iconsax-react';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getApi } from '../../API/restApi';
-import Loading from '../../component/Loading';
-import Lottie from 'lottie-react';
-import NotFound from '../../assets/json/93134-not-found.json';
-import ErrorIndicator from '../../assets/json/98642-error-404.json';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, EffectFade, Autoplay } from 'swiper';
-import 'swiper/css/effect-fade';
-import 'swiper/css';
+import { Calendar, Location } from "iconsax-react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { getApi } from "../../API/restApi";
+import Loading from "../../component/Loading";
+import Lottie from "lottie-react";
+import NotFound from "../../assets/json/93134-not-found.json";
+import ErrorIndicator from "../../assets/json/98642-error-404.json";
 
 export default function Agenda() {
-  const swiperRef = React.useRef();
   const [hoverButton2, setHoverButton2] = React.useState(false);
-  const [page, setPage] = React.useState(0);
-
-  const handleSlideChange = (swiper) => {
-    setPage(swiper.realIndex);
-  };
 
   const handleMouseOver2 = () => {
     setHoverButton2(true);
@@ -53,72 +43,48 @@ export default function Agenda() {
   }, [limit]);
 
   React.useEffect(() => {
-    document.title = 'Agenda';
+    document.title = "Agenda";
   });
   return (
     <>
-      <div className="w-screen pt-[20px]">
+      <div className="w-screen pt-[100px]">
         <div className="lg:px-24 px-10">
-          <div className="my-20 flex justify-center ">
-            <h1 className="text-4xl text-center font-bold capitalize underline decoration-[#3C903C]">
-              Agenda
-            </h1>
-          </div>
-          <Swiper
-            centeredSlides={true}
-            slidesPerView={3}
-            spaceBetween={35}
-            loop={true}
-            //   controller={{ control: firstSwiper }}
-            onSlideChange={handleSlideChange}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-            }}
-            modules={[EffectFade, Autoplay]}
-            onSwiper={(swiper) => {
-              setPage(swiper.realIndex);
-              swiperRef.current = swiper;
-            }}
-            className="rounded-b-3xl"
-            effect={'fade'}
-          >
-            <div
-              className={` mb-20 gap-y-10 gap-x-10 mt-20 ${
-                loadAgenda
-                  ? 'grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1'
-                  : agenda.length == 0 || agendaError
-                  ? ''
-                  : 'grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1'
-              }`}
-            >
-              {!loadAgenda ? (
-                agenda.length != 0 ? (
-                  agenda.map((i, key) => (
-                    <SwiperSlide key={key}>
-                      <Card data={i} />
-                    </SwiperSlide>
-                  ))
-                ) : agendaError ? (
-                  <>
-                    <div className="flex flex-col justify-center items-center">
-                      <Lottie animationData={ErrorIndicator} />
-                      <h1 className="font-bold">Terjadi Kesalahan</h1>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="flex flex-col justify-center items-center">
-                      <Lottie animationData={NotFound} />
-                      <h1 className="font-bold">Agenda Tidak Tersedia</h1>
-                    </div>
-                  </>
-                )
-              ) : (
-                load.map((i, key) => <CardAgendaLoading />)
-              )}
+          <div className="mt-20 flex justify-center ">
+            <div className=" rounded-full px-10 py-3 bg-[#3C903C] cursor-default">
+              <h1 className="font-bold text-4xl text-white">Agenda</h1>
             </div>
-          </Swiper>
+          </div>
+          <div
+            className={` mb-20 gap-y-10 gap-x-10 mt-20 ${
+              loadAgenda
+                ? "grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1"
+                : agenda.length == 0 || agendaError
+                ? ""
+                : "grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1"
+            }`}
+          >
+            {!loadAgenda ? (
+              agenda.length != 0 ? (
+                agenda.map((i, key) => <Card key={key} data={i} />)
+              ) : agendaError ? (
+                <>
+                  <div className="flex flex-col justify-center items-center">
+                    <Lottie animationData={ErrorIndicator} />
+                    <h1 className="font-bold">Terjadi Kesalahan</h1>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="flex flex-col justify-center items-center">
+                    <Lottie animationData={NotFound} />
+                    <h1 className="font-bold">Agenda Tidak Tersedia</h1>
+                  </div>
+                </>
+              )
+            ) : (
+              load.map((i, key) => <CardAgendaLoading />)
+            )}
+          </div>
           {agenda.length < 9 ? (
             <></>
           ) : (
@@ -130,8 +96,8 @@ export default function Agenda() {
                 onMouseLeave={handleMouseOut2}
                 className={` px-5 py-2 2xl:py-3 rounded-full lg:text-sm 2xl:text-base font-semibold ${
                   hoverButton2 || !loadAgenda
-                    ? 'bg-[#3C903C] text-white transition-all border-2 border-[#3C903C]'
-                    : 'border-[#3C903C] border-2  text-[#3C903C] transition-all'
+                    ? "bg-[#3C903C] text-white transition-all border-2 border-[#3C903C]"
+                    : "border-[#3C903C] border-2  text-[#3C903C] transition-all"
                 }`}
               >
                 {loadAgenda ? (
@@ -141,7 +107,7 @@ export default function Agenda() {
                     </div>
                   </>
                 ) : (
-                  'Selengkapnya'
+                  "Selengkapnya"
                 )}
               </button>
             </div>
@@ -181,29 +147,29 @@ function Card({ data }) {
   const navigate = useNavigate();
   const date = new Date(data.tanggal);
   var months = [
-    'Januari',
-    'Februari',
-    'Maret',
-    'April',
-    'May',
-    'Juni',
-    'Juli',
-    'Agustus',
-    'September',
-    'Oktober',
-    'November',
-    'Desember',
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "May",
+    "Juni",
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember",
   ];
   var monthName = months[date.getMonth()];
 
-  const [hoursStart, minutesStart] = data.start.split(':');
+  const [hoursStart, minutesStart] = data.start.split(":");
   const formatedStart = `${hoursStart}:${minutesStart}`;
-  const [hoursEnd, minutesEnd] = data.end.split(':');
+  const [hoursEnd, minutesEnd] = data.end.split(":");
   const formatedEnd = `${hoursEnd}:${minutesEnd}`;
 
   return (
     <>
-      <div className="2xl:h-[350px] mb-3 lg:h-[350px] h-[300px] w-full bg-white rounded-2xl px-6 py-5 shadow-xl">
+      <div className="2xl:h-[350px] lg:h-[350px] h-[300px] w-full bg-white rounded-2xl px-6 py-5 shadow-xl">
         {/* top */}
         <div className="flex justify-between w-full  items-center mb-8">
           <p className="font-bold">

@@ -47,7 +47,7 @@ export default function Galeri() {
 
   return (
     <>
-      <div className="my-10 2xl:pl-16 lg:pl-10 lg:py-20 flex flex-col items-center justify-center bg-[#3C903C]">
+      <div className="mt-28 mb-10 2xl:pl-16 lg:pl-10 lg:pt-20 lg:pb-10 flex flex-col items-center justify-center bg-[#3C903C]">
         <div className="w-full  flex lg:flex-row flex-col lg:justify-between justify-center gap-x-10 mt-20 mb-20 items-center">
           <div className="kiri lg:px-0 px-8 lg:w-1/3 flex flex-col lg:items-start items-center lg:mb-0 mb-10 lg:gap-y-0 gap-y-5">
             <h1 className="text-6xl text-white font-semibold">Foto</h1>

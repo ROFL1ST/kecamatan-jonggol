@@ -15,11 +15,40 @@ import ErrorIndicator from '../../assets/json/98642-error-404.json';
 import CustomButton from './component/customButton';
 import Agenda from '../agenda';
 import Potensi from './component/Potensi';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, EffectFade, Autoplay } from 'swiper';
+import 'swiper/css/effect-fade';
+import 'swiper/css';
 
 export default function Home() {
   const navigate = useNavigate();
-
+  const swiperRef = React.useRef();
+  const [pageAgendaSlider, setPageAgendaSlider] = React.useState(0);
+  const [agendaError, setAgendaError] = React.useState(false);
+  const [limit, setLimit] = React.useState(9);
+  const [agenda, setAgenda] = React.useState([]);
+  const [loadAgenda, setLoadAgenda] = React.useState(true);
   const [penduduk, setPenduduk] = React.useState();
+  const load = [1, 2, 3];
+
+  const getAgenda = async () => {
+    try {
+      await getApi(`agenda?limit=${limit}`).then((res) => {
+        console.log(res);
+        setAgenda(res.data.data);
+        setLoadAgenda(false);
+      });
+    } catch (error) {
+      console.log(error);
+      setLoadAgenda(false);
+      setAgendaError(true);
+    }
+  };
+
+  const handleSlideChange = (swiper) => {
+    setPageAgendaSlider(swiper.realIndex);
+  };
+
   const getPenduduk = async () => {
     try {
       await getApi('penduduk/total').then((res) => {
@@ -29,7 +58,6 @@ export default function Home() {
       console.log(error);
     }
   };
-
   const [asn, setAsn] = React.useState();
   const getAsn = async () => {
     try {
@@ -117,7 +145,7 @@ export default function Home() {
   const [loadBerita, setLoadBerita] = React.useState(true);
   const getBerita = async () => {
     try {
-      await getApi('berita?sort=terbaru').then((val) => {
+      await getApi('berita').then((val) => {
         // console.log(val.data.data);
         setBerita(val.data.data);
         setLoadBerita(false);
@@ -134,6 +162,7 @@ export default function Home() {
     getDesa();
     getPenduduk();
     getAsn();
+    getAgenda();
   }, []);
 
   return (
@@ -206,8 +235,128 @@ export default function Home() {
         <Potensi />
 
         {/* Agenda */}
-        {/* <Agenda /> */}
+        <div className="mt-28 mb-10 2xl:px-16 lg:px-10 px-8 flex flex-col items-center justify-center">
+          <h1 className="text-4xl font-bold capitalize underline decoration-[#3C903C]">
+            Agenda
+          </h1>
+          {/* agenda web */}
+          <div className="xl:block hidden w-full mt-10">
+            <Swiper
+              centeredSlides={true}
+              slidesPerView={3}
+              spaceBetween={40}
+              loop={true}
+              //   controller={{ control: firstSwiper }}
+              onSlideChange={handleSlideChange}
+              autoplay={{
+                delay: 3500,
+                disableOnInteraction: false,
+              }}
+              modules={[Autoplay]}
+              // onSwiper={(swiper) => {
+              //   setPageAgendaSlider(swiper.realIndex);
+              //   swiperRef.current = swiper;
+              // }}
+              className="rounded-b-3xl"
+              // effect={'fade'}
+            >
+              <div
+                className={` mb-20 gap-y-10 gap-x-10 mt-20 ${
+                  loadAgenda
+                    ? 'grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1'
+                    : agenda.length == 0 || agendaError
+                    ? ''
+                    : 'grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1'
+                }`}
+              >
+                {!loadAgenda ? (
+                  agenda.length != 0 ? (
+                    agenda.map((i, key) => (
+                      <SwiperSlide key={key}>
+                        <CardAgenda data={i} />
+                      </SwiperSlide>
+                    ))
+                  ) : agendaError ? (
+                    <>
+                      <div className="flex flex-col justify-center items-center">
+                        <Lottie animationData={ErrorIndicator} />
+                        <h1 className="font-bold">Terjadi Kesalahan</h1>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="flex flex-col justify-center items-center">
+                        <Lottie animationData={NotFound} />
+                        <h1 className="font-bold">Agenda Tidak Tersedia</h1>
+                      </div>
+                    </>
+                  )
+                ) : (
+                  load.map((i, key) => <CardAgendaLoading key={key} />)
+                )}
+              </div>
+            </Swiper>
+          </div>
 
+          {/* agenda mobile */}
+          <div className="xl:hidden block w-full mt-10">
+            <Swiper
+              centeredSlides={true}
+              slidesPerView={1}
+              spaceBetween={40}
+              loop={true}
+              //   controller={{ control: firstSwiper }}
+              onSlideChange={handleSlideChange}
+              autoplay={{
+                delay: 3500,
+                disableOnInteraction: false,
+              }}
+              modules={[Autoplay]}
+              // onSwiper={(swiper) => {
+              //   setPageAgendaSlider(swiper.realIndex);
+              //   swiperRef.current = swiper;
+              // }}
+              className="rounded-b-3xl"
+              // effect={'fade'}
+            >
+              <div
+                className={` mb-20 gap-y-10 gap-x-10 mt-20 ${
+                  loadAgenda
+                    ? 'grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1'
+                    : agenda.length == 0 || agendaError
+                    ? ''
+                    : 'grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1'
+                }`}
+              >
+                {!loadAgenda ? (
+                  agenda.length != 0 ? (
+                    agenda.map((i, key) => (
+                      <SwiperSlide key={key}>
+                        <CardAgenda data={i} />
+                      </SwiperSlide>
+                    ))
+                  ) : agendaError ? (
+                    <>
+                      <div className="flex flex-col justify-center items-center">
+                        <Lottie animationData={ErrorIndicator} />
+                        <h1 className="font-bold">Terjadi Kesalahan</h1>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="flex flex-col justify-center items-center">
+                        <Lottie animationData={NotFound} />
+                        <h1 className="font-bold">Agenda Tidak Tersedia</h1>
+                      </div>
+                    </>
+                  )
+                ) : (
+                  load.map((i, key) => <CardAgendaLoading key={key} />)
+                )}
+              </div>
+            </Swiper>
+          </div>
+        </div>
 
         {/* program */}
         <div className="mt-28 mb-10 2xl:px-16 lg:px-10 px-8 flex flex-col items-center justify-center">
@@ -360,7 +509,7 @@ function CardInfo({ index, data }) {
       <div
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}
-        className={`penduduk flex flex-col  items-center lg:gap-y-5 gap-y-1 lg:px-12 px-5  lg:py-16 py-10 transition-all cursor-default rounded-2xl border-2 ${
+        className={`penduduk relative flex flex-col  items-center lg:gap-y-5 gap-y-1 lg:px-12 px-5  lg:py-16 py-10 transition-all cursor-default rounded-2xl border-2 ${
           isHovering &&
           '-translate-y-1 -translate-x-1 shadow-xl transition-all bg-white border-0'
           // eslint-disable-next-line eqeqeq
@@ -376,6 +525,67 @@ function CardInfo({ index, data }) {
           {data.title == 'Luas Wilayah' && 'KM'}
         </div>
         <p className="lg:text-2xl text-lg">{data.title}</p>
+
+        <div
+          className={`${
+            isHovering ? 'absolute opacity-40' : 'opacity-0 absolute'
+          } top-10 -right-5 `}
+        >
+          <img
+            src="https://cdn.pixabay.com/photo/2012/04/10/17/02/pattern-26432_1280.png"
+            alt=""
+            width={70}
+            className="animated-image"
+          />
+        </div>
+        <div
+          className={`${
+            isHovering ? 'absolute opacity-40' : 'opacity-0 absolute'
+          } top-0 left-1 transition-all ease-in-out`}
+        >
+          <img
+            src="https://static.vecteezy.com/system/resources/thumbnails/001/191/999/small/circle-abstract.png"
+            alt=""
+            width={70}
+            className="animated-image"
+          />
+        </div>
+        <div
+          className={`${
+            isHovering ? 'absolute opacity-40' : 'opacity-0 absolute'
+          } -bottom-5 left-5 transition-all ease-in-out `}
+        >
+          <img
+            src="https://static.vecteezy.com/system/resources/previews/011/196/545/original/zigzag-line-hand-drawn-illustration-design-png.png"
+            alt=""
+            width={70}
+            className="animated-image2"
+          />
+        </div>
+        <div
+          className={`${
+            isHovering ? 'absolute opacity-40' : 'opacity-0 absolute'
+          } -bottom-10 left-5 transition-all ease-in-out `}
+        >
+          <img
+            src="https://static.vecteezy.com/system/resources/previews/011/196/545/original/zigzag-line-hand-drawn-illustration-design-png.png"
+            alt=""
+            width={70}
+            className="animated-image2"
+          />
+        </div>
+        <div
+          className={`${
+            isHovering ? 'absolute opacity-40' : 'opacity-0 absolute'
+          } -bottom-6 right-5 transition-all ease-in-out rotate-45`}
+        >
+          <img
+            src="https://www.shareicon.net/data/2016/11/08/851132_triangle_512x512.png"
+            alt=""
+            width={70}
+            className="animated-image3 "
+          />
+        </div>
       </div>
     </>
   );
@@ -504,3 +714,124 @@ function CardBerita({ i }) {
   );
 }
 
+function CardPotensi({ data }) {
+  return (
+    <>
+      <div className="bg-black p-3 h-full w-full rounded-xl cursor-pointer">
+        <div
+          className="lg:min-h-[17.5rem] h-56 rounded-lg p-8 items-end flex transition duration-500 transform hover:scale-[1.07]"
+          style={{ backgroundImage: `url(${data.thumbnail})` }}
+        >
+          <div className="bg-white px-5 py-2 rounded-full ">
+            <h1 className="text-[#3C903C] font-medium lg:text-xl">
+              {data.nama_potensi}
+            </h1>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function CardPotensiLoading(params) {
+  return (
+    <>
+      <div className=" h-80 rounded-2xl bg-gray-300 animate-pulse">
+        <div className="w-full h-full flex flex-col justify-center items-center "></div>
+      </div>
+    </>
+  );
+}
+
+function CardAgendaLoading({ key }) {
+  return (
+    <div
+      key={key}
+      className="bg-[#3C903C] w-full h-80 flex flex-col rounded-2xl py-10 px-5 border-blue-300 animate-pulse"
+    >
+      <div className="flex justify-between flex-col h-full">
+        <div>
+          <div className="flex justify-between w-full">
+            <div className="left w-1/4 h-4 bg-gray-300 rounded-full"></div>
+            <div className="left w-1/5 h-4 bg-gray-300 rounded-full"></div>
+          </div>
+          <div className="space-y-2 mt-7">
+            <div className="text-xs font-bold h-4 w-3/4 bg-gray-300 rounded-full"></div>
+            <div className="text-xs font-bold h-4 w-1/4 bg-gray-300 rounded-full"></div>
+          </div>
+        </div>
+        <div className="flex justify-between w-full items-end">
+          <div className="left w-1/4 h-10 bg-gray-300 rounded-full"></div>
+          <div className="left w-1/5 h-4 bg-gray-300 rounded-full"></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CardAgenda({ data }) {
+  const navigate = useNavigate();
+  const date = new Date(data.tanggal);
+  var months = [
+    'Januari',
+    'Februari',
+    'Maret',
+    'April',
+    'May',
+    'Juni',
+    'Juli',
+    'Agustus',
+    'September',
+    'Oktober',
+    'November',
+    'Desember',
+  ];
+  var monthName = months[date.getMonth()];
+
+  const [hoursStart, minutesStart] = data.start.split(':');
+  const formatedStart = `${hoursStart}:${minutesStart}`;
+  const [hoursEnd, minutesEnd] = data.end.split(':');
+  const formatedEnd = `${hoursEnd}:${minutesEnd}`;
+
+  return (
+    <>
+      <div className="2xl:h-[350px] my-5 lg:h-[350px] h-[300px] w-full bg-white rounded-2xl px-6 py-5 shadow-xl">
+        {/* top */}
+        <div className="flex justify-between w-full  items-center mb-8">
+          <p className="font-bold">
+            {formatedStart} - {formatedEnd}
+          </p>
+          <div className="flex font-bold gap-x-3 items-center text-[#6D6D6D]">
+            <Location size="22" color="#6D6D6D" />
+            <p>{data.tempat}</p>
+          </div>
+        </div>
+        {/* top */}
+        {/* Center */}
+        <div className="flex flex-col justify-between h-4/5">
+          <h1 className="font-bold text-2xl 2xl:w-3/4">{data.nama_agenda}</h1>
+          <div className="flex justify-between w-full items-end">
+            <button
+              onClick={() => {
+                navigate(`/agenda/${data.slug}`);
+              }}
+              className="px-7 py-3 font-bold bg-[#3C903C] text-white rounded-2xl text-xl"
+            >
+              Detail
+            </button>
+            <div className="flex text-[#6D6D6D] gap-x-3 font-bold text-sm">
+              <Calendar size="22" color="#6D6D6D" />
+              <p>
+                {date.getDate()} {monthName} {date.getFullYear()}
+              </p>
+            </div>
+          </div>
+        </div>
+        {/* Center */}
+        {/* Bottom */}
+
+        {/* Bottom */}
+      </div>
+    </>
+  );
+}
