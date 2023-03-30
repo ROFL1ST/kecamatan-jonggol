@@ -1,20 +1,3 @@
-<<<<<<< HEAD
-import React from "react";
-import Slider from "./component/Slider";
-import Logoutama from "../../assets/logo/logo-utama.png";
-import siapmasjo from "../../assets/logo/siapmasjo.png";
-import sipahadasi from "../../assets/logo/sipahadesi.png";
-import sipaojol from "../../assets/logo/sipaojol.png";
-import Galeri from "./component/Galeri";
-import { ArrowRight2 } from "iconsax-react";
-import CountUp from "react-countup";
-import { getApi } from "../../API/restApi";
-import { useNavigate } from "react-router-dom";
-import Lottie from "lottie-react";
-import NotFound from "../../assets/json/93134-not-found.json";
-import ErrorIndicator from "../../assets/json/98642-error-404.json";
-import Potensi from "./component/Potensi";
-=======
 import React from 'react';
 import Slider from './component/Slider';
 import Logoutama from '../../assets/logo/logo-utama.png';
@@ -31,7 +14,6 @@ import NotFound from '../../assets/json/93134-not-found.json';
 import ErrorIndicator from '../../assets/json/98642-error-404.json';
 import CustomButton from './component/customButton';
 import Agenda from '../agenda';
->>>>>>> 18854e17d4e35c75bb47712b098921b3e3c1ff7e
 
 export default function Home() {
   const navigate = useNavigate();
@@ -223,7 +205,8 @@ export default function Home() {
         <Potensi />
 
         {/* Agenda */}
-        <Agenda />
+        {/* <Agenda />
+         */}
 
 
         {/* program */}
