@@ -1,20 +1,20 @@
-import React from 'react';
-import Slider from './component/Slider';
-import Logoutama from '../../assets/logo/logo-utama.png';
-import siapmasjo from '../../assets/logo/siapmasjo.png';
-import sipahadasi from '../../assets/logo/sipahadesi.png';
-import sipaojol from '../../assets/logo/sipaojol.png';
-import Galeri from './component/Galeri';
-import { ArrowRight2, Calendar, Location } from 'iconsax-react';
-import CountUp from 'react-countup';
-import { getApi } from '../../API/restApi';
-import { useNavigate } from 'react-router-dom';
-import Lottie from 'lottie-react';
-import NotFound from '../../assets/json/93134-not-found.json';
-import ErrorIndicator from '../../assets/json/98642-error-404.json';
-import CustomButton from './component/customButton';
-import Agenda from '../agenda';
-import Potensi from './component/Potensi';
+import React from "react";
+import Slider from "./component/Slider";
+import Logoutama from "../../assets/logo/logo-utama.png";
+import siapmasjo from "../../assets/logo/siapmasjo.png";
+import sipahadasi from "../../assets/logo/sipahadesi.png";
+import sipaojol from "../../assets/logo/sipaojol.png";
+import Galeri from "./component/Galeri";
+import { ArrowRight2, Calendar, Location } from "iconsax-react";
+import CountUp from "react-countup";
+import { getApi } from "../../API/restApi";
+import { useNavigate } from "react-router-dom";
+import Lottie from "lottie-react";
+import NotFound from "../../assets/json/93134-not-found.json";
+import ErrorIndicator from "../../assets/json/98642-error-404.json";
+import CustomButton from "./component/customButton";
+import Agenda from "../agenda";
+import Potensi from "./component/Potensi";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ export default function Home() {
   const [penduduk, setPenduduk] = React.useState();
   const getPenduduk = async () => {
     try {
-      await getApi('penduduk/total').then((res) => {
+      await getApi("penduduk/total").then((res) => {
         setPenduduk(res.data.data);
       });
     } catch (error) {
@@ -33,7 +33,7 @@ export default function Home() {
   const [asn, setAsn] = React.useState();
   const getAsn = async () => {
     try {
-      await getApi('pegawai/total').then((res) => {
+      await getApi("pegawai/total").then((res) => {
         setAsn(res.data.data);
       });
     } catch (error) {
@@ -44,7 +44,7 @@ export default function Home() {
 
   const getDesa = async () => {
     try {
-      await getApi('desa').then((res) => {
+      await getApi("desa").then((res) => {
         setDesa(res.data.data);
       });
     } catch (error) {
@@ -56,22 +56,22 @@ export default function Home() {
     {
       id: 1,
       count: penduduk,
-      title: 'Penduduk',
+      title: "Penduduk",
     },
     {
       id: 2,
       count: desa.length,
-      title: 'Jumlah Desa',
+      title: "Jumlah Desa",
     },
     {
       id: 3,
       count: asn,
-      title: 'Jumlah ASN',
+      title: "Jumlah ASN",
     },
     {
       id: 4,
       count: 158.9,
-      title: 'Luas Wilayah',
+      title: "Luas Wilayah",
     },
   ];
 
@@ -79,17 +79,17 @@ export default function Home() {
     {
       id: 1,
       url: siapmasjo,
-      desc: 'Lorem ipsum dolor sit amet consectetur. Eget laoreet donec commodo placerat viverra scelerisque ut. Sed lorem diam nunc cursus arcu nulla sapien. Non tempor donec suspendisse suspendisse egestas urna adipiscing feugiat. Sit velit eleifend eleifend felis arcu nisi. Eu gravida ultricies amet ut pretium purus aliquam porta a. Duis consectetur donec auctor lorem metus.',
+      desc: "Lorem ipsum dolor sit amet consectetur. Eget laoreet donec commodo placerat viverra scelerisque ut. Sed lorem diam nunc cursus arcu nulla sapien. Non tempor donec suspendisse suspendisse egestas urna adipiscing feugiat. Sit velit eleifend eleifend felis arcu nisi. Eu gravida ultricies amet ut pretium purus aliquam porta a. Duis consectetur donec auctor lorem metus.",
     },
     {
       id: 2,
       url: sipahadasi,
-      desc: 'Lorem ipsum dolor sit amet consectetur. Eget laoreet donec commodo placerat viverra scelerisque ut. Sed lorem diam nunc cursus arcu nulla sapien. Non tempor donec suspendisse suspendisse egestas urna adipiscing feugiat. Sit velit eleifend eleifend felis arcu nisi. Eu gravida ultricies amet ut pretium purus aliquam porta a. Duis consectetur donec auctor lorem metus.',
+      desc: "Lorem ipsum dolor sit amet consectetur. Eget laoreet donec commodo placerat viverra scelerisque ut. Sed lorem diam nunc cursus arcu nulla sapien. Non tempor donec suspendisse suspendisse egestas urna adipiscing feugiat. Sit velit eleifend eleifend felis arcu nisi. Eu gravida ultricies amet ut pretium purus aliquam porta a. Duis consectetur donec auctor lorem metus.",
     },
     {
       id: 3,
       url: sipaojol,
-      desc: 'Lorem ipsum dolor sit amet consectetur. Eget laoreet donec commodo placerat viverra scelerisque ut. Sed lorem diam nunc cursus arcu nulla sapien. Non tempor donec suspendisse suspendisse egestas urna adipiscing feugiat. Sit velit eleifend eleifend felis arcu nisi. Eu gravida ultricies amet ut pretium purus aliquam porta a. Duis consectetur donec auctor lorem metus.',
+      desc: "Lorem ipsum dolor sit amet consectetur. Eget laoreet donec commodo placerat viverra scelerisque ut. Sed lorem diam nunc cursus arcu nulla sapien. Non tempor donec suspendisse suspendisse egestas urna adipiscing feugiat. Sit velit eleifend eleifend felis arcu nisi. Eu gravida ultricies amet ut pretium purus aliquam porta a. Duis consectetur donec auctor lorem metus.",
     },
   ];
 
@@ -117,7 +117,7 @@ export default function Home() {
   const [loadBerita, setLoadBerita] = React.useState(true);
   const getBerita = async () => {
     try {
-      await getApi('berita?sort=terbaru').then((val) => {
+      await getApi("berita").then((val) => {
         // console.log(val.data.data);
         setBerita(val.data.data);
         setLoadBerita(false);
@@ -206,8 +206,8 @@ export default function Home() {
         <Potensi />
 
         {/* Agenda */}
-        <Agenda />
-
+        {/* <Agenda />
+         */}
 
         {/* program */}
         <div className="mt-28 mb-10 2xl:px-16 lg:px-10 px-8 flex flex-col items-center justify-center">
@@ -222,13 +222,13 @@ export default function Home() {
             {/* box */}
           </div>
           <div
-            onClick={() => navigate('/aplikasi')}
+            onClick={() => navigate("/aplikasi")}
             onMouseEnter={handleMouseOver}
             onMouseLeave={handleMouseOut}
             className={`border-2 border-gray-400 rounded-full px-6 py-3 cursor-pointer ${
               hoverButton
-                ? 'bg-gray-400 text-white transition-all -translate-y-1 '
-                : 'text-gray-400 transition-all'
+                ? "bg-gray-400 text-white transition-all -translate-y-1 "
+                : "text-gray-400 transition-all"
             }`}
           >
             <p className="font-semibold ">Lebih Banyak</p>
@@ -247,12 +247,12 @@ export default function Home() {
             </h1>
             <div
               onClick={() => {
-                navigate('/berita');
+                navigate("/berita");
               }}
               className={`flex items-center justify-center gap-x-2  cursor-pointer ${
                 hoverButton2
-                  ? 'text-[#007100] transition-all -translate-x-1 -translate-y-1'
-                  : ' text-[#6B7280] transition-all'
+                  ? "text-[#007100] transition-all -translate-x-1 -translate-y-1"
+                  : " text-[#6B7280] transition-all"
               }`}
               onMouseEnter={handleMouseOver2}
               onMouseLeave={handleMouseOut2}
@@ -260,7 +260,7 @@ export default function Home() {
               <h1 className="font-bold 2xl:text-xl lg:text-lg">More News</h1>
               <ArrowRight2
                 size="22"
-                color={`${hoverButton2 ? '#547153' : '#6B7280'}`}
+                color={`${hoverButton2 ? "#547153" : "#6B7280"}`}
               />
             </div>
           </div>
@@ -275,10 +275,10 @@ export default function Home() {
           <div
             className={` content w-full 2xl:mt-20 mt-10   2xl:gap-x-16 lg:gap-x-4 lg:gap-y-0 gap-y-10 ${
               loadBerita
-                ? 'grid lg:grid-cols-4 grid-cols-1'
+                ? "grid lg:grid-cols-4 grid-cols-1"
                 : berita.length == 0
-                ? ''
-                : 'grid lg:grid-cols-4 grid-cols-1'
+                ? ""
+                : "grid lg:grid-cols-4 grid-cols-1"
             }`}
           >
             {loadBerita ? (
@@ -308,14 +308,14 @@ export default function Home() {
             <div className="lg:hidden flex justify-center items-center">
               <button
                 onClick={() => {
-                  navigate('/berita');
+                  navigate("/berita");
                 }}
                 onMouseEnter={handleMouseOver2}
                 onMouseLeave={handleMouseOut2}
                 className={` px-5 py-2 2xl:py-3 rounded-full lg:text-sm 2xl:text-base font-semibold ${
                   hoverButton2
-                    ? 'bg-[#007100] text-white transition-all border-2 border-[#007100]'
-                    : 'border-[#007100] border-2  text-[#007100] transition-all'
+                    ? "bg-[#007100] text-white transition-all border-2 border-[#007100]"
+                    : "border-[#007100] border-2  text-[#007100] transition-all"
                 }`}
               >
                 Selengkapnya
@@ -362,7 +362,7 @@ function CardInfo({ index, data }) {
         onMouseOut={handleMouseOut}
         className={`penduduk flex flex-col  items-center lg:gap-y-5 gap-y-1 lg:px-12 px-5  lg:py-16 py-10 transition-all cursor-default rounded-2xl border-2 ${
           isHovering &&
-          '-translate-y-1 -translate-x-1 shadow-xl transition-all bg-white border-0'
+          "-translate-y-1 -translate-x-1 shadow-xl transition-all bg-white border-0"
           // eslint-disable-next-line eqeqeq
         } `}
       >
@@ -373,7 +373,7 @@ function CardInfo({ index, data }) {
             decimal={data.count}
             end={data.count}
           />
-          {data.title == 'Luas Wilayah' && 'KM'}
+          {data.title == "Luas Wilayah" && "KM"}
         </div>
         <p className="lg:text-2xl text-lg">{data.title}</p>
       </div>
@@ -387,12 +387,12 @@ function CardInfoMobile({ data }) {
       <div
         className={`penduduk flex flex-col justify-center text-center  items-center  gap-y-1  px-5 border-[0.5px]  py-5 ${
           data.id == 1
-            ? 'rounded-tl-xl'
+            ? "rounded-tl-xl"
             : data.id == 2
-            ? 'rounded-tr-xl'
+            ? "rounded-tr-xl"
             : data.id == 3
-            ? 'rounded-bl-xl'
-            : 'rounded-br-xl'
+            ? "rounded-bl-xl"
+            : "rounded-br-xl"
         }`}
       >
         <div className="flex gap-x-3">
@@ -402,7 +402,7 @@ function CardInfoMobile({ data }) {
             decimal={data.count}
             end={data.count}
           />
-          {data.title == 'Luas Wilayah' && 'KM'}
+          {data.title == "Luas Wilayah" && "KM"}
         </div>
         <p className="text-xl ">{data.title}</p>
       </div>
@@ -441,8 +441,8 @@ function CardApp({ data }) {
               onMouseLeave={handleMouseOut}
               className={`cursor-pointer ${
                 isHovering
-                  ? 'text-[#3C903C] -translate-y-0.5 transition ease-in-out'
-                  : 'text-white transition ease-in-out'
+                  ? "text-[#3C903C] -translate-y-0.5 transition ease-in-out"
+                  : "text-white transition ease-in-out"
               }`}
             >
               Selengkapnya...
@@ -458,18 +458,18 @@ function CardBerita({ i }) {
   const navigate = useNavigate();
   const date = new Date(i.createdAt);
   var months = [
-    'Januari',
-    'Februari',
-    'Maret',
-    'April',
-    'May',
-    'Juni',
-    'Juli',
-    'Agustus',
-    'September',
-    'Oktober',
-    'November',
-    'Desember',
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "May",
+    "Juni",
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember",
   ];
   var monthName = months[date.getMonth()];
 
@@ -504,3 +504,63 @@ function CardBerita({ i }) {
   );
 }
 
+
+
+function CardPotensi({ data }) {
+  return (
+    <>
+      <div className="bg-black p-3 h-full w-full rounded-xl cursor-pointer">
+        <div
+          className="lg:min-h-[17.5rem] h-56 rounded-lg p-8 items-end flex transition duration-500 transform hover:scale-[1.07]"
+          style={{ backgroundImage: `url(${data.thumbnail})` }}
+        >
+          <div className="bg-white px-5 py-2 rounded-full ">
+            <h1 className="text-[#3C903C] font-medium lg:text-xl">
+              {data.nama_potensi}
+            </h1>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function CardPotensiLoading(params) {
+  return (
+    <>
+      <div className=" h-80 rounded-2xl bg-gray-300 animate-pulse">
+        <div className="w-full h-full flex flex-col justify-center items-center "></div>
+      </div>
+    </>
+  );
+}
+
+function CardAgenda({ dariJam, sampaiJam, lokasi, tanggal, agenda, key }) {
+  return (
+    <section
+      className="w-[575px] h-[318px] rounded shadow border border-black"
+      key={key}
+    >
+      <div>
+        <div className="flex items-center">
+          <p>10:00 - 11:00</p>
+          <div>
+            <Location size="32" color="#FF8A65" />
+            <p>Desa singasari</p>
+          </div>
+        </div>
+        <div>
+          <h1>Pelantikan Pengurus Gerakan Pramuka Kwartir Ranting Jonggol</h1>
+        </div>
+      </div>
+
+      <div>
+        <CustomButton label={"detail"} stylingButton={""} />
+        <div>
+          <Calendar size="32" color="#FF8A65" />
+          <p>27 agustus 2023</p>
+        </div>
+      </div>
+    </section>
+  );
+}
