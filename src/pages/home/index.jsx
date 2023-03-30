@@ -1,20 +1,3 @@
-<<<<<<< HEAD
-import React from "react";
-import Slider from "./component/Slider";
-import Logoutama from "../../assets/logo/logo-utama.png";
-import siapmasjo from "../../assets/logo/siapmasjo.png";
-import sipahadasi from "../../assets/logo/sipahadesi.png";
-import sipaojol from "../../assets/logo/sipaojol.png";
-import Galeri from "./component/Galeri";
-import { ArrowRight2 } from "iconsax-react";
-import CountUp from "react-countup";
-import { getApi } from "../../API/restApi";
-import { useNavigate } from "react-router-dom";
-import Lottie from "lottie-react";
-import NotFound from "../../assets/json/93134-not-found.json";
-import ErrorIndicator from "../../assets/json/98642-error-404.json";
-import Potensi from "./component/Potensi";
-=======
 import React from 'react';
 import Slider from './component/Slider';
 import Logoutama from '../../assets/logo/logo-utama.png';
@@ -31,7 +14,7 @@ import NotFound from '../../assets/json/93134-not-found.json';
 import ErrorIndicator from '../../assets/json/98642-error-404.json';
 import CustomButton from './component/customButton';
 import Agenda from '../agenda';
->>>>>>> 18854e17d4e35c75bb47712b098921b3e3c1ff7e
+import Potensi from './component/Potensi';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -223,7 +206,7 @@ export default function Home() {
         <Potensi />
 
         {/* Agenda */}
-        <Agenda />
+        {/* <Agenda /> */}
 
 
         {/* program */}
@@ -521,177 +504,3 @@ function CardBerita({ i }) {
   );
 }
 
-<<<<<<< HEAD
-=======
-function Potensi() {
-  const [potensi, setPotensi] = React.useState([]);
-  const [loadPotensi, setLoadPotensi] = React.useState(true);
-  const [potensiError, setPotensiError] = React.useState(false);
-  const [search, setSearch] = React.useState('');
-  const loader = [1, 2, 3, 4, 5, 6];
-
-  const getPotensi = async () => {
-    try {
-      await getApi(
-        `potensi-desa?limit=9&${search != '' && `key=${search}`}`
-      ).then((res) => {
-        setPotensi(res.data.data);
-        setLoadPotensi(false);
-      });
-    } catch (error) {
-      console.log(error);
-      setLoadPotensi(false);
-      setPotensiError(true);
-    }
-  };
-
-  React.useEffect(() => {
-    getPotensi();
-  }, [search]);
-  return (
-    <>
-      <div className="flex flex-col justify-center items-center py-20  mb-20 bg-[#3C903C] lg:px-20 px-8">
-        <div className="flex lg:flex-row flex-col lg:gap-y-0 gap-y-5 justify-between w-full items-end">
-          <div className="left title flex flex-col gap-y-5 lg:w-1/3 text-white">
-            <div className="h1">
-              <div className="  capitalize text-3xl font-bold">
-                Wisata Jonggol
-              </div>
-              <div className={`flex  my-2 h-0.5 w-44 bg-white`}></div>
-            </div>
-            <p>
-              Potensi desa Kecamatan Jonggol sangat besar, terutama dalam bidang
-              pertanian dan pariwisata. Desa-desa di Jonggol memiliki lahan yang
-              subur dan cocok untuk bercocok tanam, seperti padi, sayuran, dan
-              buah-buahan. Selain itu, desa-desa di Jonggol juga memiliki
-              keindahan alam yang memikat, seperti air terjun, danau, dan
-              bukit-bukit yang hijau, yang dapat menjadi destinasi wisata yang
-              menarik bagi wisatawan lokal maupun mancanegara.
-            </p>
-          </div>
-          <div className="right relative lg:w-auto w-full">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="absolute top-0 bottom-0 w-6 h-6 my-auto text-gray-400 left-3"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-            <input
-              onChange={(e) => {
-                setSearch(e.target.value);
-              }}
-              type="text"
-              className="block w-full placeholder:text-gray-400 text-gray-400 pl-12 px-4 py-3 bg-white border rounded-xl focus:border-white focus:ring-white focus:outline-none focus:ring focus:ring-opacity-40"
-              placeholder="Search..."
-            />
-          </div>
-        </div>
-        <div
-          className={`mt-20  gap-10 w-full ${
-            loadPotensi
-              ? 'grid lg:grid-cols-3 grid-cols-1'
-              : potensi.length == 0 || potensiError
-              ? ''
-              : 'grid lg:grid-cols-3 grid-cols-1'
-          }`}
-        >
-          {!loadPotensi ? (
-            potensi.length != 0 ? (
-              potensi.map((i, key) => (
-                <>
-                  <CardPotensi key={key} data={i} />
-                </>
-              ))
-            ) : potensiError ? (
-              <>
-                <div className="flex flex-col justify-center items-center">
-                  <Lottie animationData={ErrorIndicator} />
-                  <h1 className="font-bold">Terjadi Kesalahan</h1>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="flex flex-col justify-center items-center">
-                  <Lottie animationData={NotFound} />
-                  <h1 className="font-bold text-white">
-                    Potensi Tidak Tersedia
-                  </h1>
-                </div>
-              </>
-            )
-          ) : (
-            loader.map((i, key) => <CardPotensiLoading />)
-          )}
-        </div>
-      </div>
-    </>
-  );
-}
-
-function CardPotensi({ data }) {
-  return (
-    <>
-      <div className="bg-black p-3 h-full w-full rounded-xl cursor-pointer">
-        <div
-          className="lg:min-h-[17.5rem] h-56 rounded-lg p-8 items-end flex transition duration-500 transform hover:scale-[1.07]"
-          style={{ backgroundImage: `url(${data.thumbnail})` }}
-        >
-          <div className="bg-white px-5 py-2 rounded-full ">
-            <h1 className="text-[#3C903C] font-medium lg:text-xl">
-              {data.nama_potensi}
-            </h1>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-}
-
-function CardPotensiLoading(params) {
-  return (
-    <>
-      <div className=" h-80 rounded-2xl bg-gray-300 animate-pulse">
-        <div className="w-full h-full flex flex-col justify-center items-center "></div>
-      </div>
-    </>
-  );
-}
-
-function CardAgenda({ dariJam, sampaiJam, lokasi, tanggal, agenda, key }) {
-  return (
-    <section
-      className="w-[575px] h-[318px] rounded shadow border border-black"
-      key={key}
-    >
-      <div>
-        <div className="flex items-center">
-          <p>10:00 - 11:00</p>
-          <div>
-            <Location size="32" color="#FF8A65" />
-            <p>Desa singasari</p>
-          </div>
-        </div>
-        <div>
-          <h1>Pelantikan Pengurus Gerakan Pramuka Kwartir Ranting Jonggol</h1>
-        </div>
-      </div>
-
-      <div>
-        <CustomButton label={'detail'} stylingButton={''} />
-        <div>
-          <Calendar size="32" color="#FF8A65" />
-          <p>27 agustus 2023</p>
-        </div>
-      </div>
-    </section>
-  );
-}
->>>>>>> 18854e17d4e35c75bb47712b098921b3e3c1ff7e
