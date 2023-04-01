@@ -1,0 +1,160 @@
+.underlineButton {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+}
+
+.underlineButton {
+  --primary-color: #ffffff;
+  --hovered-color: #fff012;
+  position: relative;
+  display: flex;
+  font-weight: 600;
+  font-size: 20px;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.underlineButton p {
+  margin: 0;
+  position: relative;
+  font-size: 20px;
+  color: var(--primary-color);
+}
+
+.underlineButton::after {
+  position: absolute;
+  content: '';
+  width: 0;
+  left: 0;
+  bottom: -7px;
+  background: var(--hovered-color);
+  height: 2px;
+  transition: 0.3s ease-out;
+}
+
+.underlineButton p::before {
+  position: absolute;
+  /*   box-sizing: border-box; */
+  content: 'Selengkapnya...';
+  width: 0%;
+  inset: 0;
+  color: var(--hovered-color);
+  overflow: hidden;
+  transition: 0.3s ease-out;
+}
+
+.underlineButton:hover::after {
+  width: 100%;
+}
+
+.underlineButton:hover p::before {
+  width: 100%;
+}
+
+.underlineButton:hover svg {
+  transform: translateX(4px);
+  color: var(--hovered-color);
+}
+
+.underlineButton svg {
+  color: var(--primary-color);
+  transition: 0.2s;
+  position: relative;
+  width: 15px;
+  transition-delay: 0.2s;
+}
+
+/* ================================ */
+
+.animatedButton {
+  display: inline-block;
+  line-height: 2.5em;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.5s;
+  z-index: 1;
+  font-weight: 500;
+}
+
+.animatedButton:before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  height: 150px;
+  width: 200px;
+  border-radius: 50%;
+}
+
+.animatedButton:before {
+  top: 100%;
+  left: 100%;
+  transition: all 0.7s;
+}
+
+.animatedButton:hover:before {
+  top: -30px;
+  left: -30px;
+}
+
+/* .animatedButton:active:before {
+ background: #3a0ca3;
+ transition: background 0s;
+} */
+
+
+/* =========================== */
+
+.animatedButton2 {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 6px 24px 0px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  border: none;
+ }
+ 
+ .animatedButton2:after {
+  content: " ";
+  width: 0%;
+  height: 100%;
+  position: absolute;
+  transition: all 0.4s ease-in-out;
+  right: 0;
+ }
+ 
+ .animatedButton2:hover::after {
+  right: auto;
+  left: 0;
+  width: 100%;
+ }
+ 
+ .animatedButton2 span {
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+  font-weight: 700;
+  z-index: 20;
+  transition: all 0.3s ease-in-out;
+ }
+ 
+ .animatedButton2:hover span {
+  animation: scaleUp 0.3s ease-in-out;
+ }
+ 
+ @keyframes scaleUp {
+  0% {
+   transform: scale(1);
+  }
+ 
+  50% {
+   transform: scale(0.95);
+  }
+ 
+  100% {
+   transform: scale(1);
+  }
+ }
+ 

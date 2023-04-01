@@ -1,3 +1,4 @@
+@import url(//db.onlinewebfonts.com/c/2f86dc938a55788d3416b876b43a116a?family=Poppins);
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,6 +6,7 @@
 *{
   margin: 0;
   padding: 0;
+  font-family: "Poppins";
 }
 
 html{
