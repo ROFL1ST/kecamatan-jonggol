@@ -373,10 +373,6 @@ export default function Home() {
             ))}
             {/* box */}
           </div>
-<<<<<<< HEAD
-          <div
-            onClick={() => navigate("/aplikasi")}
-=======
           <AnimatedButton
             onClick={() => navigate('/aplikasi')}
             label={'Lebih Banyak'}
@@ -386,7 +382,6 @@ export default function Home() {
           />
           {/* <div
             onClick={() => navigate('/aplikasi')}
->>>>>>> c69d8fa045ec9bbf86d24a234ad1f6b7c695e927
             onMouseEnter={handleMouseOver}
             onMouseLeave={handleMouseOut}
             className={`border-2 border-gray-400 rounded-full px-6 py-3 cursor-pointer ${
