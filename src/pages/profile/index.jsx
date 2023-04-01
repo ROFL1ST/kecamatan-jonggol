@@ -13,6 +13,7 @@ import NotFound from "../../assets/json/93134-not-found.json";
 import { useNavigate } from "react-router-dom";
 import ErrorIndicator from "../../assets/json/98642-error-404.json";
 import { ArrowRight2 } from "iconsax-react";
+import AnimatedButton from "../../component/animatedButton";
 
 export default function Profile() {
   const [penduduk, setPenduduk] = React.useState();
@@ -302,7 +303,7 @@ export default function Profile() {
               <></>
             ) : (
               <div className=" flex justify-center items-center">
-                <button
+                {/* <button
                   onClick={() => setLimit(limit + 12)}
                   onMouseEnter={handleMouseOver2}
                   onMouseLeave={handleMouseOut2}
@@ -313,7 +314,14 @@ export default function Profile() {
                   }`}
                 >
                   Selengkapnya
-                </button>
+                </button> */}
+                <AnimatedButton
+                  onClick={() => setLimit(limit + 12)}
+                  label={"Lebih Banyak"}
+                  styleButton={
+                    "px-5 py-1 rounded-full hover:text-white text-kuningPrimary border-2 border-kuningPrimary before:bg-bgKuningPrimary"
+                  }
+                />
               </div>
             )}
           </div>
