@@ -1,6 +1,5 @@
 import React from 'react';
 import Slider from './component/Slider';
-import Logoutama from '../../assets/logo/logo-utama.png';
 import siapmasjo from '../../assets/logo/siapmasjo.png';
 import sipahadasi from '../../assets/logo/sipahadesi.png';
 import sipaojol from '../../assets/logo/sipaojol.png';
@@ -12,16 +11,15 @@ import { useNavigate } from 'react-router-dom';
 import Lottie from 'lottie-react';
 import NotFound from '../../assets/json/93134-not-found.json';
 import ErrorIndicator from '../../assets/json/98642-error-404.json';
-import CustomButton from './component/customButton';
-import Agenda from '../agenda';
 import Potensi from './component/Potensi';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, EffectFade, Autoplay } from 'swiper';
 import 'swiper/css/effect-fade';
 import 'swiper/css';
 import UnderlineButton from './component/underlineButton';
-import AnimatedButton from './component/animatedButton';
-import AnimatedButton2 from './component/animatedButton2';
+import AnimatedButton from '../../component/animatedButton';
+import AnimatedButton2 from '../../component/animatedButton2';
+
 
 export default function Home() {
   const navigate = useNavigate();
@@ -631,14 +629,7 @@ function CardInfoMobile({ data }) {
 }
 
 function CardApp({ data }) {
-  const [isHovering, setIsHovering] = React.useState(false);
-  const handleMouseOver = () => {
-    setIsHovering(true);
-  };
 
-  const handleMouseOut = () => {
-    setIsHovering(false);
-  };
 
   const navigate = useNavigate();
   return (
@@ -728,34 +719,6 @@ function CardBerita({ i }) {
   );
 }
 
-function CardPotensi({ data }) {
-  return (
-    <>
-      <div className="bg-black p-3 h-full w-full rounded-xl cursor-pointer">
-        <div
-          className="lg:min-h-[17.5rem] h-56 rounded-lg p-8 items-end flex transition duration-500 transform hover:scale-[1.07]"
-          style={{ backgroundImage: `url(${data.thumbnail})` }}
-        >
-          <div className="bg-white px-5 py-2 rounded-full ">
-            <h1 className="text-[#3C903C] font-medium lg:text-xl">
-              {data.nama_potensi}
-            </h1>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-}
-
-function CardPotensiLoading(params) {
-  return (
-    <>
-      <div className=" h-80 rounded-2xl bg-gray-300 animate-pulse">
-        <div className="w-full h-full flex flex-col justify-center items-center "></div>
-      </div>
-    </>
-  );
-}
 
 function CardAgendaLoading({ key }) {
   return (

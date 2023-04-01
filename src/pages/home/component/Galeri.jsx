@@ -10,7 +10,8 @@ import { Dialog, Transition } from '@headlessui/react';
 import { getApi } from '../../../API/restApi';
 import parse from 'html-react-parser';
 import NoImage from '../../../assets/images/thumbnail.jpg';
-import AnimatedButton from './animatedButton';
+import AnimatedButton from '../../../component/animatedButton';
+
 
 export default function Galeri() {
   const navigate = useNavigate();
@@ -74,7 +75,7 @@ export default function Galeri() {
               onClick={() => navigate('/foto')}
               label={'Selengkapnya'}
               styleButton={
-                'px-5 mt-5 py-1 rounded-full text-[15px] text-white border-2 border-white hover:text-black hover:border-kuningPrimary before:bg-bgKuningPrimary hover:text-kuningPrimary'
+                'px-5 mt-5 py-1 rounded-full text-[15px] text-white border-2 border-white hover:text-white hover:border-kuningPrimary before:bg-bgKuningPrimary '
               }
             />
           </div>
