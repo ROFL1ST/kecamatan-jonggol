@@ -19,6 +19,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, EffectFade, Autoplay } from 'swiper';
 import 'swiper/css/effect-fade';
 import 'swiper/css';
+import UnderlineButton from './component/underlineButton';
+import AnimatedButton from './component/animatedButton';
+import AnimatedButton2 from './component/animatedButton2';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -370,7 +373,14 @@ export default function Home() {
             ))}
             {/* box */}
           </div>
-          <div
+          <AnimatedButton
+            onClick={() => navigate('/aplikasi')}
+            label={'Lebih Banyak'}
+            styleButton={
+              'px-5 py-1 rounded-full hover:text-white text-hijauPrimary border-2 border-hijauPrimary before:bg-bgHijauPrimary'
+            }
+          />
+          {/* <div
             onClick={() => navigate('/aplikasi')}
             onMouseEnter={handleMouseOver}
             onMouseLeave={handleMouseOut}
@@ -381,7 +391,7 @@ export default function Home() {
             }`}
           >
             <p className="font-semibold ">Lebih Banyak</p>
-          </div>
+          </div> */}
         </div>
         {/* program */}
         {/* Gallery */}
@@ -645,7 +655,11 @@ function CardApp({ data }) {
             {data.desc}
           </p>
           <div className="2xl:text-xl  justify-end font-bold 2xl:mb-10 mb-5 2xl:mr-10 mr-5  flex items-center ">
-            <p
+            <UnderlineButton
+              onClick={() => navigate(`/aplikasi/${data.id}`)}
+              label={'Selengkapnya...'}
+            />
+            {/* <p
               onClick={() => navigate(`/aplikasi/${data.id}`)}
               onMouseEnter={handleMouseOver}
               onMouseLeave={handleMouseOut}
@@ -656,7 +670,7 @@ function CardApp({ data }) {
               }`}
             >
               Selengkapnya...
-            </p>
+            </p> */}
           </div>
         </div>
       </div>
@@ -811,15 +825,26 @@ function CardAgenda({ data }) {
         <div className="flex flex-col justify-between h-4/5">
           <h1 className="font-bold text-2xl 2xl:w-3/4">{data.nama_agenda}</h1>
           <div className="flex justify-between w-full items-end">
-            <button
+            {/* <button
               onClick={() => {
                 navigate(`/agenda/${data.slug}`);
               }}
               className="px-7 py-3 font-bold bg-[#3C903C] text-white rounded-2xl text-xl"
             >
               Detail
-            </button>
-            <div className="flex text-[#6D6D6D] gap-x-3 font-bold text-sm">
+            </button> */}
+            <AnimatedButton2
+              onClick={() => {
+                navigate(`/agenda/${data.slug}`);
+              }}
+              label={'Detail'}
+              styleButton={'bg-hijauPrimary after:bg-kuningPrimary rounded-xl'}
+              styleP={
+                'px-8 py-4 text-white text-[18px] tracking-wider hover:text-black'
+              }
+            />
+
+            <div className="flex text-[#6D6D6D] gap-x-3 font-bold text-sm ">
               <Calendar size="22" color="#6D6D6D" />
               <p>
                 {date.getDate()} {monthName} {date.getFullYear()}
@@ -828,8 +853,6 @@ function CardAgenda({ data }) {
           </div>
         </div>
         {/* Center */}
-        {/* Bottom */}
-
         {/* Bottom */}
       </div>
     </>
