@@ -5,8 +5,11 @@ import { Scrollbar } from "swiper";
 import NoImage from "../../../assets/images/thumbnail.jpg";
 import Lottie from "lottie-react";
 import NotFound from "../../../assets/json/93134-not-found.json";
+import { useNavigate } from "react-router-dom";
+import AnimatedButton from "./animatedButton";
 
 export default function Potensi() {
+  const navigate = useNavigate()
   const swiperRef = React.useRef(null);
 
   const [dataPotensi, setDataPotensi] = React.useState({
@@ -169,8 +172,8 @@ export default function Potensi() {
           )}
           <div className="swiper-scrollbar2 my-scrollbar mt-20 lg:flex !hidden"></div>
           <div className="lg:hidden flex justify-center">
-            <button
-              //   onClick={() => navigate("/foto")}
+            {/* <button
+                onClick={() => navigate("/foto")}
               onMouseEnter={handleMouseOver}
               onMouseLeave={handleMouseOut}
               className={` px-5 py-2 2xl:py-3 rounded-full lg:text-sm 2xl:text-base font-semibold mt-16 ${
@@ -180,7 +183,14 @@ export default function Potensi() {
               }`}
             >
               Selengkapnya
-            </button>
+            </button> */}
+            <AnimatedButton
+              onClick={() => navigate('/foto')}
+              label={'Selengkapnya'}
+              styleButton={
+                'px-5 mt-5 py-1 rounded-full text-[15px] text-white border-2 border-white hover:text-black hover:border-kuningPrimary before:bg-bgKuningPrimary hover:text-black'
+              }
+            />
           </div>
         </div>
         {/* Content */}

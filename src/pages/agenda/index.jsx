@@ -1,11 +1,12 @@
-import { Calendar, Location } from "iconsax-react";
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { getApi } from "../../API/restApi";
-import Loading from "../../component/Loading";
-import Lottie from "lottie-react";
-import NotFound from "../../assets/json/93134-not-found.json";
-import ErrorIndicator from "../../assets/json/98642-error-404.json";
+import { Calendar, Location } from 'iconsax-react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getApi } from '../../API/restApi';
+import Loading from '../../component/Loading';
+import Lottie from 'lottie-react';
+import NotFound from '../../assets/json/93134-not-found.json';
+import ErrorIndicator from '../../assets/json/98642-error-404.json';
+import AnimatedButton2 from '../home/component/animatedButton2';
 
 export default function Agenda() {
   const [hoverButton2, setHoverButton2] = React.useState(false);
@@ -43,7 +44,7 @@ export default function Agenda() {
   }, [limit]);
 
   React.useEffect(() => {
-    document.title = "Agenda";
+    document.title = 'Agenda';
   });
   return (
     <>
@@ -57,10 +58,10 @@ export default function Agenda() {
           <div
             className={` mb-20 gap-y-10 gap-x-10 mt-20 ${
               loadAgenda
-                ? "grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1"
+                ? 'grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1'
                 : agenda.length == 0 || agendaError
-                ? ""
-                : "grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1"
+                ? ''
+                : 'grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1'
             }`}
           >
             {!loadAgenda ? (
@@ -96,8 +97,8 @@ export default function Agenda() {
                 onMouseLeave={handleMouseOut2}
                 className={` px-5 py-2 2xl:py-3 rounded-full lg:text-sm 2xl:text-base font-semibold ${
                   hoverButton2 || !loadAgenda
-                    ? "bg-[#3C903C] text-white transition-all border-2 border-[#3C903C]"
-                    : "border-[#3C903C] border-2  text-[#3C903C] transition-all"
+                    ? 'bg-[#3C903C] text-white transition-all border-2 border-[#3C903C]'
+                    : 'border-[#3C903C] border-2  text-[#3C903C] transition-all'
                 }`}
               >
                 {loadAgenda ? (
@@ -107,7 +108,7 @@ export default function Agenda() {
                     </div>
                   </>
                 ) : (
-                  "Selengkapnya"
+                  'Selengkapnya'
                 )}
               </button>
             </div>
@@ -147,24 +148,24 @@ function Card({ data }) {
   const navigate = useNavigate();
   const date = new Date(data.tanggal);
   var months = [
-    "Januari",
-    "Februari",
-    "Maret",
-    "April",
-    "May",
-    "Juni",
-    "Juli",
-    "Agustus",
-    "September",
-    "Oktober",
-    "November",
-    "Desember",
+    'Januari',
+    'Februari',
+    'Maret',
+    'April',
+    'May',
+    'Juni',
+    'Juli',
+    'Agustus',
+    'September',
+    'Oktober',
+    'November',
+    'Desember',
   ];
   var monthName = months[date.getMonth()];
 
-  const [hoursStart, minutesStart] = data.start.split(":");
+  const [hoursStart, minutesStart] = data.start.split(':');
   const formatedStart = `${hoursStart}:${minutesStart}`;
-  const [hoursEnd, minutesEnd] = data.end.split(":");
+  const [hoursEnd, minutesEnd] = data.end.split(':');
   const formatedEnd = `${hoursEnd}:${minutesEnd}`;
 
   return (
@@ -185,14 +186,24 @@ function Card({ data }) {
         <div className="flex flex-col justify-between h-4/5">
           <h1 className="font-bold text-2xl 2xl:w-3/4">{data.nama_agenda}</h1>
           <div className="flex justify-between w-full items-end">
-            <button
+            {/* <button
               onClick={() => {
                 navigate(`/agenda/${data.slug}`);
               }}
               className="px-7 py-3 font-bold bg-[#3C903C] text-white rounded-2xl text-xl"
             >
               Detail
-            </button>
+            </button> */}
+            <AnimatedButton2
+              onClick={() => {
+                navigate(`/agenda/${data.slug}`);
+              }}
+              label={'Detail'}
+              styleButton={'bg-hijauPrimary after:bg-kuningPrimary rounded-xl'}
+              styleP={
+                'px-8 py-4 text-white text-[18px] tracking-wider hover:text-black'
+              }
+            />
             <div className="flex text-[#6D6D6D] gap-x-3 font-bold text-sm">
               <Calendar size="22" color="#6D6D6D" />
               <p>

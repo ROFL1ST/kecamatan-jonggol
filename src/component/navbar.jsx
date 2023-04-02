@@ -2,23 +2,31 @@
 import {
   ArrowDown2,
   ArrowUp2,
+  Book,
+  BookSquare,
+  Bookmark,
+  Buildings2,
   CloseCircle,
+  DocumentText,
   HambergerMenu,
+  Image,
+  More2,
   SearchNormal,
-} from "iconsax-react";
-import React from "react";
-import { NavLink, useLocation, useParams } from "react-router-dom";
-import Logo from "../assets/logo/Logo.png";
-import { Menu, Transition } from "@headlessui/react";
-import Search from "./search";
-import { BurgerClose as Burger } from "react-burger-icons";
+  Timer,
+} from 'iconsax-react';
+import React from 'react';
+import { NavLink, useLocation, useParams } from 'react-router-dom';
+import Logo from '../assets/logo/Logo.png';
+import { Menu, Transition } from '@headlessui/react';
+import Search from './search';
+import { BurgerClose as Burger } from 'react-burger-icons';
 
 export default function Navbar() {
   const location = useLocation();
   // console.log(location.pathname);
   const activePage =
-    "bg-white px-5 py-2 rounded-full text-[#3C903C] font-bold transition-all";
-  const normalPages = "transition-all px-5";
+    'bg-white px-5 py-2 rounded-lg text-[#3C903C] font-bold transition-all';
+  const normalPages = 'transition-all px-5';
   const [navbarOpen, setNavbarOpen] = React.useState(false);
 
   React.useEffect(() => {
@@ -31,15 +39,15 @@ export default function Navbar() {
 
   React.useEffect(() => {
     function handleKeyDown(event) {
-      if (event.ctrlKey && event.key === "k") {
+      if (event.ctrlKey && event.key === 'k') {
         event.preventDefault();
         setOpen(true);
       }
     }
 
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
 
@@ -51,18 +59,18 @@ export default function Navbar() {
       setIsVisible(prevScrollPosition > currentScrollPosition);
       prevScrollPosition = currentScrollPosition;
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   return (
     <>
       <div
-        className={`fixed w-screen z-20 navbar ${isVisible ? "visible" : ""}`}
+        className={`fixed w-screen z-20 navbar ${isVisible ? 'visible' : ''}`}
       >
         {/* Dekstop */}
         <div className="lg:flex hidden bg-[#007100] h-6"></div>
         <div className="w-full h-20 lg:bg-[#007100] bg-[#007100]   lg:bg-opacity-20 lg:backdrop-blur-lg lg:drop-shadow-lg flex items-center justify-between px-5 2xl:px-16 lg:px-10">
-          <NavLink to={"/"} className={""}>
+          <NavLink to={'/'} className={''}>
             <img src={Logo} className="lg:w-[70%] w-[80%] m-0" alt="" />
           </NavLink>
           <div className="flex lg:hidden items-center justify-center gap-x-5">
@@ -93,7 +101,7 @@ export default function Navbar() {
 
           <nav className="lg:flex hidden space-x-6 items-center font-bold">
             <NavLink
-              to={"/"}
+              to={'/'}
               className={({ isActive }) =>
                 isActive ? activePage : normalPages
               }
@@ -110,7 +118,7 @@ export default function Navbar() {
               <DropMedia location={location.pathname} slug={slug} />
             </div>
             <NavLink
-              to={"/aplikasi"}
+              to={'/aplikasi'}
               className={({ isActive }) =>
                 isActive ? activePage : normalPages
               }
@@ -126,19 +134,21 @@ export default function Navbar() {
               <SearchNormal className="w-5 h-5" />
               Search
             </div>
-            <p className="font-semibold">Ctrl <span className="font-bold">K</span></p>
+            <p className="font-semibold">
+              Ctrl <span className="font-bold">K</span>
+            </p>
           </div>
         </div>
         {/* Dekstop */}
         {/* Mobile */}
         <div
           className={`${
-            navbarOpen ? "  translate-y-[78px]" : "-translate-y-[1000px] "
+            navbarOpen ? '  translate-y-[78px]' : '-translate-y-[1000px] '
           } top-0 fixed flex-col lg:hidden flex -z-10 bg-[#007100] w-full transition-[0.3s]
              px-10 py-10 pb-10 overflow-y-auto rounded-b-2xl  `}
         >
           <ul className="flex flex-col gap-y-5 font-bold text-white">
-            <NavLink to={"/"}>
+            <NavLink to={'/'}>
               <li className="cursor-pointer">Home</li>
             </NavLink>
             <li className="cursor-pointer flex items-center gap-x-5">
@@ -150,7 +160,7 @@ export default function Navbar() {
             <li className="cursor-pointer flex items-center gap-x-5">
               <DropMobileMedia />
             </li>
-            <NavLink to={"/aplikasi"}>
+            <NavLink to={'/aplikasi'}>
               <li className="cursor-pointer">Aplikasi</li>
             </NavLink>
           </ul>
@@ -164,18 +174,18 @@ export default function Navbar() {
 function DropProgram({ location }) {
   return (
     <>
-      <Menu as={"div"} className="relative inline-block text-left">
+      <Menu as={'div'} className="relative inline-block text-left">
         {({ open }) => (
           <>
             <Menu.Button
               className={`px-6 inline-flex gap-x-3 w-full justify-center items-center text-sm transition-all  ${
                 open ||
-                location == "/rencana-strategis" ||
-                location == "/rencana-kerja"
+                location == '/rencana-strategis' ||
+                location == '/rencana-kerja'
                   ? //  ||
                     // location == "/berita"
-                    "bg-white  py-2 rounded-full text-[#547153] font-bold transition-all"
-                  : ""
+                    'bg-white  py-2 rounded-lg text-[#547153] font-bold transition-all'
+                  : ''
               }`}
             >
               <p className="text-base">Program</p>
@@ -199,12 +209,13 @@ function DropProgram({ location }) {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute text-left right-0 mt-2 w-full rounded-xl origin-top-right divide-y divide-[#547153]  bg-white  ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Items className="absolute text-left right-0 mt-2 w-[250px] rounded-xl origin-top-right  bg-white  ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="px-1 py-1">
                   <Menu.Item>
                     {({ active }) => (
-                      <NavLink to={"/rencana-strategis"}>
-                        <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
+                      <NavLink to={'/rencana-strategis'}>
+                        <button className="hover:bg-bgHijauTransparentPrimary text-left group flex w-full items-center rounded-md px-2 py-2 text-sm ">
+                          <DocumentText color="#000000" className="mr-2" />
                           Rencana Strategis
                         </button>
                       </NavLink>
@@ -214,8 +225,9 @@ function DropProgram({ location }) {
                 <div className="px-1 py-1">
                   <Menu.Item>
                     {({ active }) => (
-                      <NavLink to={"/rencana-kerja"}>
-                        <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
+                      <NavLink to={'/rencana-kerja'}>
+                        <button className="hover:bg-bgHijauTransparentPrimary group flex w-full items-center rounded-md px-2 py-2 text-sm ">
+                          <DocumentText color="#000000" className="mr-2" />
                           Rencana Kerja
                         </button>
                       </NavLink>
@@ -234,10 +246,10 @@ function DropProgram({ location }) {
 function DropProgramMobile(params) {
   return (
     <>
-      <Menu as={"div"} className="relative inline-block text-left">
+      <Menu as={'div'} className="relative inline-block text-left">
         {({ open }) => (
           <>
-            <Menu.Button className={"flex flex-col w-full  "}>
+            <Menu.Button className={'flex flex-col w-full  '}>
               <div className="flex gap-x-3 justify-center items-center">
                 Program
                 {open ? (
@@ -263,19 +275,19 @@ function DropProgramMobile(params) {
             >
               <div
                 className={`mt-3 ${
-                  open ? "flex-col gap-y-5 list-disc px-5" : "hidden"
+                  open ? 'flex-col gap-y-5 list-disc px-5' : 'hidden'
                 }`}
               >
                 <button
                   className={`text-white group flex justify-start w-full items-center rounded-md px-2 py-1 text-sm    `}
                 >
-                  <NavLink to={"/rencana-strategis"}>Rencana Strategis</NavLink>
+                  <NavLink to={'/rencana-strategis'}>Rencana Strategis</NavLink>
                 </button>
 
                 <button
                   className={`text-white group flex justify-start w-full items-center rounded-md px-2 py-1 text-sm    `}
                 >
-                  <NavLink to={"/rencana-kerja"}>Rencana Kerja</NavLink>
+                  <NavLink to={'/rencana-kerja'}>Rencana Kerja</NavLink>
                 </button>
               </div>
             </Transition>
@@ -289,10 +301,10 @@ function DropProgramMobile(params) {
 function DropProfileMobile() {
   return (
     <>
-      <Menu as={"div"} className="relative inline-block text-left">
+      <Menu as={'div'} className="relative inline-block text-left">
         {({ open }) => (
           <>
-            <Menu.Button className={"flex flex-col w-full  "}>
+            <Menu.Button className={'flex flex-col w-full  '}>
               <div className="flex gap-x-3 justify-center items-center">
                 Profile
                 {open ? (
@@ -318,27 +330,27 @@ function DropProfileMobile() {
             >
               <div
                 className={`mt-3 ${
-                  open ? "flex-col gap-y-5 list-disc px-5" : "hidden"
+                  open ? 'flex-col gap-y-5 list-disc px-5' : 'hidden'
                 }`}
               >
                 <button
                   className={`text-white group flex justify-start w-full items-center rounded-md px-2 py-1 text-sm    `}
                 >
-                  <NavLink to={"/profile"}>Profil</NavLink>
+                  <NavLink to={'/profile'}>Profil</NavLink>
                 </button>
 
                 <button
                   className={`text-white group flex justify-start w-full items-center rounded-md px-2 py-1 text-sm    `}
                 >
-                  <NavLink to={"/struktur-organisasi"}>
+                  <NavLink to={'/struktur-organisasi'}>
                     Struktur Organisasi
                   </NavLink>
                 </button>
                 <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
-                  <NavLink to={"/sejarah-jonggol"}>Sejarah</NavLink>
+                  <NavLink to={'/sejarah-jonggol'}>Sejarah</NavLink>
                 </button>
                 <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
-                  <NavLink to={"/visi-misi"}>Visi dan Misi</NavLink>
+                  <NavLink to={'/visi-misi'}>Visi dan Misi</NavLink>
                 </button>
               </div>
             </Transition>
@@ -352,10 +364,10 @@ function DropProfileMobile() {
 function DropMobileMedia() {
   return (
     <>
-      <Menu as={"div"} className="relative inline-block text-left">
+      <Menu as={'div'} className="relative inline-block text-left">
         {({ open }) => (
           <>
-            <Menu.Button className={"flex flex-col w-full  "}>
+            <Menu.Button className={'flex flex-col w-full  '}>
               <div className="flex gap-x-3 justify-center items-center">
                 Media & Informasi
                 {open ? (
@@ -381,19 +393,19 @@ function DropMobileMedia() {
             >
               <div
                 className={`mt-3 ${
-                  open ? "flex-col gap-y-5 list-disc px-5" : "hidden"
+                  open ? 'flex-col gap-y-5 list-disc px-5' : 'hidden'
                 }`}
               >
                 <button
                   className={`text-white group flex justify-start w-full items-center rounded-md px-2 py-1 text-sm    `}
                 >
-                  <NavLink to={"/berita"}>Berita</NavLink>
+                  <NavLink to={'/berita'}>Berita</NavLink>
                 </button>
 
                 <button
                   className={`text-white group flex justify-start w-full items-center rounded-md px-2 py-1 text-sm    `}
                 >
-                  <NavLink to={"/foto"}>Foto</NavLink>
+                  <NavLink to={'/foto'}>Foto</NavLink>
                 </button>
                 {/* <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
                   <NavLink to={"/video"}>Video</NavLink>
@@ -401,7 +413,7 @@ function DropMobileMedia() {
                 <button
                   className={`text-white group flex justify-start w-full items-center rounded-md px-2 py-1 text-sm    `}
                 >
-                  <NavLink to={"/agenda"}>Agenda</NavLink>
+                  <NavLink to={'/agenda'}>Agenda</NavLink>
                 </button>
               </div>
             </Transition>
@@ -413,24 +425,24 @@ function DropMobileMedia() {
 }
 
 function DropMedia({ location, slug }) {
-  const activeDrop = "text-[#547153] font-bold transition-all";
-  const normalDrop = "transition-all";
+  const activeDrop = 'text-[#547153] font-bold transition-all';
+  const normalDrop = 'transition-all';
 
   return (
     <>
-      <Menu as={"div"} className="relative inline-block text-left">
+      <Menu as={'div'} className="relative inline-block text-left">
         {({ open }) => (
           <>
             <Menu.Button
               className={`px-3 inline-flex w-full justify-center items-center text-sm transition-all  ${
                 open ||
-                location == "/foto" ||
-                location == "/video" ||
-                location == "/berita" ||
-                location == "/agenda" ||
+                location == '/foto' ||
+                location == '/video' ||
+                location == '/berita' ||
+                location == '/agenda' ||
                 location == `/berita/${slug}`
-                  ? "bg-white  py-2 rounded-full text-[#547153] font-bold transition-all"
-                  : ""
+                  ? 'bg-white  py-2 rounded-lg text-[#547153] font-bold transition-all'
+                  : ''
               }`}
             >
               <p className="text-sm mr-2">Media & Informasi</p>
@@ -454,36 +466,38 @@ function DropMedia({ location, slug }) {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute right-0 mt-2 w-full rounded-xl origin-top-right divide-y divide-[#547153]  bg-white  ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Items className="absolute right-0 mt-2 w-[250px] rounded-xl origin-top-right  bg-white  ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="px-1 py-1">
                   <Menu.Item>
                     {({ active }) => (
-                      <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
-                        <NavLink
-                          to={"/berita"}
-                          className={({ active }) =>
-                            active ? activeDrop : normalDrop
-                          }
-                        >
+                      <NavLink
+                        to={'/berita'}
+                        className={({ active }) =>
+                          active ? activeDrop : normalDrop
+                        }
+                      >
+                        <button className="hover:bg-bgHijauTransparentPrimary group flex w-full items-center rounded-md px-2 py-2 text-sm ">
+                          <Book color="#000000" className="mr-2" />
                           Berita
-                        </NavLink>
-                      </button>
+                        </button>
+                      </NavLink>
                     )}
                   </Menu.Item>
                 </div>
                 <div className="px-1 py-1">
                   <Menu.Item>
                     {({ active }) => (
-                      <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
-                        <NavLink
-                          to={"/foto"}
-                          className={({ active }) =>
-                            active ? activeDrop : normalDrop
-                          }
-                        >
+                      <NavLink
+                        to={'/foto'}
+                        className={({ active }) =>
+                          active ? activeDrop : normalDrop
+                        }
+                      >
+                        <button className="hover:bg-bgHijauTransparentPrimary group flex w-full items-center rounded-md px-2 py-2 text-sm ">
+                          <Image color="#000000" className="mr-2" />
                           Foto
-                        </NavLink>
-                      </button>
+                        </button>
+                      </NavLink>
                     )}
                   </Menu.Item>
                 </div>
@@ -506,16 +520,17 @@ function DropMedia({ location, slug }) {
                 <div className="px-1 py-1">
                   <Menu.Item>
                     {({ active }) => (
-                      <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
-                        <NavLink
-                          to={"/agenda"}
-                          className={({ active }) =>
-                            active ? activeDrop : normalDrop
-                          }
-                        >
+                      <NavLink
+                        to={'/agenda'}
+                        className={({ active }) =>
+                          active ? activeDrop : normalDrop
+                        }
+                      >
+                        <button className="hover:bg-bgHijauTransparentPrimary group flex w-full items-center rounded-md px-2 py-2 text-sm ">
+                          <Bookmark color="#000000" className="mr-2" />
                           Agenda
-                        </NavLink>
-                      </button>
+                        </button>
+                      </NavLink>
                     )}
                   </Menu.Item>
                 </div>
@@ -529,24 +544,24 @@ function DropMedia({ location, slug }) {
 }
 
 function DropProfile({ location }) {
-  const activeDrop = "text-[#547153] font-bold transition-all";
-  const normalDrop = "transition-all";
+  const activeDrop = 'text-[#547153] font-bold transition-all';
+  const normalDrop = 'transition-all';
   return (
     <>
-      <Menu as={"div"} className="relative inline-block text-left">
+      <Menu as={'div'} className="relative inline-block text-left">
         {({ open }) => (
           <>
             <Menu.Button
               className={`px-5 inline-flex gap-x-3 w-full justify-center items-center text-sm transition-all  ${
                 open ||
-                location == "/profile" ||
-                location == "/struktur-organisasi" ||
-                location == "/sejarah-jonggol" ||
-                location == "/visi-misi"
+                location == '/profile' ||
+                location == '/struktur-organisasi' ||
+                location == '/sejarah-jonggol' ||
+                location == '/visi-misi'
                   ? //  ||
                     // location == "/berita"
-                    "bg-white  py-2 rounded-full text-[#547153] font-bold transition-all"
-                  : ""
+                    'bg-white  py-2 rounded-lg text-[#547153] font-bold transition-all'
+                  : ''
               }`}
             >
               <p className="text-base">Profile</p>
@@ -570,12 +585,13 @@ function DropProfile({ location }) {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute text-left right-0 mt-2 w-full rounded-xl origin-top-right divide-y divide-[#547153]  bg-white  ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Items className="absolute text-left right-0 mt-2 w-[250px] rounded-xl origin-top-right bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="px-1 py-1">
                   <Menu.Item>
                     {({ active }) => (
-                      <NavLink to={"/profile"}>
-                        <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
+                      <NavLink to={'/profile'}>
+                        <button className="hover:bg-bgHijauTransparentPrimary group flex w-full items-center rounded-md px-2 py-2 text-sm">
+                          <Buildings2 color="#000000" className="mr-2" />
                           Profile
                         </button>
                       </NavLink>
@@ -585,8 +601,9 @@ function DropProfile({ location }) {
                 <div className="px-1 py-1">
                   <Menu.Item>
                     {({ active }) => (
-                      <NavLink to={"/struktur-organisasi"}>
-                        <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
+                      <NavLink to={'/struktur-organisasi'}>
+                        <button className="hover:bg-bgHijauTransparentPrimary group flex w-full items-center rounded-md px-2 py-2 text-sm ">
+                          <More2 color="#000000" className="mr-2" />
                           Struktur
                         </button>
                       </NavLink>
@@ -596,32 +613,34 @@ function DropProfile({ location }) {
                 <div className="px-1 py-1">
                   <Menu.Item>
                     {({ active }) => (
-                      <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
-                        <NavLink
-                          to={"/sejarah-jonggol"}
-                          className={({ active }) =>
-                            active ? activeDrop : normalDrop
-                          }
-                        >
+                      <NavLink
+                        to={'/sejarah-jonggol'}
+                        className={({ active }) =>
+                          active ? activeDrop : normalDrop
+                        }
+                      >
+                        <button className="hover:bg-bgHijauTransparentPrimary group flex w-full items-center rounded-md px-2 py-2 text-sm ">
+                          <Timer color="#000000" className="mr-2" />
                           Sejarah
-                        </NavLink>
-                      </button>
+                        </button>
+                      </NavLink>
                     )}
                   </Menu.Item>
                 </div>
                 <div className="px-1 py-1">
                   <Menu.Item>
                     {({ active }) => (
-                      <button className=" group flex w-full items-center rounded-md px-2 py-2 text-sm ">
-                        <NavLink
-                          to={"/visi-misi"}
-                          className={({ active }) =>
-                            active ? activeDrop : normalDrop
-                          }
-                        >
+                      <NavLink
+                        to={'/visi-misi'}
+                        className={({ active }) =>
+                          active ? activeDrop : normalDrop
+                        }
+                      >
+                        <button className="hover:bg-bgHijauTransparentPrimary group flex w-full items-center rounded-md px-2 py-2 text-sm ">
+                          <BookSquare color="#000000" className="mr-2" />
                           Visi Dan Misi
-                        </NavLink>
-                      </button>
+                        </button>
+                      </NavLink>
                     )}
                   </Menu.Item>
                 </div>

@@ -22,6 +22,7 @@ import 'swiper/css';
 import UnderlineButton from './component/underlineButton';
 import AnimatedButton from './component/animatedButton';
 import AnimatedButton2 from './component/animatedButton2';
+import UnderlineButton2 from './component/underlineButton2';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -465,20 +466,13 @@ export default function Home() {
               </>
             )}
             <div className="lg:hidden flex justify-center items-center">
-              <button
-                onClick={() => {
-                  navigate('/berita');
-                }}
-                onMouseEnter={handleMouseOver2}
-                onMouseLeave={handleMouseOut2}
-                className={` px-5 py-2 2xl:py-3 rounded-full lg:text-sm 2xl:text-base font-semibold ${
-                  hoverButton2
-                    ? 'bg-[#007100] text-white transition-all border-2 border-[#007100]'
-                    : 'border-[#007100] border-2  text-[#007100] transition-all'
-                }`}
-              >
-                Selengkapnya
-              </button>
+            <AnimatedButton
+            onClick={() => navigate('/berita')}
+            label={'More News'}
+            styleButton={
+              'px-5 py-1 rounded-full hover:text-white text-hijauPrimary border-2 border-hijauPrimary before:bg-bgHijauPrimary'
+            }
+          />
             </div>
           </div>
         </div>
@@ -655,9 +649,14 @@ function CardApp({ data }) {
             {data.desc}
           </p>
           <div className="2xl:text-xl  justify-end font-bold 2xl:mb-10 mb-5 2xl:mr-10 mr-5  flex items-center ">
-            <UnderlineButton
+            <UnderlineButton2
               onClick={() => navigate(`/aplikasi/${data.id}`)}
               label={'Selengkapnya...'}
+              styleP={'text-white text-[20px] before:text-kuningPrimary'}
+              styleSvg={
+                'text-transparent hover:text-kuningPrimary transform translate-x-4'
+              }
+              styleButton={'after:bg-kuningPrimary'}
             />
             {/* <p
               onClick={() => navigate(`/aplikasi/${data.id}`)}
