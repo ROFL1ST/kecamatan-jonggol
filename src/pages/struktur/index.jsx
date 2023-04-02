@@ -321,7 +321,7 @@ function Card({ i }) {
       <div
         onMouseEnter={handleMouseOver}
         onMouseLeave={handleMouseOut}
-        className={`card flex flex-col gap-y-5 bg-white 2xl:h-[350px] lg:h-[350px] h-[300px] w-full 2xl:px-4 lg:px-3 px-4 py-5 rounded-[20px] cursor-pointer transition-all ${
+        className={`card flex flex-col gap-y-5 bg-white 2xl:h-[400px] lg:h-[400px] h-[300px] w-full 2xl:px-4 lg:px-3 px-4 py-5 rounded-[20px] cursor-pointer transition-all ${
           isHovering && "-translate-y-1 -translate-x-1 shadow-xl transition-all"
         }`}
       >
@@ -393,7 +393,7 @@ function Modal({ open, setOpen, cancelButtonRef, thumbnail }) {
                       className="cursor-pointer"
                     />
                   </div> */}
-                  <CardModal img={thumbnail}></CardModal>
+                  <CardModal img={thumbnail} open={open}></CardModal>
                   {/* <div className={`lg:flex hidden justify-center items-center`}>
                     <ArrowRight3
                       onClick={() => swiperRef.current.slideNext()}
@@ -415,7 +415,7 @@ function Modal({ open, setOpen, cancelButtonRef, thumbnail }) {
 const SCROLL_SENSITIVITY = 0.0005;
 const MAX_ZOOM = 5;
 const MIN_ZOOM = 0.1;
-function CardModal({ img }) {
+function CardModal({ img, open }) {
   const [offset, setOffset] = React.useState({ x: 0, y: 0 });
   const [zoom, setZoom] = React.useState(1);
   const [draggind, setDragging] = React.useState(false);
@@ -500,7 +500,7 @@ function CardModal({ img }) {
     });
     observer.current.observe(containerRef.current);
 
-    return () => observer.current.unobserve(containerRef.current);
+    // return () => observer.current.unobserve(containerRef.current);
   }, []);
 
   React.useEffect(() => {
@@ -526,9 +526,9 @@ function CardModal({ img }) {
     <>
       <div className=" items-center flex flex-col justify-center">
         <div className="flex justify-center items-center">
-          <div ref={containerRef} >
+          <div ref={containerRef} className="lg:flex hidden" >
             <canvas
-              className="!rounded-xl lg:!w-3/4 !mx-auto"
+              className="!rounded-xl 2xl:!w-3/4 lg:!w-1/2 !mx-auto"
               onMouseDown={handleMouseDown}
               onMouseUp={handleMouseUp}
               onWheel={handleWheel}
@@ -536,6 +536,11 @@ function CardModal({ img }) {
               ref={canvasRef}
             />
           </div>
+          <img
+          className="flex lg:hidden rounded-lg  2xl:min-w-[680px] 2xl:min-h-[443px] 2xl:max-h-[443px] md:min-w-[490px] md:min-h-[318px] md:max-h-[318px] min-w-[353px] min-h-[215px] max-h-[215px]"
+          src={img}
+          alt="gambar album"
+        />
         </div>
       </div>
     </>
