@@ -1,8 +1,8 @@
 import React from 'react';
 import './index.css';
-const UnderlineButton = ({ styleButton, styleP, styleSvg, label, ...props }) => {
+const UnderlineButton2 = ({ styleButton, styleP, styleSvg, label, ...props }) => {
   return (
-    <button className={`${styleButton} underlineButton`} {...props}>
+    <button className={`${styleButton} underlineButtonn`} {...props}>
       <p className={`${styleP}`}>{label}</p>
       <svg
         strokeWidth={4}
@@ -22,4 +22,4 @@ const UnderlineButton = ({ styleButton, styleP, styleSvg, label, ...props }) => 
   );
 };
 
-export default UnderlineButton;
+export default UnderlineButton2;

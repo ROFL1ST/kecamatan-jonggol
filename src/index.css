@@ -3,6 +3,15 @@
 @tailwind components;
 @tailwind utilities;
 
+.underlineButton:hover svg {
+  @apply transform translate-x-4;
+  color: #2a9134;
+}
+.underlineButtonn:hover svg {
+  @apply transform translate-x-4;
+  color: #fff012;
+}
+
 *{
   margin: 0;
   padding: 0;

@@ -71,6 +71,7 @@ export default function Galeri() {
             >
               Selengkapnya
             </button> */}
+<<<<<<< HEAD
             <AnimatedButton
               onClick={() => navigate('/foto')}
               label={'Selengkapnya'}
@@ -78,6 +79,17 @@ export default function Galeri() {
                 'px-5 mt-5 py-1 rounded-full text-[15px] text-white border-2 border-white hover:text-white hover:border-kuningPrimary before:bg-bgKuningPrimary '
               }
             />
+=======
+            <div className='lg:block hidden'>
+              <AnimatedButton
+                onClick={() => navigate('/foto')}
+                label={'Selengkapnya'}
+                styleButton={
+                  'px-5 mt-5 py-1 rounded-full text-[15px] text-white border-2 border-white hover:text-black hover:border-kuningPrimary before:bg-bgKuningPrimary hover:text-black'
+                }
+              />
+            </div>
+>>>>>>> 5ca31da9c29ef8b4cc3a28d71113a0f57d9b6c46
           </div>
           <div className="kanan lg:w-2/3 w-full">
             <Swiper
@@ -120,18 +132,13 @@ export default function Galeri() {
             </Swiper>
             <div className="swiper-scrollbar my-scrollbar mt-20 lg:flex !hidden"></div>
             <div className="lg:hidden flex justify-center">
-              <button
+              <AnimatedButton
                 onClick={() => navigate('/foto')}
-                onMouseEnter={handleMouseOver}
-                onMouseLeave={handleMouseOut}
-                className={` px-5 py-2 2xl:py-3 rounded-full lg:text-sm 2xl:text-base font-semibold mt-16 ${
-                  hoverButton
-                    ? 'bg-[#007100] text-white transition-all border-2 border-[#007100]'
-                    : 'border-white border-2  text-white transition-all'
-                }`}
-              >
-                Selengkapnya
-              </button>
+                label={'Selengkapnya'}
+                styleButton={
+                  'px-5 mt-5 py-1 rounded-full text-[15px] text-white border-2 border-white hover:text-black hover:border-kuningPrimary before:bg-bgKuningPrimary hover:text-black'
+                }
+              />
             </div>
           </div>
         </div>

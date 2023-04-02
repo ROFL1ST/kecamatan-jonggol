@@ -4,6 +4,7 @@ import siapmasjo from '../../assets/logo/siapmasjo.png';
 import sipahadasi from '../../assets/logo/sipahadesi.png';
 import sipaojol from '../../assets/logo/sipaojol.png';
 import UnderlineButton from '../home/component/underlineButton';
+import UnderlineButton2 from '../home/component/underlineButton2';
 export default function Aplikasi() {
   const app = [
     {
@@ -69,9 +70,14 @@ function CardApp({ data }) {
             {data.desc}
           </p>
           <div className="2xl:text-xl  justify-end font-bold 2xl:mb-10 mb-5 2xl:mr-10 mr-5  flex items-center ">
-            <UnderlineButton
+            <UnderlineButton2
               onClick={() => navigate(`/aplikasi/${data.id}`)}
               label={'Selengkapnya...'}
+              styleP={'text-white text-[20px] before:text-kuningPrimary'}
+              styleSvg={
+                'text-transparent hover:text-kuningPrimary transform translate-x-4'
+              }
+              styleButton={'after:bg-kuningPrimary'}
             />
             {/* <p
               onClick={() => {
