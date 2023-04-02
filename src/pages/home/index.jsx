@@ -13,7 +13,7 @@ import NotFound from '../../assets/json/93134-not-found.json';
 import ErrorIndicator from '../../assets/json/98642-error-404.json';
 import Potensi from './component/Potensi';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, EffectFade, Autoplay } from 'swiper';
+import {  Autoplay } from 'swiper';
 import 'swiper/css/effect-fade';
 import 'swiper/css';
 import UnderlineButton2 from './component/underlineButton2';
@@ -122,14 +122,6 @@ export default function Home() {
     },
   ];
 
-  const [hoverButton, setHoverButton] = React.useState(false);
-  const handleMouseOver = () => {
-    setHoverButton(true);
-  };
-
-  const handleMouseOut = () => {
-    setHoverButton(false);
-  };
 
   const [hoverButton2, setHoverButton2] = React.useState(false);
   const handleMouseOver2 = () => {
