@@ -35,7 +35,15 @@ export default function Kesehatan() {
   return (
     <>
       <div className="w-full mt-10">
-        <div className="grid grid-cols-4 gap-5 mt-10">
+        <div
+          className={` gap-5 mt-10 ${
+            kesehatan.loading == true
+              ? "grid grid-cols-4"
+              : kesehatan.data.length == 0 || kesehatan.error == true
+              ? ""
+              : "grid grid-cols-4"
+          }`}
+        >
           {kesehatan.loading != true ? (
             kesehatan.data.length != 0 ? (
               kesehatan.data.map((i, key) => <Card i={i} key={key} />)
@@ -55,7 +63,7 @@ export default function Kesehatan() {
               </>
             )
           ) : (
-            <></>
+            [1, 2, 3, 4, 5, 6, 7, 8].map((i, key) => <CardLoading />)
           )}
         </div>
       </div>
@@ -96,13 +104,40 @@ function Card({ i }) {
           <h1 className="text-white font-bold">{i.nama}</h1>
           <p className="text-white font-medium">{i.deskripsi}</p>
           <div className="flex gap-x-10 justify-center">
-            <a href={`tel:${i.kontak}`}  className="flex gap-x-3 px-4 py-3 font-bold bg-white rounded-xl text-hijauPrimary">
+            <a
+              href={`tel:${i.kontak}`}
+              className="flex gap-x-3 px-4 py-3 font-bold bg-white rounded-xl text-hijauPrimary"
+            >
               <Call /> Call Center
             </a>
-            <a href={`${i.maps}`} className="flex gap-x-3 px-8 font-bold py-3 bg-white rounded-xl text-hijauPrimary">
+            <a
+              href={`${i.maps}`}
+              className="flex gap-x-3 px-8 font-bold py-3 bg-white rounded-xl text-hijauPrimary"
+            >
               <Map /> Map
             </a>
           </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function CardLoading(params) {
+  return (
+    <>
+      <div className="bg-gray-100 w-full h-[500px] rounded-2xl border-blue-300 animate-pulse">
+        <div className="w-full h-1/2 bg-cover rounded-t-2xl bg-center bg-gray-300"></div>
+        <div className="pl-2 pr-10 py-5 space-y-16">
+          <div className="space-y-2">
+            <div className="text-xs font-bold h-4  bg-gray-300 rounded-full"></div>
+            <div className="text-xs font-bold h-4 w-1/4 bg-gray-300 rounded-full"></div>
+            <div className="text-xs font-bold h-4  bg-gray-300 rounded-full"></div>
+            <div className="text-xs font-bold h-4 w-1/4 bg-gray-300 rounded-full"></div>
+            <div className="text-xs font-bold h-4  bg-gray-300 rounded-full"></div>
+            <div className="text-xs font-bold h-4 w-1/4 bg-gray-300 rounded-full"></div>
+          </div>
+          <div className="text-xs font-bold h-4 w-1/4 bg-gray-300 rounded-full"></div>
         </div>
       </div>
     </>

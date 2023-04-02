@@ -1,27 +1,26 @@
-import React from 'react';
-import CountUp from 'react-countup';
-import { Dialog, Transition } from '@headlessui/react';
-import Lottie from 'lottie-react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import { Autoplay, Pagination } from 'swiper';
-import { getApi } from '../../API/restApi';
-import Kesehatan from './component/Kesehatan';
-import ProfilePic from '../../assets/json/27562-searching-for-profile.json';
-import NotFound from '../../assets/json/93134-not-found.json';
-import { useNavigate } from 'react-router-dom';
-import ErrorIndicator from '../../assets/json/98642-error-404.json';
-import { ArrowRight2 } from 'iconsax-react';
-import UnderlineButton from '../home/component/underlineButton';
-import AnimatedButton from '../../component/animatedButton';
-
+import React from "react";
+import CountUp from "react-countup";
+import { Dialog, Transition } from "@headlessui/react";
+import Lottie from "lottie-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Autoplay, Pagination } from "swiper";
+import { getApi } from "../../API/restApi";
+import Kesehatan from "./component/Kesehatan";
+import ProfilePic from "../../assets/json/27562-searching-for-profile.json";
+import NotFound from "../../assets/json/93134-not-found.json";
+import { useNavigate } from "react-router-dom";
+import ErrorIndicator from "../../assets/json/98642-error-404.json";
+import { ArrowRight2 } from "iconsax-react";
+import UnderlineButton from "../home/component/underlineButton";
+import AnimatedButton from "../../component/animatedButton";
 
 export default function Profile() {
   const [penduduk, setPenduduk] = React.useState();
   const getPenduduk = async () => {
     try {
-      await getApi('penduduk/total').then((res) => {
+      await getApi("penduduk/total").then((res) => {
         setPenduduk(res.data.data);
       });
     } catch (error) {
@@ -32,7 +31,7 @@ export default function Profile() {
   const [asn, setAsn] = React.useState();
   const getAsn = async () => {
     try {
-      await getApi('pegawai/total').then((res) => {
+      await getApi("pegawai/total").then((res) => {
         setAsn(res.data.data);
       });
     } catch (error) {
@@ -46,7 +45,7 @@ export default function Profile() {
   const [loadDesa, setLoadDesa] = React.useState(true);
   const getDesa = async () => {
     try {
-      await getApi('desa').then((res) => {
+      await getApi("desa").then((res) => {
         setDesa(res.data.data);
         setLoadDesa(false);
       });
@@ -60,116 +59,118 @@ export default function Profile() {
     {
       id: 1,
       count: penduduk,
-      title: 'Penduduk',
+      title: "Penduduk",
     },
     {
       id: 2,
       count: desa.length,
-      title: 'Jumlah Desa',
+      title: "Jumlah Desa",
     },
     {
       id: 3,
       count: asn,
-      title: 'Jumlah ASN',
+      title: "Jumlah ASN",
     },
     {
       id: 4,
       count: 158.9,
-      title: 'Luas Wilayah',
+      title: "Luas Wilayah",
     },
   ];
 
   const dataSekolah = [
     {
       id: 1,
-      nama: 'TK',
-      initial: 'Taman Kanak-kanak',
-      desc: 'Kecamatan Jonggol memiliki beberapa TK yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya',
+      nama: "TK",
+      initial: "Taman Kanak-kanak",
+      desc: "Kecamatan Jonggol memiliki beberapa TK yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya",
       swasta: 10,
       negri: 5,
       logoPendidikan:
-        'https://blog.pengajartekno.com/wp-content/uploads/2022/11/logo-tk-png.png',
+        "https://blog.pengajartekno.com/wp-content/uploads/2022/11/logo-tk-png.png",
     },
     {
       id: 2,
-      nama: 'SD',
-      initial: 'Sekolah Dasar',
-      desc: 'Kecamatan Jonggol memiliki beberapa SD yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya',
+      nama: "SD",
+      initial: "Sekolah Dasar",
+      desc: "Kecamatan Jonggol memiliki beberapa SD yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya",
       swasta: 10,
       negri: 5,
       logoPendidikan:
-        'https://siap-sekolah.s3.amazonaws.com/17724/files/2014/03/logo-sd1.png',
+        "https://siap-sekolah.s3.amazonaws.com/17724/files/2014/03/logo-sd1.png",
     },
     {
       id: 3,
-      nama: 'SMP',
-      initial: 'Sekolah Menengah Pertama',
-      desc: 'Kecamatan Jonggol memiliki beberapa SMP yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya',
+      nama: "SMP",
+      initial: "Sekolah Menengah Pertama",
+      desc: "Kecamatan Jonggol memiliki beberapa SMP yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya",
       swasta: 10,
       negri: 5,
       logoPendidikan:
-        'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjIvTdX754HDd_esf3o6e4wbFThVMz3IdHT7mVzG75sdiwueT7XUOps-_s5dRkN8Q73uLStyjrztY3EYWT9K8ORhROkXSd7kQz4RLzpofDzbPI3B_0Js7608kMaQ3GI5Ff2WpCk93qlSh9ei4ps42ZIkX2oq0zj6ldPIWkg7CIKTxbpDqGoK8UJURac/s1049/logo-smp.png',
+        "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjIvTdX754HDd_esf3o6e4wbFThVMz3IdHT7mVzG75sdiwueT7XUOps-_s5dRkN8Q73uLStyjrztY3EYWT9K8ORhROkXSd7kQz4RLzpofDzbPI3B_0Js7608kMaQ3GI5Ff2WpCk93qlSh9ei4ps42ZIkX2oq0zj6ldPIWkg7CIKTxbpDqGoK8UJURac/s1049/logo-smp.png",
     },
     {
       id: 4,
-      nama: 'SMA',
-      initial: 'Sekolah Menengah Atas',
-      desc: 'Kecamatan Jonggol memiliki beberapa SMA yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya',
+      nama: "SMA",
+      initial: "Sekolah Menengah Atas",
+      desc: "Kecamatan Jonggol memiliki beberapa SMA yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya",
       swasta: 10,
       negri: 5,
       logoPendidikan:
-        'https://sman1sukaresmi.sch.id/media_library/posts/post-image-1601167638481.png',
+        "https://sman1sukaresmi.sch.id/media_library/posts/post-image-1601167638481.png",
     },
     {
       id: 5,
-      nama: 'SMK',
-      initial: 'Sekolah Menengah Kejuruan',
-      desc: 'Kecamatan Jonggol memiliki beberapa SMK yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya',
+      nama: "SMK",
+      initial: "Sekolah Menengah Kejuruan",
+      desc: "Kecamatan Jonggol memiliki beberapa SMK yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya",
       swasta: 10,
       negri: 5,
       logoPendidikan:
-        'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiro7tiXSyLj1CLoOyVMSKZl_IKv5OXGFHHorA-42WoEaJjdKkVjH5pGkhB8sQOzHl0aMBvtHHuQ6UPoJ2jOjpLvhPzOyljOVnYZFvTjZWnewvppOxyRwQrN7c2raHXq2-tFU7fLVomRAienX_I0KUFixoJ7a_g6zrp6jnj-icChRUM8rVlGucEpDKd/s1130/SMK%20BISA%20HEBAT.png',
+        "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiro7tiXSyLj1CLoOyVMSKZl_IKv5OXGFHHorA-42WoEaJjdKkVjH5pGkhB8sQOzHl0aMBvtHHuQ6UPoJ2jOjpLvhPzOyljOVnYZFvTjZWnewvppOxyRwQrN7c2raHXq2-tFU7fLVomRAienX_I0KUFixoJ7a_g6zrp6jnj-icChRUM8rVlGucEpDKd/s1130/SMK%20BISA%20HEBAT.png",
     },
     {
       id: 6,
-      nama: 'MA',
-      initial: 'Madrasah Aliyah',
-      desc: 'Kecamatan Jonggol memiliki beberapa MA yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya',
+      nama: "MA",
+      initial: "Madrasah Aliyah",
+      desc: "Kecamatan Jonggol memiliki beberapa MA yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya",
       swasta: 10,
       negri: 5,
       logoPendidikan:
-        'https://rekreartive.com/wp-content/uploads/2019/04/Logo-Madrasah-MI-Mts-dan-MA-Warna.png',
+        "https://rekreartive.com/wp-content/uploads/2019/04/Logo-Madrasah-MI-Mts-dan-MA-Warna.png",
     },
     {
       id: 7,
-      nama: 'MTS',
-      initial: 'Madrasah Tsanawiyah',
-      desc: 'Kecamatan Jonggol memiliki beberapa MTS yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya',
+      nama: "MTS",
+      initial: "Madrasah Tsanawiyah",
+      desc: "Kecamatan Jonggol memiliki beberapa MTS yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya",
       swasta: 10,
       negri: 5,
       logoPendidikan:
-        'https://rekreartive.com/wp-content/uploads/2019/04/Logo-Madrasah-MI-Mts-dan-MA-Warna.png',
+        "https://rekreartive.com/wp-content/uploads/2019/04/Logo-Madrasah-MI-Mts-dan-MA-Warna.png",
     },
     {
       id: 8,
-      nama: 'MI',
+      nama: "MI",
       initial: "Madrasah Ibtida'iyah",
-      desc: 'Kecamatan Jonggol memiliki beberapa MI yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya',
+      desc: "Kecamatan Jonggol memiliki beberapa MI yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya",
       swasta: 10,
       negri: 5,
       logoPendidikan:
-        'https://rekreartive.com/wp-content/uploads/2019/04/Logo-Madrasah-MI-Mts-dan-MA-Warna.png',
+        "https://rekreartive.com/wp-content/uploads/2019/04/Logo-Madrasah-MI-Mts-dan-MA-Warna.png",
     },
   ];
 
   const [agama, setAgama] = React.useState([]);
   const [loadAgama, setLoadAgama] = React.useState(true);
   const [agamaError, setAgamaError] = React.useState(false);
-  const [search, setSearch] = React.useState('');
+  const [limitAgama, setLimitAgama] = React.useState(6);
+
+  const [search, setSearch] = React.useState("");
 
   const getAgama = async () => {
     try {
-      await getApi(`sarana-keagamaan?${search !== '' && `key=${search}`}`).then(
+      await getApi(`sarana-keagamaan?${search !== "" && `key=${search}`}&${limit}`).then(
         (res) => {
           setAgama(res.data.data);
           setLoadAgama(false);
@@ -335,9 +336,9 @@ export default function Profile() {
                 </button> */}
                 <AnimatedButton
                   onClick={() => setLimit(limit + 12)}
-                  label={'Selengkapnya'}
+                  label={"Selengkapnya"}
                   styleButton={
-                    'px-5 mt-5 py-1 rounded-full text-[15px] text-white border-2 border-white hover:text-black hover:border-kuningPrimary before:bg-bgKuningPrimary hover:text-black'
+                    "px-5 mt-5 py-1 rounded-full text-[15px] text-white border-2 border-white hover:text-black hover:border-kuningPrimary before:bg-bgKuningPrimary hover:text-black"
                   }
                 />
               </div>
@@ -397,15 +398,15 @@ export default function Profile() {
             <div
               className={`${
                 loadAgama
-                  ? 'grid lg:grid-cols-3 grid-cols-1'
+                  ? "grid lg:grid-cols-3 grid-cols-1"
                   : agama.length == 0
-                  ? ''
-                  : 'grid lg:grid-cols-3 grid-cols-1'
+                  ? ""
+                  : "grid lg:grid-cols-3 grid-cols-1"
               } mb-20 gap-4 `}
             >
               {!loadAgama ? (
                 agama.length != 0 ? (
-                  agama.map((i, key) => <CardIbadah key={key} />)
+                  agama.map((i, key) => <CardIbadah key={key} i={i} />)
                 ) : agamaError ? (
                   <>
                     <div className="flex flex-col justify-center items-center">
@@ -426,13 +427,40 @@ export default function Profile() {
                   </>
                 )
               ) : (
-                <></>
+                [1, 2, 3, 4, 5, 6, 7, 8].map((i, key) => <CardLoadingIbadah />)
               )}
             </div>
+            {agama.length < 12 ? (
+              <></>
+            ) : (
+              <AnimatedButton
+                onClick={() => setLimitAgama(limitAgama + 6)}
+                label={"Selengkapnya"}
+                styleButton={
+                  "px-5 mt-5 py-1 rounded-full text-[15px] text-white border-2 border-white hover:text-black hover:border-kuningPrimary before:bg-bgKuningPrimary hover:text-black"
+                }
+              />
+            )}
           </div>
           {/* content */}
         </div>
         {/* Keagamaan */}
+      </div>
+    </>
+  );
+}
+
+function CardLoadingIbadah(params) {
+  return (
+    <>
+      <div className="2xl:px-16 px-10 py-5 gap-y-3 rounded-2xl bg-white flex flex-col items-center">
+        <div className="uppercase px-7 py-3 font-bold bg-[#3C903C] text-white rounded-2xl text-xl animate-pulse">
+          <div className="w-20 h-5 bg-cover rounded-2xl bg-center bg-gray-300"></div>
+        </div>
+        <div className="flex flex-col h-full items-center animate-pulse w-1/2 gap-y-2">
+          <div className="w-1/2 h-5 bg-cover rounded-2xl bg-center bg-gray-300"></div>
+          <div className="w-1/3 h-5 bg-cover rounded-2xl bg-center bg-gray-300"></div>
+        </div>
       </div>
     </>
   );
@@ -465,15 +493,15 @@ function CardLoadingDesa(params) {
   );
 }
 
-function CardIbadah() {
+function CardIbadah({ i }) {
   return (
     <>
       <div className="2xl:px-16 px-10 py-5 gap-y-3 rounded-2xl bg-white flex flex-col items-center">
         <div className="uppercase px-7 py-3 font-bold bg-[#3C903C] text-white rounded-full text-xl">
-          Masjid
+          {i.nama_sarana.includes("Masjid") ? "Masjid" : "Gereja"}
         </div>
-        <h1 className="font-bold">Masjid Umar Bin Khottob</h1>
-        <h1 className="font-bold">Desa Suka Galih</h1>
+        <h1 className="font-bold">{i.nama_sarana}</h1>
+        <h1 className="font-bold">Desa {i.desa.nama_desa}</h1>
       </div>
     </>
   );
@@ -528,12 +556,12 @@ function Desa({ i }) {
             onClick={() => {
               navigate(`desa/${i.slug}`);
             }}
-            label={'Selengkapnya...'}
-            styleP={'text-gray-300 text-[15px] before:text-hijauPrimary'}
+            label={"Selengkapnya..."}
+            styleP={"text-gray-300 text-[15px] before:text-hijauPrimary"}
             styleSvg={
-              'text-transparent hover:text-hijauPrimary transform translate-x-4'
+              "text-transparent hover:text-hijauPrimary transform translate-x-4"
             }
-            styleButton={'after:bg-hijauPrimary'}
+            styleButton={"after:bg-hijauPrimary"}
           />
         </div>
       </div>
@@ -725,18 +753,18 @@ function Modal({ open, setOpen, cancelButtonRef, foto }) {
 function CardModal({ img, tgl, nama, summary }) {
   const date = new Date(tgl);
   var months = [
-    'Januari',
-    'Februari',
-    'Maret',
-    'April',
-    'May',
-    'Juni',
-    'Juli',
-    'Agustus',
-    'September',
-    'Oktober',
-    'November',
-    'Desember',
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "May",
+    "Juni",
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember",
   ];
   var monthName = months[date.getMonth()];
   return (
@@ -822,7 +850,7 @@ function CardSekolah({ i }) {
         onMouseEnter={handleMouseOver}
         onMouseLeave={handleMouseOut}
         className={`card flex flex-col h-[100%] text-center items-center gap-y-5 bg-white  w-full 2xl:px-4 lg:px-3 px-5 py-[50px] rounded-[20px] cursor-default transition-all  ${
-          isHovering && '-translate-y-1 -translate-x-1 shadow-xl transition-all'
+          isHovering && "-translate-y-1 -translate-x-1 shadow-xl transition-all"
         }`}
       >
         {/* <svg
@@ -836,7 +864,7 @@ function CardSekolah({ i }) {
             d="m7.5 4.5l4 2v8h-8v-8l4-2Zm0 0V0M0 14.5h15m-13.5 0v-6h2m10 6v-6h-2m-5 6v-3h2v3m-1-14h3v2h-3m0 7a1 1 0 1 1 0-2a1 1 0 0 1 0 2Z"
           />
         </svg> */}
-        <div className='w-[150px] h-[150px] flex justify-center items-center mb-5'>
+        <div className="w-[150px] h-[150px] flex justify-center items-center mb-5">
           <img src={i.logoPendidikan} alt="" className="w-[150px]" />
         </div>
         <div className="title flex flex-col gap-y-2 items-center">
@@ -866,9 +894,9 @@ function CardSekolah({ i }) {
           </button> */}
           <AnimatedButton
             onClick={() => navigate(`/sekolah/${i.nama}&${i.initial}`)}
-            label={'Selengkapnya'}
+            label={"Selengkapnya"}
             styleButton={
-              'px-5 py-1 mt-5 rounded-full hover:text-white text-hijauPrimary border-2 border-hijauPrimary before:bg-bgHijauPrimary'
+              "px-5 py-1 mt-5 rounded-full hover:text-white text-hijauPrimary border-2 border-hijauPrimary before:bg-bgHijauPrimary"
             }
           />
         </div>
@@ -892,9 +920,9 @@ function CardInfo({ index, data }) {
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}
         className={`penduduk flex flex-col  items-center lg:gap-y-5 gap-y-1 lg:px-12 px-5  lg:py-5 py-2 transition-all cursor-default ${
-          isHovering && '-translate-y-1 -translate-x-1 shadow-xl transition-all'
+          isHovering && "-translate-y-1 -translate-x-1 shadow-xl transition-all"
           // eslint-disable-next-line eqeqeq
-        } ${index != 0 && !isHovering ? 'border-l-2' : 'rounded-xl'}`}
+        } ${index != 0 && !isHovering ? "border-l-2" : "rounded-xl"}`}
       >
         <div className="flex gap-x-3">
           <CountUp
@@ -903,7 +931,7 @@ function CardInfo({ index, data }) {
             decimal={data.count}
             end={data.count}
           />
-          {data.title == 'Luas Wilayah' && 'KM'}
+          {data.title == "Luas Wilayah" && "KM"}
         </div>
         <p className="lg:text-xl text-sm">{data.title}</p>
       </div>
@@ -917,12 +945,12 @@ function CardInfoMobile({ data }) {
       <div
         className={`penduduk flex flex-col justify-center text-center  items-center  gap-y-1  px-5 border-[0.5px]  py-5 ${
           data.id == 1
-            ? 'rounded-tl-xl'
+            ? "rounded-tl-xl"
             : data.id == 2
-            ? 'rounded-tr-xl'
+            ? "rounded-tr-xl"
             : data.id == 3
-            ? 'rounded-bl-xl'
-            : 'rounded-br-xl'
+            ? "rounded-bl-xl"
+            : "rounded-br-xl"
         }`}
       >
         <div className="flex gap-x-3">
@@ -932,7 +960,7 @@ function CardInfoMobile({ data }) {
             decimal={data.count}
             end={data.count}
           />
-          {data.title == 'Luas Wilayah' && 'KM'}
+          {data.title == "Luas Wilayah" && "KM"}
         </div>
         <p className="text-xl ">{data.title}</p>
       </div>
