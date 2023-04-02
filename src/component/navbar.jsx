@@ -128,15 +128,17 @@ export default function Navbar() {
           </nav>
           <div
             onClick={() => setOpen(true)}
-            className="lg:flex cursor-pointer justify-between hidden gap-x-[15px] lg:w-[15%] text-sm items-center px-5  py-3 rounded-full bg-white"
+            className="lg:flex cursor-pointer justify-between hidden gap-x-[15px] lg:w-[20%] text-sm items-center px-5  py-3 rounded-lg bg-white"
           >
             <div className="flex gap-x-3">
               <SearchNormal className="w-5 h-5" />
-              Search
+              <span className='italic text-hijauPrimary'>Cari Berita...</span>
             </div>
-            <p className="font-semibold">
-              Ctrl <span className="font-bold">K</span>
-            </p>
+            <div className='flex items-center space-x-1'>
+              <p className='font-bold text-white rounded bg-hijauPrimary py-1 w-[35px] text-center'>Ctrl</p>
+              <p className='font-bold text-white rounded bg-hijauPrimary py-1 w-[35px] text-center'>K</p>
+            </div>
+           
           </div>
         </div>
         {/* Dekstop */}
