@@ -6,7 +6,7 @@ import Lottie from "lottie-react";
 import NotFound from "../../../assets/json/93134-not-found.json";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Scrollbar, Mousewheel } from "swiper";
-import { Link21, Map } from "iconsax-react";
+import { Call, Link21, Map } from "iconsax-react";
 import { getApi } from "../../../API/restApi";
 import ErrorIndicator from "../../../assets/json/98642-error-404.json";
 import AnimatedButton from "../../../component/animatedButton";
@@ -96,20 +96,12 @@ function Card({ i }) {
           <h1 className="text-white font-bold">{i.nama}</h1>
           <p className="text-white font-medium">{i.deskripsi}</p>
           <div className="flex gap-x-10 justify-center">
-            <AnimatedButton
-              // onClick={() => navigate('/aplikasi')}
-              label={"Lebih Banyak"}
-              styleButton={
-                "px-5 py-1 rounded-xl hover:text-black text-white border-2 border-white before:bg-white"
-              }
-            />
-            <AnimatedButton
-              // onClick={() => navigate('/aplikasi')}
-              label={"Lebih Banyak"}
-              styleButton={
-                "px-5 py-1 rounded-xl hover:text-black text-white border-2 border-white  before:bg-white"
-              }
-            />
+            <a href={`tel:${i.kontak}`}  className="flex gap-x-3 px-4 py-3 font-bold bg-white rounded-xl text-hijauPrimary">
+              <Call /> Call Center
+            </a>
+            <a href={`${i.maps}`} className="flex gap-x-3 px-8 font-bold py-3 bg-white rounded-xl text-hijauPrimary">
+              <Map /> Map
+            </a>
           </div>
         </div>
       </div>

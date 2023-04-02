@@ -180,7 +180,7 @@ function Sidebar({ setSort, sort, getData }) {
       <div
         className={`${
           sort ? "ml-0" : "-ml-[1000px]"
-        } top-0 fixed  flex-col z-30 bg-black  bg-opacity-60 backdrop-blur-lg drop-shadow-lg 2xl:w-1/4 xl:w-1/3 lg:w-1/2 w-full h-full transition-[0.3s] ${!isVisible ? "" : "lg:mt-[104px] mt-[80px]"} px-10 py-10 pb-10 overflow-y-auto`}
+        } top-0 fixed  flex-col z-30 bg-black  bg-opacity-60 backdrop-blur-lg drop-shadow-lg 2xl:w-1/4 xl:w-1/3 lg:w-1/2 w-full h-full transition-[0.3s] scrollbar ${!isVisible ? "" : "lg:mt-[104px] mt-[80px]"} px-10 py-10 pb-10 overflow-y-auto`}
       >
         {/* Top */}
         <div className="flex justify-between items-center mb-7">
