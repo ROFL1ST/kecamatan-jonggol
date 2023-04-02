@@ -38,10 +38,10 @@ export default function Kesehatan() {
         <div
           className={` gap-5 mt-10 ${
             kesehatan.loading == true
-              ? "grid grid-cols-4"
+              ? "grid lg:grid-cols-4 grid-cols-1"
               : kesehatan.data.length == 0 || kesehatan.error == true
               ? ""
-              : "grid grid-cols-4"
+              : "grid lg:grid-cols-4 grid-cols-1"
           }`}
         >
           {kesehatan.loading != true ? (
