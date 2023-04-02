@@ -280,7 +280,7 @@ table tr:first-child th:last-child {
 
 .scrollbar::-webkit-scrollbar-track {
   border-radius: 100vh;
-  background: #f7f4ed;
+  background: #ffffff00;
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
