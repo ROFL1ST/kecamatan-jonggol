@@ -6,7 +6,8 @@ import Loading from '../../component/Loading';
 import Lottie from 'lottie-react';
 import NotFound from '../../assets/json/93134-not-found.json';
 import ErrorIndicator from '../../assets/json/98642-error-404.json';
-import AnimatedButton2 from '../home/component/animatedButton2';
+import AnimatedButton2 from '../../component/animatedButton2';
+
 
 export default function Agenda() {
   const [hoverButton2, setHoverButton2] = React.useState(false);

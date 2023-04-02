@@ -412,16 +412,130 @@ function Modal({ open, setOpen, cancelButtonRef, thumbnail }) {
   );
 }
 
+const SCROLL_SENSITIVITY = 0.0005;
+const MAX_ZOOM = 5;
+const MIN_ZOOM = 0.1;
 function CardModal({ img }) {
+  const [offset, setOffset] = React.useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = React.useState(1);
+  const [draggind, setDragging] = React.useState(false);
+
+  const touch = React.useRef({ x: 0, y: 0 });
+  const canvasRef = React.useRef(null);
+  const containerRef = React.useRef(null);
+  const observer = React.useRef(null);
+  const background = React.useMemo(() => new Image(), [img]);
+
+  const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+
+  const handleWheel = (event) => {
+    const { deltaY } = event;
+    if (!draggind) {
+      setZoom((zoom) =>
+        clamp(zoom + deltaY * SCROLL_SENSITIVITY * -1, MIN_ZOOM, MAX_ZOOM)
+      );
+    }
+  };
+
+  const handleMouseMove = (event) => {
+    if (draggind) {
+      const { x, y } = touch.current;
+      const { clientX, clientY } = event;
+      setOffset({
+        x: offset.x + (x - clientX),
+        y: offset.y + (y - clientY),
+      });
+      touch.current = { x: clientX, y: clientY };
+    }
+  };
+
+  const handleMouseDown = (event) => {
+    const { clientX, clientY } = event;
+    touch.current = { x: clientX, y: clientY };
+    setDragging(true);
+  };
+
+  const handleMouseUp = () => setDragging(false);
+
+  const draw = () => {
+    if (canvasRef.current) {
+      const { width, height } = canvasRef.current;
+      const context = canvasRef.current.getContext("2d");
+
+      // Set canvas dimensions
+      canvasRef.current.width = width;
+      canvasRef.current.height = height;
+
+      // Clear canvas and scale it
+      context.translate(-offset.x, -offset.y);
+      context.scale(zoom, zoom);
+      context.clearRect(0, 0, width, height);
+
+      // Make sure we're zooming to the center
+      const x = (context.canvas.width / zoom - background.width) / 2;
+      const y = (context.canvas.height / zoom - background.height) / 2;
+
+      // Draw image
+      context.drawImage(background, x, y);
+    }
+  };
+
+  React.useEffect(() => {
+    observer.current = new ResizeObserver((entries) => {
+      entries.forEach(({ target }) => {
+        const { width, height } = background;
+        // If width of the container is smaller than image, scale image down
+        if (target.clientWidth < width) {
+          // Calculate scale
+          const scale = target.clientWidth / width;
+
+          // Redraw image
+          canvasRef.current.width = width * scale;
+          canvasRef.current.height = height * scale;
+          canvasRef.current
+            .getContext("2d")
+            .drawImage(background, 0, 0, width * scale, height * scale);
+        }
+      });
+    });
+    observer.current.observe(containerRef.current);
+
+    return () => observer.current.unobserve(containerRef.current);
+  }, []);
+
+  React.useEffect(() => {
+    background.src = img;
+
+    if (canvasRef.current) {
+      background.onload = () => {
+        // Get the image dimensions
+        const { width, height } = background;
+        canvasRef.current.width = width;
+        canvasRef.current.height = height;
+
+        // Set image as background
+        canvasRef.current.getContext("2d").drawImage(background, 0, 0);
+      };
+    }
+  }, [background]);
+
+  React.useEffect(() => {
+    draw();
+  }, [zoom, offset]);
   return (
     <>
       <div className=" items-center flex flex-col justify-center">
         <div className="flex justify-center items-center">
-        <img
-          className=" rounded-lg  2xl:min-w-[680px] 2xl:min-h-[443px] 2xl:max-h-[443px] md:min-w-[490px] md:min-h-[318px] md:max-h-[318px] min-w-[353px] min-h-[215px] max-h-[215px]"
-          src={img}
-          alt="gambar album"
-        />
+          <div ref={containerRef} >
+            <canvas
+              className="!rounded-xl lg:!w-3/4 !mx-auto"
+              onMouseDown={handleMouseDown}
+              onMouseUp={handleMouseUp}
+              onWheel={handleWheel}
+              onMouseMove={handleMouseMove}
+              ref={canvasRef}
+            />
+          </div>
         </div>
       </div>
     </>

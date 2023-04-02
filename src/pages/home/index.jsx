@@ -16,16 +16,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, EffectFade, Autoplay } from 'swiper';
 import 'swiper/css/effect-fade';
 import 'swiper/css';
-import UnderlineButton from './component/underlineButton';
-<<<<<<< HEAD
+import UnderlineButton2 from './component/underlineButton2';
 import AnimatedButton from '../../component/animatedButton';
 import AnimatedButton2 from '../../component/animatedButton2';
 
-=======
-import AnimatedButton from './component/animatedButton';
-import AnimatedButton2 from './component/animatedButton2';
-import UnderlineButton2 from './component/underlineButton2';
->>>>>>> 5ca31da9c29ef8b4cc3a28d71113a0f57d9b6c46
 
 export default function Home() {
   const navigate = useNavigate();
@@ -469,22 +463,6 @@ export default function Home() {
               </>
             )}
             <div className="lg:hidden flex justify-center items-center">
-<<<<<<< HEAD
-              <button
-                onClick={() => {
-                  navigate("/berita");
-                }}
-                onMouseEnter={handleMouseOver2}
-                onMouseLeave={handleMouseOut2}
-                className={` px-5 py-2 2xl:py-3 rounded-full lg:text-sm 2xl:text-base font-semibold ${
-                  hoverButton2
-                    ? "bg-[#007100] text-white transition-all border-2 border-[#007100]"
-                    : "border-[#007100] border-2  text-[#007100] transition-all"
-                }`}
-              >
-                Selengkapnya
-              </button>
-=======
             <AnimatedButton
             onClick={() => navigate('/berita')}
             label={'More News'}
@@ -492,7 +470,6 @@ export default function Home() {
               'px-5 py-1 rounded-full hover:text-white text-hijauPrimary border-2 border-hijauPrimary before:bg-bgHijauPrimary'
             }
           />
->>>>>>> 5ca31da9c29ef8b4cc3a28d71113a0f57d9b6c46
             </div>
           </div>
         </div>

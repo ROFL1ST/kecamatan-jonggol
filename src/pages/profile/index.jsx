@@ -14,8 +14,8 @@ import { useNavigate } from 'react-router-dom';
 import ErrorIndicator from '../../assets/json/98642-error-404.json';
 import { ArrowRight2 } from 'iconsax-react';
 import UnderlineButton from '../home/component/underlineButton';
-import AnimatedButton2 from '../home/component/animatedButton2';
-import AnimatedButton from '../home/component/animatedButton';
+import AnimatedButton from '../../component/animatedButton';
+
 
 export default function Profile() {
   const [penduduk, setPenduduk] = React.useState();

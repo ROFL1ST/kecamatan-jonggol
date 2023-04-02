@@ -6,7 +6,8 @@ import NoImage from "../../../assets/images/thumbnail.jpg";
 import Lottie from "lottie-react";
 import NotFound from "../../../assets/json/93134-not-found.json";
 import { useNavigate } from "react-router-dom";
-import AnimatedButton from "./animatedButton";
+import AnimatedButton from "../../../component/animatedButton";
+
 
 export default function Potensi() {
   const navigate = useNavigate()

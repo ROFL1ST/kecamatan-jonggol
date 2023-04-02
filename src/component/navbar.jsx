@@ -128,7 +128,7 @@ export default function Navbar() {
           </nav>
           <div
             onClick={() => setOpen(true)}
-            className="lg:flex cursor-pointer justify-between hidden gap-x-[15px] w-[15%] text-sm items-center px-5  py-3 rounded-full bg-white"
+            className="lg:flex cursor-pointer justify-between hidden gap-x-[15px] lg:w-[15%] text-sm items-center px-5  py-3 rounded-full bg-white"
           >
             <div className="flex gap-x-3">
               <SearchNormal className="w-5 h-5" />

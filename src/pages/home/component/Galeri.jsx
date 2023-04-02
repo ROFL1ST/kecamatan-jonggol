@@ -71,15 +71,6 @@ export default function Galeri() {
             >
               Selengkapnya
             </button> */}
-<<<<<<< HEAD
-            <AnimatedButton
-              onClick={() => navigate('/foto')}
-              label={'Selengkapnya'}
-              styleButton={
-                'px-5 mt-5 py-1 rounded-full text-[15px] text-white border-2 border-white hover:text-white hover:border-kuningPrimary before:bg-bgKuningPrimary '
-              }
-            />
-=======
             <div className='lg:block hidden'>
               <AnimatedButton
                 onClick={() => navigate('/foto')}
@@ -89,7 +80,6 @@ export default function Galeri() {
                 }
               />
             </div>
->>>>>>> 5ca31da9c29ef8b4cc3a28d71113a0f57d9b6c46
           </div>
           <div className="kanan lg:w-2/3 w-full">
             <Swiper
