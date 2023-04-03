@@ -2,6 +2,7 @@ import { Calendar, Location } from "iconsax-react";
 import React from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { getApi } from "../../../API/restApi";
+import parse from "html-react-parser";
 
 export default function DetailAgenda() {
   const { slug } = useParams();
@@ -82,7 +83,7 @@ export default function DetailAgenda() {
               {/* title */}
               {/* Content */}
               <div className="pt-10">
-                <p>{detail.deskripsi}</p>
+              <Isi text={detail.deskripsi} />
               </div>
               {/* Content */}
             </div>
@@ -158,4 +159,10 @@ function Tanggal({ tanggal }) {
       </p>
     </>
   );
+}
+
+
+function Isi({ text }) {
+  const reactElement = parse(`${text}`);
+  return reactElement;
 }
