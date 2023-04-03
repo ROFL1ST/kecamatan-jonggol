@@ -292,3 +292,15 @@ table tr:first-child th:last-child {
 .scrollbar::-webkit-scrollbar-thumb:hover {
   background: #1b6422;
 }
+
+
+/* .bar{
+  top: 0;
+  translate: 0 -px;
+  transition: 0.3s
+}
+
+.bar.visible{
+  top: 0;
+  translate: 0;
+} */

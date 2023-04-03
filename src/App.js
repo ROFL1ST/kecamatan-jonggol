@@ -23,6 +23,8 @@ import {
   Struktur,
   VisiMisi,
 } from './pages';
+import TopBarLoading from './component/loadBar';
+
 
 function App() {
   const { pathname } = useLocation();
@@ -79,6 +81,7 @@ function App() {
     !loading && (
       <>
         <Navbar></Navbar>
+        <TopBarLoading />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="berita" element={<Berita />} />
