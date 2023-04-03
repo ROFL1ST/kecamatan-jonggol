@@ -1,15 +1,16 @@
-import React from "react";
-import "swiper/css";
-import "swiper/css/free-mode";
-import "swiper/css/scrollbar";
-import Lottie from "lottie-react";
-import NotFound from "../../../assets/json/93134-not-found.json";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode, Scrollbar, Mousewheel } from "swiper";
-import { Call, Link21, Map } from "iconsax-react";
-import { getApi } from "../../../API/restApi";
-import ErrorIndicator from "../../../assets/json/98642-error-404.json";
-import AnimatedButton from "../../../component/animatedButton";
+import React from 'react';
+import 'swiper/css';
+import 'swiper/css/free-mode';
+import 'swiper/css/scrollbar';
+import Lottie from 'lottie-react';
+import NotFound from '../../../assets/json/93134-not-found.json';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { FreeMode, Scrollbar, Mousewheel } from 'swiper';
+import { Call, Link21, Map } from 'iconsax-react';
+import { getApi } from '../../../API/restApi';
+import ErrorIndicator from '../../../assets/json/98642-error-404.json';
+import AnimatedButton from '../../../component/animatedButton';
+import AnimatedButton2 from '../../../component/animatedButton2';
 
 export default function Kesehatan() {
   const [kesehatan, setKesehatan] = React.useState({
@@ -20,7 +21,7 @@ export default function Kesehatan() {
 
   const getKesehatan = async () => {
     try {
-      await getApi("kesehatan").then((res) => {
+      await getApi('kesehatan').then((res) => {
         setKesehatan((s) => ({ ...s, data: res.data.data, loading: false }));
       });
     } catch (error) {
@@ -38,10 +39,10 @@ export default function Kesehatan() {
         <div
           className={` gap-5 mt-10 ${
             kesehatan.loading == true
-              ? "grid lg:grid-cols-4 grid-cols-1"
+              ? 'grid lg:grid-cols-4 grid-cols-1'
               : kesehatan.data.length == 0 || kesehatan.error == true
-              ? ""
-              : "grid lg:grid-cols-4 grid-cols-1"
+              ? ''
+              : 'grid lg:grid-cols-4 grid-cols-1'
           }`}
         >
           {kesehatan.loading != true ? (
@@ -94,27 +95,57 @@ function Card({ i }) {
       <div
         onMouseEnter={handleMouseOver}
         onMouseLeave={handleMouseOut}
-        className="card flex flex-col  gap-y-5 bg-bgHijauPrimary  w-full  pb-10 rounded-[20px] cursor-pointer transition-all"
+        className="card flex flex-col  gap-y-5 bg-bgHijauPrimary w-full pb-10 rounded-[20px] transition-all"
       >
         <div
           style={{ backgroundImage: `url(${i.thumbnail})` }}
           className="w-full h-[200px] bg-cover rounded-t-3xl bg-center"
         ></div>
         <div className=" px-5 flex flex-col gap-y-5">
-          <h1 className="text-white font-bold">{i.nama}</h1>
-          <p className="text-white font-medium">{i.deskripsi}</p>
-          <div className="flex gap-x-10 justify-center">
-            <a
-              href={`tel:${i.kontak}`}
-              className="flex gap-x-3 px-4 py-3 font-bold bg-white rounded-xl text-hijauPrimary"
-            >
-              <Call /> Call Center
+          <h1 className="text-white font-extrabold text-[18px]">{i.nama}</h1>
+          <p className="text-white font-medium text-[15px]">{i.deskripsi}</p>
+          <div className="flex justify-between">
+            <a href={`tel:${i.kontak}`} className="">
+              {/* <Call />
+              <p>Call Center</p> */}
+              <AnimatedButton2
+                styleButton={
+                  'bg-white after:bg-kuningPrimary rounded-xl h-full'
+                }
+                styleP={
+                  'flex items-center justify-center gap-x-3 px-8 py-3 text-hijauPrimary text-[13px] tracking-wider hover:text-black'
+                }
+                label={
+                  <>
+                    {' '}
+                    <Call />
+                    <p className="text-left">
+                      Call
+                      <br />
+                      Center
+                    </p>{' '}
+                  </>
+                }
+              />
             </a>
-            <a
-              href={`${i.maps}`}
-              className="flex gap-x-3 px-8 font-bold py-3 bg-white rounded-xl text-hijauPrimary"
-            >
-              <Map /> Map
+            <a href={`${i.maps}`} className="">
+              {/* <Map />
+              <p>Map</p> */}
+              <AnimatedButton2
+                styleButton={
+                  'bg-white after:bg-kuningPrimary rounded-xl h-full'
+                }
+                styleP={
+                  'flex items-center justify-center gap-x-3 px-8 py-3 text-hijauPrimary text-[13px] tracking-wider hover:text-black'
+                }
+                label={
+                  <>
+                    {' '}
+                    <Map />
+                    <p className="text-left">Map</p>{' '}
+                  </>
+                }
+              />
             </a>
           </div>
         </div>

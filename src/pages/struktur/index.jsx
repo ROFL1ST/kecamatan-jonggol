@@ -130,14 +130,14 @@ export default function Struktur() {
           </div>
           {/* top */}
           {/* Center */}
-          <div className="grid lg:grid-cols-5 grid-cols-1 2xl:gap-10 gap-5 2xl:w-3/4 lg:w-full w-3/4 justify-center items-center mx-auto mb-20 ">
+          <div className="grid lg:grid-cols-5 grid-cols-1 2xl:gap-10 gap-5 2xl:w-[90%] lg:w-full w-3/4 justify-center items-center mx-auto mb-20 ">
             {data.map((i, key) => (
               <Card key={key} i={i} />
             ))}
           </div>
           {/* Center */}
           {/* Bottom */}
-          <div className="flex justify-between 2xl:w-3/4 lg:w-full w-3/4 gap-x-10 mx-auto mb-20 ">
+          <div className="flex justify-between 2xl:w-[90%] lg:w-full w-3/4 gap-x-10 mx-auto mb-20 ">
             <div className="left lg:w-3/4 ">
               <p>
                 Kecamatan Jonggol Kabupaten Bogor adalah unsur pelayanan
@@ -321,12 +321,12 @@ function Card({ i }) {
       <div
         onMouseEnter={handleMouseOver}
         onMouseLeave={handleMouseOut}
-        className={`card flex flex-col gap-y-5 bg-white 2xl:h-[400px] lg:h-[400px] h-[300px] w-full 2xl:px-4 lg:px-3 px-4 py-5 rounded-[20px] cursor-pointer transition-all ${
+        className={`card flex flex-col gap-y-5 bg-white lg:h-[400px] h-[300px] w-full 2xl:px-4 lg:px-3 px-4 py-5 rounded-[20px] cursor-pointer transition-all ${
           isHovering && "-translate-y-1 -translate-x-1 shadow-xl transition-all"
         }`}
       >
-        <h1 className="font-bold 2xl:text-base lg:text-sm">{i.title}</h1>
-        <p className="2xl:text-base lg:text-sm">{i.desc}</p>
+        <h1 className="font-bold 2xl:text-base lg:text-sm text-center text-hijauPrimary mb-3">{i.title}</h1>
+        <p className="2xl:text-base lg:text-sm text-center">{i.desc}</p>
       </div>
     </>
   );

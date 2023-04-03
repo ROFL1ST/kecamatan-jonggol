@@ -132,13 +132,12 @@ export default function Navbar() {
           >
             <div className="flex gap-x-3">
               <SearchNormal className="w-5 h-5" />
-              <span className='italic text-hijauPrimary'>Cari Berita...</span>
+              <span className='italic'>Cari Berita...</span>
             </div>
             <div className='flex items-center space-x-1'>
               <p className='font-bold text-white rounded bg-hijauPrimary py-1 w-[35px] text-center'>Ctrl</p>
               <p className='font-bold text-white rounded bg-hijauPrimary py-1 w-[35px] text-center'>K</p>
             </div>
-           
           </div>
         </div>
         {/* Dekstop */}
