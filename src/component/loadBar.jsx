@@ -31,17 +31,12 @@ const TopBarLoading = () => {
     setIsLoading(true);
     const tl = gsap.timeline();
     tl.to(".top-bar", {
-      height: "0px",
+      width: "0%",
+      height: "3px",
       duration: 0.3,
-      onComplete: () => setIsLoading(false),
+      top: "0",
+      background: "#fff012",
     })
-      .to(".top-bar", {
-        width: "0%",
-        height: "3px",
-        duration: 0.3,
-        top: "0",
-        background: "#fff012",
-      })
       .to(".top-bar", {
         width: "50%",
         duration: 0.5,
@@ -64,7 +59,7 @@ const TopBarLoading = () => {
         onComplete: () => setIsLoading(false),
       });
   }, [location.key]);
-  console.log(location.key);
+  //   console.log(location.key);
 
   return <div className="top-bar" />;
 };

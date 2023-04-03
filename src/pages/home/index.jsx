@@ -710,10 +710,10 @@ function CardBerita({ i }) {
 }
 
 
-function CardAgendaLoading({ key }) {
+function CardAgendaLoading() {
   return (
     <div
-      key={key}
+     
       className="bg-[#3C903C] w-full h-80 flex flex-col rounded-2xl py-10 px-5 border-blue-300 animate-pulse"
     >
       <div className="flex justify-between flex-col h-full">
