@@ -1,25 +1,26 @@
-import React from 'react';
-import Slider from './component/Slider';
-import siapmasjo from '../../assets/logo/siapmasjo.png';
-import sipahadasi from '../../assets/logo/sipahadesi.png';
-import sipaojol from '../../assets/logo/sipaojol.png';
-import Galeri from './component/Galeri';
-import { ArrowRight2, Calendar, Location } from 'iconsax-react';
-import CountUp from 'react-countup';
-import { getApi } from '../../API/restApi';
-import { useNavigate } from 'react-router-dom';
-import Lottie from 'lottie-react';
-import NotFound from '../../assets/json/93134-not-found.json';
-import ErrorIndicator from '../../assets/json/98642-error-404.json';
-import Potensi from './component/Potensi';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import {  Autoplay } from 'swiper';
-import 'swiper/css/effect-fade';
-import 'swiper/css';
-import UnderlineButton2 from './component/underlineButton2';
-import AnimatedButton from '../../component/animatedButton';
-import AnimatedButton2 from '../../component/animatedButton2';
-
+import React from "react";
+import Slider from "./component/Slider";
+import siapmasjo from "../../assets/logo/siapmasjo.png";
+import sipahadasi from "../../assets/logo/sipahadesi.png";
+import sipaojol from "../../assets/logo/sipaojol.png";
+import Galeri from "./component/Galeri";
+import { ArrowRight2, Calendar, Location } from "iconsax-react";
+import CountUp from "react-countup";
+import { getApi } from "../../API/restApi";
+import { useNavigate } from "react-router-dom";
+import Lottie from "lottie-react";
+import NotFound from "../../assets/json/93134-not-found.json";
+import ErrorIndicator from "../../assets/json/98642-error-404.json";
+import Potensi from "./component/Potensi";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper";
+import "swiper/css/effect-fade";
+import "swiper/css";
+import UnderlineButton2 from "./component/underlineButton2";
+import AnimatedButton from "../../component/animatedButton";
+import AnimatedButton2 from "../../component/animatedButton2";
+import { useDispatch, useSelector } from "react-redux";
+import { changeState } from "../../redux/actions";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -122,7 +123,6 @@ export default function Home() {
     },
   ];
 
-
   const [hoverButton2, setHoverButton2] = React.useState(false);
   const handleMouseOver2 = () => {
     setHoverButton2(true);
@@ -138,7 +138,7 @@ export default function Home() {
   const [loadBerita, setLoadBerita] = React.useState(true);
   const getBerita = async () => {
     try {
-      await getApi('berita').then((val) => {
+      await getApi("berita").then((val) => {
         // console.log(val.data.data);
         setBerita(val.data.data);
         setLoadBerita(false);
@@ -256,10 +256,10 @@ export default function Home() {
               <div
                 className={` mb-20 gap-y-10 gap-x-10 mt-20 ${
                   loadAgenda
-                    ? 'grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1'
+                    ? "grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1"
                     : agenda.length == 0 || agendaError
-                    ? ''
-                    : 'grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1'
+                    ? ""
+                    : "grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1"
                 }`}
               >
                 {!loadAgenda ? (
@@ -315,10 +315,10 @@ export default function Home() {
               <div
                 className={` mb-20 gap-y-10 gap-x-10 mt-20 ${
                   loadAgenda
-                    ? 'grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1'
+                    ? "grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1"
                     : agenda.length == 0 || agendaError
-                    ? ''
-                    : 'grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1'
+                    ? ""
+                    : "grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1"
                 }`}
               >
                 {!loadAgenda ? (
@@ -364,10 +364,10 @@ export default function Home() {
             {/* box */}
           </div>
           <AnimatedButton
-            onClick={() => navigate('/aplikasi')}
-            label={'Lebih Banyak'}
+            onClick={() => navigate("/aplikasi")}
+            label={"Lebih Banyak"}
             styleButton={
-              'px-5 py-1 rounded-full hover:text-white text-hijauPrimary border-2 border-hijauPrimary before:bg-bgHijauPrimary'
+              "px-5 py-1 rounded-full hover:text-white text-hijauPrimary border-2 border-hijauPrimary before:bg-bgHijauPrimary"
             }
           />
           {/* <div
@@ -455,13 +455,13 @@ export default function Home() {
               </>
             )}
             <div className="lg:hidden flex justify-center items-center">
-            <AnimatedButton
-            onClick={() => navigate('/berita')}
-            label={'More News'}
-            styleButton={
-              'px-5 py-1 rounded-full hover:text-white text-hijauPrimary border-2 border-hijauPrimary before:bg-bgHijauPrimary'
-            }
-          />
+              <AnimatedButton
+                onClick={() => navigate("/berita")}
+                label={"More News"}
+                styleButton={
+                  "px-5 py-1 rounded-full hover:text-white text-hijauPrimary border-2 border-hijauPrimary before:bg-bgHijauPrimary"
+                }
+              />
             </div>
           </div>
         </div>
@@ -521,7 +521,7 @@ function CardInfo({ index, data }) {
 
         <div
           className={`${
-            isHovering ? 'absolute opacity-40' : 'opacity-0 absolute'
+            isHovering ? "absolute opacity-40" : "opacity-0 absolute"
           } top-10 -right-5 `}
         >
           <img
@@ -533,7 +533,7 @@ function CardInfo({ index, data }) {
         </div>
         <div
           className={`${
-            isHovering ? 'absolute opacity-40' : 'opacity-0 absolute'
+            isHovering ? "absolute opacity-40" : "opacity-0 absolute"
           } top-0 left-1 transition-all ease-in-out`}
         >
           <img
@@ -545,7 +545,7 @@ function CardInfo({ index, data }) {
         </div>
         <div
           className={`${
-            isHovering ? 'absolute opacity-40' : 'opacity-0 absolute'
+            isHovering ? "absolute opacity-40" : "opacity-0 absolute"
           } -bottom-5 left-5 transition-all ease-in-out `}
         >
           <img
@@ -557,7 +557,7 @@ function CardInfo({ index, data }) {
         </div>
         <div
           className={`${
-            isHovering ? 'absolute opacity-40' : 'opacity-0 absolute'
+            isHovering ? "absolute opacity-40" : "opacity-0 absolute"
           } -bottom-10 left-5 transition-all ease-in-out `}
         >
           <img
@@ -569,7 +569,7 @@ function CardInfo({ index, data }) {
         </div>
         <div
           className={`${
-            isHovering ? 'absolute opacity-40' : 'opacity-0 absolute'
+            isHovering ? "absolute opacity-40" : "opacity-0 absolute"
           } -bottom-6 right-5 transition-all ease-in-out rotate-45`}
         >
           <img
@@ -614,8 +614,6 @@ function CardInfoMobile({ data }) {
 }
 
 function CardApp({ data }) {
-
-
   const navigate = useNavigate();
   return (
     <>
@@ -633,12 +631,12 @@ function CardApp({ data }) {
           <div className="2xl:text-xl  justify-end font-bold 2xl:mb-10 mb-5 2xl:mr-10 mr-5  flex items-center ">
             <UnderlineButton2
               onClick={() => navigate(`/aplikasi/${data.id}`)}
-              label={'Selengkapnya...'}
-              styleP={'text-white text-[20px] before:text-kuningPrimary'}
+              label={"Selengkapnya..."}
+              styleP={"text-white text-[20px] before:text-kuningPrimary"}
               styleSvg={
-                'text-transparent hover:text-kuningPrimary transform translate-x-4'
+                "text-transparent hover:text-kuningPrimary transform translate-x-4"
               }
-              styleButton={'after:bg-kuningPrimary'}
+              styleButton={"after:bg-kuningPrimary"}
             />
             {/* <p
               onClick={() => navigate(`/aplikasi/${data.id}`)}
@@ -660,6 +658,19 @@ function CardApp({ data }) {
 }
 
 function CardBerita({ i }) {
+  const state = useSelector((state) => state.data);
+  const dispatch = useDispatch();
+  const [route, setRoute] = React.useState([]);
+  React.useEffect(() => {
+    dispatch(
+      changeState({
+        desa_id: state?.desa_id,
+        status: state?.status,
+        route: route,
+      })
+    );
+  }, [route.length]);
+  // console.log(route);
   const navigate = useNavigate();
   const date = new Date(i.createdAt);
   var months = [
@@ -683,7 +694,8 @@ function CardBerita({ i }) {
       <div
         title={i.judul}
         onClick={() => {
-          navigate(`/berita/${i.slug}`);
+          // setRoute(`/berita/${i.slug}`)
+          navigate(`/berita/${i.slug}`, {state: {route : `/berita/${i.slug}`}});
         }}
         className="bg-[#f5f5fa] w-full 2xl:h-[350px] h-[300px]  rounded-3xl shadow-md cursor-pointer"
       >
@@ -709,13 +721,9 @@ function CardBerita({ i }) {
   );
 }
 
-
 function CardAgendaLoading() {
   return (
-    <div
-     
-      className="bg-[#3C903C] w-full h-80 flex flex-col rounded-2xl py-10 px-5 border-blue-300 animate-pulse"
-    >
+    <div className="bg-[#3C903C] w-full h-80 flex flex-col rounded-2xl py-10 px-5 border-blue-300 animate-pulse">
       <div className="flex justify-between flex-col h-full">
         <div>
           <div className="flex justify-between w-full">
@@ -740,24 +748,24 @@ function CardAgenda({ data }) {
   const navigate = useNavigate();
   const date = new Date(data.tanggal);
   var months = [
-    'Januari',
-    'Februari',
-    'Maret',
-    'April',
-    'May',
-    'Juni',
-    'Juli',
-    'Agustus',
-    'September',
-    'Oktober',
-    'November',
-    'Desember',
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "May",
+    "Juni",
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember",
   ];
   var monthName = months[date.getMonth()];
 
-  const [hoursStart, minutesStart] = data.start.split(':');
+  const [hoursStart, minutesStart] = data.start.split(":");
   const formatedStart = `${hoursStart}:${minutesStart}`;
-  const [hoursEnd, minutesEnd] = data.end.split(':');
+  const [hoursEnd, minutesEnd] = data.end.split(":");
   const formatedEnd = `${hoursEnd}:${minutesEnd}`;
 
   return (
@@ -790,10 +798,10 @@ function CardAgenda({ data }) {
               onClick={() => {
                 navigate(`/agenda/${data.slug}`);
               }}
-              label={'Detail'}
-              styleButton={'bg-hijauPrimary after:bg-kuningPrimary rounded-xl'}
+              label={"Detail"}
+              styleButton={"bg-hijauPrimary after:bg-kuningPrimary rounded-xl"}
               styleP={
-                'px-8 py-4 text-white text-[18px] tracking-wider hover:text-black'
+                "px-8 py-4 text-white text-[18px] tracking-wider hover:text-black"
               }
             />
 

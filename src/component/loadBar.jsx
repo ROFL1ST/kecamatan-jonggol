@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { gsap } from "gsap";
+import { useSelector } from "react-redux";
 
 const TopBarLoading = () => {
   const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
+  const state = useSelector((state) => state.data);
 
   useEffect(() => {
     let timeoutId;

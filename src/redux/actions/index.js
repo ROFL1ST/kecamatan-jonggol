@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 let initialState = {
   desa_id: undefined,
   status: undefined,
+  route: "/",
 };
 
 export const beritaInfo = createSlice({
@@ -14,6 +15,7 @@ export const beritaInfo = createSlice({
 
       state.desa_id = data.desa_id;
       state.status = data.status;
+      state.route = data.route;
     },
   },
 });
