@@ -24,7 +24,6 @@ import {
   VisiMisi,
 } from './pages';
 import TopBarLoading from './component/loadBar';
-import Coba from './pages/home/coba';
 
 
 function App() {

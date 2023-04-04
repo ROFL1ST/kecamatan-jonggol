@@ -1,26 +1,26 @@
-import React from "react";
-import Slider from "./component/Slider";
-import siapmasjo from "../../assets/logo/siapmasjo.png";
-import sipahadasi from "../../assets/logo/sipahadesi.png";
-import sipaojol from "../../assets/logo/sipaojol.png";
-import Galeri from "./component/Galeri";
-import { ArrowRight2, Calendar, Location } from "iconsax-react";
-import CountUp from "react-countup";
-import { getApi } from "../../API/restApi";
-import { useNavigate } from "react-router-dom";
-import Lottie from "lottie-react";
-import NotFound from "../../assets/json/93134-not-found.json";
-import ErrorIndicator from "../../assets/json/98642-error-404.json";
-import Potensi from "./component/Potensi";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper";
-import "swiper/css/effect-fade";
-import "swiper/css";
-import UnderlineButton2 from "./component/underlineButton2";
-import AnimatedButton from "../../component/animatedButton";
-import AnimatedButton2 from "../../component/animatedButton2";
-import { useDispatch, useSelector } from "react-redux";
-import { changeState } from "../../redux/actions";
+import React from 'react';
+import Slider from './component/Slider';
+import siapmasjo from '../../assets/logo/siapmasjo.png';
+import sipahadasi from '../../assets/logo/sipahadesi.png';
+import sipaojol from '../../assets/logo/sipaojol.png';
+import Galeri from './component/Galeri';
+import { ArrowRight2, Calendar, Location } from 'iconsax-react';
+import CountUp from 'react-countup';
+import { getApi } from '../../API/restApi';
+import { useNavigate } from 'react-router-dom';
+import Lottie from 'lottie-react';
+import NotFound from '../../assets/json/93134-not-found.json';
+import ErrorIndicator from '../../assets/json/98642-error-404.json';
+import Potensi from './component/Potensi';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper';
+import 'swiper/css/effect-fade';
+import 'swiper/css';
+import UnderlineButton2 from './component/underlineButton2';
+import AnimatedButton from '../../component/animatedButton';
+import AnimatedButton2 from '../../component/animatedButton2';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeState } from '../../redux/actions';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -53,7 +53,7 @@ export default function Home() {
 
   const getPenduduk = async () => {
     try {
-      await getApi("penduduk/total").then((res) => {
+      await getApi('penduduk/total').then((res) => {
         setPenduduk(res.data.data);
       });
     } catch (error) {
@@ -63,7 +63,7 @@ export default function Home() {
   const [asn, setAsn] = React.useState();
   const getAsn = async () => {
     try {
-      await getApi("pegawai/total").then((res) => {
+      await getApi('pegawai/total').then((res) => {
         setAsn(res.data.data);
       });
     } catch (error) {
@@ -74,7 +74,7 @@ export default function Home() {
 
   const getDesa = async () => {
     try {
-      await getApi("desa").then((res) => {
+      await getApi('desa').then((res) => {
         setDesa(res.data.data);
       });
     } catch (error) {
@@ -86,22 +86,22 @@ export default function Home() {
     {
       id: 1,
       count: penduduk,
-      title: "Penduduk",
+      title: 'Penduduk',
     },
     {
       id: 2,
       count: desa.length,
-      title: "Jumlah Desa",
+      title: 'Jumlah Desa',
     },
     {
       id: 3,
       count: asn,
-      title: "Jumlah ASN",
+      title: 'Jumlah ASN',
     },
     {
       id: 4,
       count: 158.9,
-      title: "Luas Wilayah",
+      title: 'Luas Wilayah',
     },
   ];
 
@@ -109,17 +109,17 @@ export default function Home() {
     {
       id: 1,
       url: siapmasjo,
-      desc: "Lorem ipsum dolor sit amet consectetur. Eget laoreet donec commodo placerat viverra scelerisque ut. Sed lorem diam nunc cursus arcu nulla sapien. Non tempor donec suspendisse suspendisse egestas urna adipiscing feugiat. Sit velit eleifend eleifend felis arcu nisi. Eu gravida ultricies amet ut pretium purus aliquam porta a. Duis consectetur donec auctor lorem metus.",
+      desc: 'Lorem ipsum dolor sit amet consectetur. Eget laoreet donec commodo placerat viverra scelerisque ut. Sed lorem diam nunc cursus arcu nulla sapien. Non tempor donec suspendisse suspendisse egestas urna adipiscing feugiat. Sit velit eleifend eleifend felis arcu nisi. Eu gravida ultricies amet ut pretium purus aliquam porta a. Duis consectetur donec auctor lorem metus.',
     },
     {
       id: 2,
       url: sipahadasi,
-      desc: "Lorem ipsum dolor sit amet consectetur. Eget laoreet donec commodo placerat viverra scelerisque ut. Sed lorem diam nunc cursus arcu nulla sapien. Non tempor donec suspendisse suspendisse egestas urna adipiscing feugiat. Sit velit eleifend eleifend felis arcu nisi. Eu gravida ultricies amet ut pretium purus aliquam porta a. Duis consectetur donec auctor lorem metus.",
+      desc: 'Lorem ipsum dolor sit amet consectetur. Eget laoreet donec commodo placerat viverra scelerisque ut. Sed lorem diam nunc cursus arcu nulla sapien. Non tempor donec suspendisse suspendisse egestas urna adipiscing feugiat. Sit velit eleifend eleifend felis arcu nisi. Eu gravida ultricies amet ut pretium purus aliquam porta a. Duis consectetur donec auctor lorem metus.',
     },
     {
       id: 3,
       url: sipaojol,
-      desc: "Lorem ipsum dolor sit amet consectetur. Eget laoreet donec commodo placerat viverra scelerisque ut. Sed lorem diam nunc cursus arcu nulla sapien. Non tempor donec suspendisse suspendisse egestas urna adipiscing feugiat. Sit velit eleifend eleifend felis arcu nisi. Eu gravida ultricies amet ut pretium purus aliquam porta a. Duis consectetur donec auctor lorem metus.",
+      desc: 'Lorem ipsum dolor sit amet consectetur. Eget laoreet donec commodo placerat viverra scelerisque ut. Sed lorem diam nunc cursus arcu nulla sapien. Non tempor donec suspendisse suspendisse egestas urna adipiscing feugiat. Sit velit eleifend eleifend felis arcu nisi. Eu gravida ultricies amet ut pretium purus aliquam porta a. Duis consectetur donec auctor lorem metus.',
     },
   ];
 
@@ -158,6 +158,7 @@ export default function Home() {
     getAgenda();
   }, []);
 
+  
   return (
     <>
       <div className=" lg:pt-[100px] pt-[80px] w-full">
@@ -201,7 +202,7 @@ export default function Home() {
 
 
         {/* jumlah for dekstop */}
-        <section className="mt-20 mb-10 px-24 lg:flex hidden justify-center">
+        <div className="mt-20 mb-10 px-24 lg:flex hidden justify-center">
           {/* <div className=" rounded-xl bg-white flex lg:px-5 lg:py-5 ">
             {data.map((i, key) => (
               <CardInfo key={key} index={key} data={i} />
@@ -212,23 +213,23 @@ export default function Home() {
               <CardInfo key={key} index={key} data={i} />
             ))}
           </div>
-        </section>
+        </div>
 
         {/* jumlah for dekstop */}
         {/* jumlah for mobile */}
-        <section className="mt-10 mb-10 px-8 lg:hidden flex justify-center">
+        <div className="mt-10 mb-10 px-8 lg:hidden flex justify-center">
           <div className="rounded-xl bg-white grid grid-cols-2">
             {data.map((i, key) => (
               <CardInfoMobile key={key} index={key} data={i} />
             ))}
           </div>
-        </section>
+        </div>
         {/* jumlah for mobile */}
         {/* Potensi Desa */}
         <Potensi />
 
         {/* Agenda */}
-        <section className="mt-28 mb-10 2xl:px-16 lg:px-10 px-8 flex flex-col items-center justify-center">
+        <div className="mt-28 mb-10 2xl:px-16 lg:px-10 px-8 flex flex-col items-center justify-center">
           <h1 className="text-4xl font-bold capitalize underline decoration-[#3C903C]">
             Agenda
           </h1>
@@ -349,10 +350,10 @@ export default function Home() {
               </div>
             </Swiper>
           </div>
-        </section>
+        </div>
 
         {/* program */}
-        <section className="mt-28 mb-10 2xl:px-16 lg:px-10 px-8 flex flex-col items-center justify-center">
+        <div className="mt-28 mb-10 2xl:px-16 lg:px-10 px-8 flex flex-col items-center justify-center">
           <h1 className="text-4xl font-bold capitalize underline decoration-[#3C903C]">
             Aplikasi Pemerintah
           </h1>
@@ -382,13 +383,13 @@ export default function Home() {
           >
             <p className="font-semibold ">Lebih Banyak</p>
           </div> */}
-        </section>
+        </div>
         {/* program */}
         {/* Gallery */}
         <Galeri />
         {/* Gallery */}
         {/* Berita */}
-        <section className="mt-28 mb-28 flex flex-col items-center justify-center 2xl:px-16 lg:px-10 px-8">
+        <div className="mt-28 mb-28 flex flex-col items-center justify-center 2xl:px-16 lg:px-10 px-8">
           {/* Title for dekstop */}
           <div className="top lg:flex hidden justify-between items-center w-full">
             <h1 className="font-bold 2xl:text-4xl lg:text-2xl">
@@ -396,12 +397,12 @@ export default function Home() {
             </h1>
             <div
               onClick={() => {
-                navigate("/berita");
+                navigate('/berita');
               }}
               className={`flex items-center justify-center gap-x-2  cursor-pointer ${
                 hoverButton2
-                  ? "text-[#007100] transition-all -translate-x-1 -translate-y-1"
-                  : " text-[#6B7280] transition-all"
+                  ? 'text-[#007100] transition-all -translate-x-1 -translate-y-1'
+                  : ' text-[#6B7280] transition-all'
               }`}
               onMouseEnter={handleMouseOver2}
               onMouseLeave={handleMouseOut2}
@@ -409,7 +410,7 @@ export default function Home() {
               <h1 className="font-bold 2xl:text-xl lg:text-lg">More News</h1>
               <ArrowRight2
                 size="22"
-                color={`${hoverButton2 ? "#547153" : "#6B7280"}`}
+                color={`${hoverButton2 ? '#547153' : '#6B7280'}`}
               />
             </div>
           </div>
@@ -424,10 +425,10 @@ export default function Home() {
           <div
             className={` content w-full 2xl:mt-20 mt-10   2xl:gap-x-16 lg:gap-x-4 lg:gap-y-0 gap-y-10 ${
               loadBerita
-                ? "grid lg:grid-cols-4 grid-cols-1"
+                ? 'grid lg:grid-cols-4 grid-cols-1'
                 : berita.length == 0
-                ? ""
-                : "grid lg:grid-cols-4 grid-cols-1"
+                ? ''
+                : 'grid lg:grid-cols-4 grid-cols-1'
             }`}
           >
             {loadBerita ? (
@@ -456,15 +457,15 @@ export default function Home() {
             )}
             <div className="lg:hidden flex justify-center items-center">
               <AnimatedButton
-                onClick={() => navigate("/berita")}
-                label={"More News"}
+                onClick={() => navigate('/berita')}
+                label={'More News'}
                 styleButton={
-                  "px-5 py-1 rounded-full hover:text-white text-hijauPrimary border-2 border-hijauPrimary before:bg-bgHijauPrimary"
+                  'px-5 py-1 rounded-full hover:text-white text-hijauPrimary border-2 border-hijauPrimary before:bg-bgHijauPrimary'
                 }
               />
             </div>
           </div>
-        </section>
+        </div>
         {/* Berita */}
       </div>
     </>
@@ -504,7 +505,7 @@ function CardInfo({ index, data }) {
         onMouseOut={handleMouseOut}
         className={`penduduk relative flex flex-col  items-center lg:gap-y-5 gap-y-1 lg:px-12 px-5  lg:py-16 py-10 transition-all cursor-default rounded-2xl border-2 ${
           isHovering &&
-          "-translate-y-1 -translate-x-1 shadow-xl transition-all bg-white border-0"
+          '-translate-y-1 -translate-x-1 shadow-xl transition-all bg-white border-0'
           // eslint-disable-next-line eqeqeq
         } `}
       >
@@ -515,7 +516,7 @@ function CardInfo({ index, data }) {
             decimal={data.count}
             end={data.count}
           />
-          {data.title == "Luas Wilayah" && "KM"}
+          {data.title == 'Luas Wilayah' && 'KM'}
         </div>
         <p className="lg:text-2xl text-lg">{data.title}</p>
 
@@ -590,12 +591,12 @@ function CardInfoMobile({ data }) {
       <div
         className={`penduduk flex flex-col justify-center text-center  items-center  gap-y-1  px-5 border-[0.5px]  py-5 ${
           data.id == 1
-            ? "rounded-tl-xl"
+            ? 'rounded-tl-xl'
             : data.id == 2
-            ? "rounded-tr-xl"
+            ? 'rounded-tr-xl'
             : data.id == 3
-            ? "rounded-bl-xl"
-            : "rounded-br-xl"
+            ? 'rounded-bl-xl'
+            : 'rounded-br-xl'
         }`}
       >
         <div className="flex gap-x-3">
@@ -605,7 +606,7 @@ function CardInfoMobile({ data }) {
             decimal={data.count}
             end={data.count}
           />
-          {data.title == "Luas Wilayah" && "KM"}
+          {data.title == 'Luas Wilayah' && 'KM'}
         </div>
         <p className="text-xl ">{data.title}</p>
       </div>
@@ -674,18 +675,18 @@ function CardBerita({ i }) {
   const navigate = useNavigate();
   const date = new Date(i.createdAt);
   var months = [
-    "Januari",
-    "Februari",
-    "Maret",
-    "April",
-    "May",
-    "Juni",
-    "Juli",
-    "Agustus",
-    "September",
-    "Oktober",
-    "November",
-    "Desember",
+    'Januari',
+    'Februari',
+    'Maret',
+    'April',
+    'May',
+    'Juni',
+    'Juli',
+    'Agustus',
+    'September',
+    'Oktober',
+    'November',
+    'Desember',
   ];
   var monthName = months[date.getMonth()];
 
@@ -695,9 +696,7 @@ function CardBerita({ i }) {
         title={i.judul}
         onClick={() => {
           // setRoute(`/berita/${i.slug}`)
-          navigate(`/berita/${i.slug}`, {
-            state: { route: `/berita/${i.slug}` },
-          });
+          navigate(`/berita/${i.slug}`, {state: {route : `/berita/${i.slug}`}});
         }}
         className="bg-[#f5f5fa] w-full 2xl:h-[350px] h-[300px] beritaHover rounded-3xl shadow-md cursor-pointer hover:border hover:border-hijauPrimary transition-all ease-in-out"
       >
