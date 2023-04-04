@@ -1,11 +1,16 @@
-import React from "react";
-import kementrian from "../assets/logo/kementrianSekertariat.jpg";
-import dpr from "../assets/logo/dpr.png";
-import dalamNegri from "../assets/logo/kementriandalamnegeri.png";
-import jabar from "../assets/logo/provinsi.png";
-import bogor from "../assets/logo/kabupatenbogor.png";
-
+import React from 'react';
+import kementrian from '../assets/logo/kementrianSekertariat.jpg';
+import dpr from '../assets/logo/dpr.png';
+import dalamNegri from '../assets/logo/kementriandalamnegeri.png';
+import jabar from '../assets/logo/provinsi.png';
+import bogor from '../assets/logo/kabupatenbogor.png';
+import * as dayjs from 'dayjs';
 export default function Footer() {
+  const now = dayjs();
+
+  function klikTautan(link) {
+    window.open(link, '_blank');
+  }
   return (
     <>
       <div className="w-screen z-20 bg-[#007100]   flex flex-col justify-center items-center">
@@ -22,16 +27,24 @@ export default function Footer() {
           {/* List Tautan */}
           <div className="lg:flex grid grid-cols-3 items-center justify-between 2xl:px-10 lg:px-6 lg:gap-x-16 gap-x-5 lg:gap-y-0 gap-y-5 mt-2 border-b-2 2xl:w-11/12 mx-auto py-6">
             {/* sekretariat */}
-            <div className="flex justify-center items-center gap-x-2">
+            <div
+              onClick={() => klikTautan('https://www.setneg.go.id/')}
+              className="flex justify-center items-center gap-x-2 rounded-lg hover:bg-[#007100] hover:drop-shadow-xl hover:scale-105 transition-all ease-in-out py-2 px-3 cursor-pointer"
+            >
               <div
                 className="bg-cover bg-center 2xl:p-5 lg:p-4 p-3 rounded-md"
                 style={{ backgroundImage: `url(${kementrian})` }}
               ></div>
-              <h5 className="font-semibold text-white 2xl:text-base text-xs">Sekretarian Negara</h5>
+              <h5 className="font-semibold text-white 2xl:text-base text-xs">
+                Sekretarian Negara
+              </h5>
             </div>
             {/* sekretariat */}
             {/* DPR */}
-            <div className="flex justify-center items-center gap-x-2">
+            <div
+              onClick={() => klikTautan('https://www.dpr.go.id/')}
+              className="flex justify-center items-center gap-x-2 rounded-lg hover:bg-[#007100] hover:drop-shadow-xl hover:scale-105 transition-all ease-in-out py-2 px-3 cursor-pointer"
+            >
               <img src={dpr} className="2xl:w-14 lg:w-12 w-9" alt="" />
               <h5 className="font-semibold text-white 2xl:text-base text-xs">
                 Dewan Perwakilan Rakyat
@@ -39,7 +52,10 @@ export default function Footer() {
             </div>
             {/* DPR */}
             {/* Kementrian Dalam Negri */}
-            <div className="flex justify-center items-center gap-x-2">
+            <div
+              onClick={() => klikTautan('https://www.kemendagri.go.id/')}
+              className="flex justify-center items-center gap-x-2 rounded-lg hover:bg-[#007100] hover:drop-shadow-xl hover:scale-105 transition-all ease-in-out py-2 px-3 cursor-pointer"
+            >
               <img src={dalamNegri} className="2xl:w-14 lg:w-12 w-9" alt="" />
               <h5 className="font-semibold text-white 2xl:text-base text-xs">
                 Kementrian Dalam Negeri
@@ -47,15 +63,25 @@ export default function Footer() {
             </div>
             {/* Kementrian Dalam Negri */}
             {/* Provinsi Jabar */}
-            <div className="flex justify-center items-center gap-x-2">
+            <div
+              onClick={() => klikTautan('https://jabarprov.go.id/')}
+              className="flex justify-center items-center gap-x-2 rounded-lg hover:bg-[#007100] hover:drop-shadow-xl hover:scale-105 transition-all ease-in-out py-2 px-3 cursor-pointer"
+            >
               <img src={jabar} className="2xl:w-14 lg:w-12 w-9" alt="" />
-              <h5 className="font-semibold text-white 2xl:text-base text-xs">Provinsi Jawa Barat</h5>
+              <h5 className="font-semibold text-white 2xl:text-base text-xs">
+                Provinsi Jawa Barat
+              </h5>
             </div>
             {/* Provinsi Jabar */}
             {/* Kabupaten Bogor */}
-            <div className="flex justify-center items-center gap-x-2">
+            <div
+              onClick={() => klikTautan('https://bogorkab.go.id/')}
+              className="flex justify-center items-center gap-x-2 rounded-lg hover:bg-[#007100] hover:drop-shadow-xl hover:scale-105 transition-all ease-in-out py-2 px-3 cursor-pointer"
+            >
               <img src={bogor} className="2xl:w-14 lg:w-12 w-9" alt="" />
-              <h5 className="font-semibold text-white 2xl:text-base text-xs">Kabupaten Bogor</h5>
+              <h5 className="font-semibold text-white 2xl:text-base text-xs">
+                Kabupaten Bogor
+              </h5>
             </div>
             {/* Kabupaten Bogor */}
           </div>
@@ -78,7 +104,7 @@ export default function Footer() {
                 <h1 className="font-bold 2xl:text-lg">About</h1>
                 <p className="2xl:text-base text-sm">
                   Lorem ipsum dolor sit amet consectetur. Eget laoreet donec
-                  commodo placerat viverra scelerisque ut.{" "}
+                  commodo placerat viverra scelerisque ut.{' '}
                 </p>
               </div>
               <div className="Lokasi flex flex-col gap-y-3">
@@ -194,8 +220,8 @@ export default function Footer() {
         </div>
         <div className="py-5 lg:w-full w-11/12 flex justify-center items-center text-white">
           <h1>
-            © 2022 Pemerintah Kabupaten Bogor, Kecamatan Cileungsi, Republik
-            Indonesia
+            Copyright © {now.format('YYYY')} Pemerintah Daerah Kabupaten Bogor, Kecamatan
+            Jonggol. All Right Reserved
           </h1>
         </div>
       </div>
