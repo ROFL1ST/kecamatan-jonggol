@@ -47,7 +47,7 @@ export default function Potensi() {
   }, [search]);
   return (
     <>
-      <div className="flex flex-col justify-center items-center py-20  mb-20 bg-[#3C903C] lg:px-20 px-8">
+      <section className="flex flex-col justify-center items-center py-20  mb-20 bg-[#3C903C] lg:px-20 px-8">
         <div className="flex lg:flex-row flex-col lg:gap-y-0 gap-y-5 justify-between w-full items-end">
           <div className="left title flex flex-col gap-y-5 lg:w-1/3 text-white">
             <div className="h1">
@@ -198,7 +198,7 @@ export default function Potensi() {
           </div>
         </div>
         {/* Content */}
-      </div>
+      </section>
     </>
   );
 }

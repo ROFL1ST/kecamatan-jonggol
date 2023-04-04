@@ -49,7 +49,7 @@ export default function Galeri() {
 
   return (
     <>
-      <div className="mt-28 mb-10 2xl:pl-16 lg:pl-10 lg:pt-20 lg:pb-10 flex flex-col items-center justify-center bg-[#3C903C]">
+      <section className="mt-28 mb-10 2xl:pl-16 lg:pl-10 lg:pt-20 lg:pb-10 flex flex-col items-center justify-center bg-[#3C903C]">
         <div className="w-full  flex lg:flex-row flex-col lg:justify-between justify-center gap-x-10 mt-20 mb-20 items-center">
           <div className="kiri lg:px-0 px-8 lg:w-1/3 flex flex-col lg:items-start items-center lg:mb-0 mb-10 lg:gap-y-0 gap-y-5">
             <h1 className="text-6xl text-white font-semibold">Foto</h1>
@@ -132,7 +132,7 @@ export default function Galeri() {
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }
@@ -148,14 +148,14 @@ function CardFoto({ i }) {
             setOpen(true);
           }
         }}
-        className="lg:h-96 2xl:min-h-[30rem] m-7 h-96 rounded-2xl w-full bg-cover bg-center shadow-2xl transition-all ease-in-out hover:scale-105 cursor-pointer"
+        className="hover:scale-105 transition duration-500 transform lg:h-96 2xl:min-h-[30rem] m-7 h-96 rounded-2xl w-full bg-cover bg-center shadow-2xl  cursor-pointer"
         style={{
           backgroundImage: `url(${
             i.cover != null ? i.cover.thumbnail : NoImage
           })`,
         }}
       >
-        <div className="w-full h-full bg-black bg-opacity-25 px-5 py-5 rounded-2xl flex flex-col justify-end">
+        <div className="w-full h-full transition duration-500 ease-in-out group-hover:bg-opacity-70  bg-black bg-opacity-25 px-5 py-5 rounded-2xl flex flex-col justify-end">
           <h1 className="text-white font-semibold">{i.nama_album}</h1>
         </div>
       </div>
