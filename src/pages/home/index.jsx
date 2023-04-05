@@ -189,11 +189,11 @@ export default function Home() {
           <div
             className={`z-50 ${isSticky ? 'sticky top-[300px]' : 'relative'} hidden lg:block`}
           >
-            <div className="flex items-start">
+            <div className="flex items-start absolute">
               <div
                 className={`${
                   agendaSidebar ? 'translate-x-0' : '-translate-x-[350px]'
-                } bg-[#fff012] w-[350px] h-[500px] border border-black rounded-br-lg border-l-0 transition-all ease-in-out duration-700`}
+                } bg-kuningPrimary w-[350px] h-[500px] border border-black rounded-br-lg border-l-0 transition-all ease-in-out duration-700`}
               >
                 <div className="w-full h-full flex justify-center items-center">
                   <h1>konten agenda ada disini!</h1>
@@ -211,7 +211,7 @@ export default function Home() {
                 <div
                   className={`${
                     agendaSidebar ? 'rotate-180' : 'rotate-0'
-                  } bg-[#fff012] rounded-full transition-all ease-in-out w-fit h-fit`}
+                  } bg-kuningPrimary rounded-full transition-all ease-in-out w-fit h-fit`}
                 >
                   <ArrowCircleRight size="27" color="#000000" />
                 </div>
