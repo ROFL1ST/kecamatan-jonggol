@@ -43,7 +43,7 @@ export default function Home() {
   const handleScroll = (e) => {
     const scrollPosition = e.target.scrollTop;
     const secondSectionTop =
-      document.querySelector("#second-section").offsetTop;
+      document.querySelector('#second-section').offsetTop;
     const isPastSecondSection = scrollPosition > secondSectionTop;
 
     if (isPastSecondSection && isSticky) {
@@ -185,17 +185,14 @@ export default function Home() {
   return (
     <>
       <div className=" lg:pt-[100px] pt-[80px] w-full">
-        <Slider />
         <section className="" onScroll={handleScroll}>
           <div
-            className={`z-50 ${
-              isSticky ? "sticky top-[300px]" : "relative"
-            } hidden lg:block`}
+            className={`z-50 ${isSticky ? 'sticky top-[300px]' : 'relative'} hidden lg:block`}
           >
-            <div className="flex items-start absolute">
+            <div className="flex items-start">
               <div
                 className={`${
-                  agendaSidebar ? "translate-x-0" : "-translate-x-[350px]"
+                  agendaSidebar ? 'translate-x-0' : '-translate-x-[350px]'
                 } bg-[#fff012] w-[350px] h-[500px] border border-black rounded-br-lg border-l-0 transition-all ease-in-out duration-700`}
               >
                 <div className="w-full h-full flex justify-center items-center">
@@ -205,7 +202,7 @@ export default function Home() {
               <div
                 onClick={() => handleAgendaSidebar()}
                 className={`${
-                  agendaSidebar ? "translate-x-0" : "-translate-x-[350px]"
+                  agendaSidebar ? 'translate-x-0' : '-translate-x-[350px]'
                 } flex items-center transition-all ease-in-out cursor-pointer duration-700`}
               >
                 <div className="bg-kuningPrimary w-[50px] h-[150px] z-10 flex border border-l-0 border-black rounded-tr-lg rounded-br-lg justify-center items-center">
@@ -213,7 +210,7 @@ export default function Home() {
                 </div>
                 <div
                   className={`${
-                    agendaSidebar ? "rotate-180" : "rotate-0"
+                    agendaSidebar ? 'rotate-180' : 'rotate-0'
                   } bg-[#fff012] rounded-full transition-all ease-in-out w-fit h-fit`}
                 >
                   <ArrowCircleRight size="27" color="#000000" />
@@ -221,6 +218,7 @@ export default function Home() {
               </div>
             </div>
           </div>
+          <Slider />
           {/* 
         <div className="mt-32 lg:flex hidden flex-row justify-between items-center 2xl:px-16 lg:px-10 px-8 mb-20 gap-x-96">
           <div className="left flex flex-col gap-y-20 2xl:w-1/3 lg:w-11/12">
@@ -423,10 +421,10 @@ export default function Home() {
               {/* box */}
             </div>
             <AnimatedButton
-              onClick={() => navigate("/aplikasi")}
-              label={"Lebih Banyak"}
+              onClick={() => navigate('/aplikasi')}
+              label={'Lebih Banyak'}
               styleButton={
-                "px-5 py-1 rounded-full hover:text-white text-hijauPrimary border-2 border-hijauPrimary before:bg-bgHijauPrimary"
+                'px-5 py-1 rounded-full hover:text-white text-hijauPrimary border-2 border-hijauPrimary before:bg-bgHijauPrimary'
               }
             />
             {/* <div
