@@ -1,26 +1,31 @@
-import React from 'react';
-import Slider from './component/Slider';
-import siapmasjo from '../../assets/logo/siapmasjo.png';
-import sipahadasi from '../../assets/logo/sipahadesi.png';
-import sipaojol from '../../assets/logo/sipaojol.png';
-import Galeri from './component/Galeri';
-import { ArrowRight2, Calendar, Location } from 'iconsax-react';
-import CountUp from 'react-countup';
-import { getApi } from '../../API/restApi';
-import { useNavigate } from 'react-router-dom';
-import Lottie from 'lottie-react';
-import NotFound from '../../assets/json/93134-not-found.json';
-import ErrorIndicator from '../../assets/json/98642-error-404.json';
-import Potensi from './component/Potensi';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper';
-import 'swiper/css/effect-fade';
-import 'swiper/css';
-import UnderlineButton2 from './component/underlineButton2';
-import AnimatedButton from '../../component/animatedButton';
-import AnimatedButton2 from '../../component/animatedButton2';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeState } from '../../redux/actions';
+import React, { useEffect, useRef, useState } from "react";
+import Slider from "./component/Slider";
+import siapmasjo from "../../assets/logo/siapmasjo.png";
+import sipahadasi from "../../assets/logo/sipahadesi.png";
+import sipaojol from "../../assets/logo/sipaojol.png";
+import Galeri from "./component/Galeri";
+import {
+  ArrowCircleRight,
+  ArrowRight2,
+  Calendar,
+  Location,
+} from "iconsax-react";
+import CountUp from "react-countup";
+import { getApi } from "../../API/restApi";
+import { useNavigate } from "react-router-dom";
+import Lottie from "lottie-react";
+import NotFound from "../../assets/json/93134-not-found.json";
+import ErrorIndicator from "../../assets/json/98642-error-404.json";
+import Potensi from "./component/Potensi";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper";
+import "swiper/css/effect-fade";
+import "swiper/css";
+import UnderlineButton2 from "./component/underlineButton2";
+import AnimatedButton from "../../component/animatedButton";
+import AnimatedButton2 from "../../component/animatedButton2";
+import { useDispatch, useSelector } from "react-redux";
+import { changeState } from "../../redux/actions";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -29,9 +34,24 @@ export default function Home() {
   const [agendaError, setAgendaError] = React.useState(false);
   const [limit, setLimit] = React.useState(9);
   const [agenda, setAgenda] = React.useState([]);
+  const [agendaSidebar, setAgendaSidebar] = useState(false);
   const [loadAgenda, setLoadAgenda] = React.useState(true);
   const [penduduk, setPenduduk] = React.useState();
   const load = [1, 2, 3];
+  const [isSticky, setIsSticky] = useState(true);
+
+  const handleScroll = (e) => {
+    const scrollPosition = e.target.scrollTop;
+    const secondSectionTop =
+      document.querySelector("#second-section").offsetTop;
+    const isPastSecondSection = scrollPosition > secondSectionTop;
+
+    if (isPastSecondSection && isSticky) {
+      setIsSticky(false);
+    } else if (!isPastSecondSection && !isSticky) {
+      setIsSticky(true);
+    }
+  };
 
   const getAgenda = async () => {
     try {
@@ -53,7 +73,7 @@ export default function Home() {
 
   const getPenduduk = async () => {
     try {
-      await getApi('penduduk/total').then((res) => {
+      await getApi("penduduk/total").then((res) => {
         setPenduduk(res.data.data);
       });
     } catch (error) {
@@ -63,7 +83,7 @@ export default function Home() {
   const [asn, setAsn] = React.useState();
   const getAsn = async () => {
     try {
-      await getApi('pegawai/total').then((res) => {
+      await getApi("pegawai/total").then((res) => {
         setAsn(res.data.data);
       });
     } catch (error) {
@@ -74,7 +94,7 @@ export default function Home() {
 
   const getDesa = async () => {
     try {
-      await getApi('desa').then((res) => {
+      await getApi("desa").then((res) => {
         setDesa(res.data.data);
       });
     } catch (error) {
@@ -86,22 +106,22 @@ export default function Home() {
     {
       id: 1,
       count: penduduk,
-      title: 'Penduduk',
+      title: "Penduduk",
     },
     {
       id: 2,
       count: desa.length,
-      title: 'Jumlah Desa',
+      title: "Jumlah Desa",
     },
     {
       id: 3,
       count: asn,
-      title: 'Jumlah ASN',
+      title: "Jumlah ASN",
     },
     {
       id: 4,
       count: 158.9,
-      title: 'Luas Wilayah',
+      title: "Luas Wilayah",
     },
   ];
 
@@ -109,17 +129,17 @@ export default function Home() {
     {
       id: 1,
       url: siapmasjo,
-      desc: 'Lorem ipsum dolor sit amet consectetur. Eget laoreet donec commodo placerat viverra scelerisque ut. Sed lorem diam nunc cursus arcu nulla sapien. Non tempor donec suspendisse suspendisse egestas urna adipiscing feugiat. Sit velit eleifend eleifend felis arcu nisi. Eu gravida ultricies amet ut pretium purus aliquam porta a. Duis consectetur donec auctor lorem metus.',
+      desc: "Lorem ipsum dolor sit amet consectetur. Eget laoreet donec commodo placerat viverra scelerisque ut. Sed lorem diam nunc cursus arcu nulla sapien. Non tempor donec suspendisse suspendisse egestas urna adipiscing feugiat. Sit velit eleifend eleifend felis arcu nisi. Eu gravida ultricies amet ut pretium purus aliquam porta a. Duis consectetur donec auctor lorem metus.",
     },
     {
       id: 2,
       url: sipahadasi,
-      desc: 'Lorem ipsum dolor sit amet consectetur. Eget laoreet donec commodo placerat viverra scelerisque ut. Sed lorem diam nunc cursus arcu nulla sapien. Non tempor donec suspendisse suspendisse egestas urna adipiscing feugiat. Sit velit eleifend eleifend felis arcu nisi. Eu gravida ultricies amet ut pretium purus aliquam porta a. Duis consectetur donec auctor lorem metus.',
+      desc: "Lorem ipsum dolor sit amet consectetur. Eget laoreet donec commodo placerat viverra scelerisque ut. Sed lorem diam nunc cursus arcu nulla sapien. Non tempor donec suspendisse suspendisse egestas urna adipiscing feugiat. Sit velit eleifend eleifend felis arcu nisi. Eu gravida ultricies amet ut pretium purus aliquam porta a. Duis consectetur donec auctor lorem metus.",
     },
     {
       id: 3,
       url: sipaojol,
-      desc: 'Lorem ipsum dolor sit amet consectetur. Eget laoreet donec commodo placerat viverra scelerisque ut. Sed lorem diam nunc cursus arcu nulla sapien. Non tempor donec suspendisse suspendisse egestas urna adipiscing feugiat. Sit velit eleifend eleifend felis arcu nisi. Eu gravida ultricies amet ut pretium purus aliquam porta a. Duis consectetur donec auctor lorem metus.',
+      desc: "Lorem ipsum dolor sit amet consectetur. Eget laoreet donec commodo placerat viverra scelerisque ut. Sed lorem diam nunc cursus arcu nulla sapien. Non tempor donec suspendisse suspendisse egestas urna adipiscing feugiat. Sit velit eleifend eleifend felis arcu nisi. Eu gravida ultricies amet ut pretium purus aliquam porta a. Duis consectetur donec auctor lorem metus.",
     },
   ];
 
@@ -150,6 +170,10 @@ export default function Home() {
     }
   };
 
+  const handleAgendaSidebar = () => {
+    return setAgendaSidebar(!agendaSidebar);
+  };
+
   React.useEffect(() => {
     getBerita();
     getDesa();
@@ -163,7 +187,42 @@ export default function Home() {
     <>
       <div className=" lg:pt-[100px] pt-[80px] w-full">
         <Slider />
-        {/* 
+        <section className="" onScroll={handleScroll}>
+          <div
+            className={`z-50 ${
+              isSticky ? "sticky top-[300px]" : "relative"
+            } hidden lg:block`}
+          >
+            <div className="flex items-start absolute">
+              <div
+                className={`${
+                  agendaSidebar ? "translate-x-0" : "-translate-x-[350px]"
+                } bg-[#fff012] w-[350px] h-[500px] border border-black rounded-br-lg border-l-0 transition-all ease-in-out duration-700`}
+              >
+                <div className="w-full h-full flex justify-center items-center">
+                  <h1>konten agenda ada disini!</h1>
+                </div>
+              </div>
+              <div
+                onClick={() => handleAgendaSidebar()}
+                className={`${
+                  agendaSidebar ? "translate-x-0" : "-translate-x-[350px]"
+                } flex items-center transition-all ease-in-out cursor-pointer duration-700`}
+              >
+                <div className="bg-kuningPrimary w-[50px] h-[150px] z-10 flex border border-l-0 border-black rounded-tr-lg rounded-br-lg justify-center items-center">
+                  <p className="-rotate-90 text-center z-50">Agenda</p>
+                </div>
+                <div
+                  className={`${
+                    agendaSidebar ? "rotate-180" : "rotate-0"
+                  } bg-[#fff012] rounded-full transition-all ease-in-out w-fit h-fit`}
+                >
+                  <ArrowCircleRight size="27" color="#000000" />
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* 
         <div className="mt-32 lg:flex hidden flex-row justify-between items-center 2xl:px-16 lg:px-10 px-8 mb-20 gap-x-96">
           <div className="left flex flex-col gap-y-20 2xl:w-1/3 lg:w-11/12">
             <h1 className="font-bold 2xl:text-6xl lg:text-5xl 2xl:w-3/4">
@@ -202,176 +261,176 @@ export default function Home() {
 
 
         {/* jumlah for dekstop */}
-        <div className="mt-20 mb-10 px-24 lg:flex hidden justify-center">
-          {/* <div className=" rounded-xl bg-white flex lg:px-5 lg:py-5 ">
+          <div className="mt-20 mb-10 px-24 lg:flex hidden justify-center">
+            {/* <div className=" rounded-xl bg-white flex lg:px-5 lg:py-5 ">
             {data.map((i, key) => (
               <CardInfo key={key} index={key} data={i} />
             ))}
           </div> */}
-          <div className="grid grid-cols-4 gap-x-5 w-full">
-            {data.map((i, key) => (
-              <CardInfo key={key} index={key} data={i} />
-            ))}
+            <div className="grid grid-cols-4 gap-x-5 w-full">
+              {data.map((i, key) => (
+                <CardInfo key={key} index={key} data={i} />
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* jumlah for dekstop */}
-        {/* jumlah for mobile */}
-        <div className="mt-10 mb-10 px-8 lg:hidden flex justify-center">
-          <div className="rounded-xl bg-white grid grid-cols-2">
-            {data.map((i, key) => (
-              <CardInfoMobile key={key} index={key} data={i} />
-            ))}
+          {/* jumlah for dekstop */}
+          {/* jumlah for mobile */}
+          <div className="mt-10 mb-10 px-8 lg:hidden flex justify-center">
+            <div className="rounded-xl bg-white grid grid-cols-2">
+              {data.map((i, key) => (
+                <CardInfoMobile key={key} index={key} data={i} />
+              ))}
+            </div>
           </div>
-        </div>
-        {/* jumlah for mobile */}
-        {/* Potensi Desa */}
-        <Potensi />
+          {/* jumlah for mobile */}
+          {/* Potensi Desa */}
+          <Potensi />
 
-        {/* Agenda */}
-        <div className="mt-28 mb-10 2xl:px-16 lg:px-10 px-8 flex flex-col items-center justify-center">
-          <h1 className="text-4xl font-bold capitalize underline decoration-[#3C903C]">
-            Agenda
-          </h1>
-          {/* agenda web */}
-          <div className="xl:block hidden w-full mt-10">
-            <Swiper
-              centeredSlides={true}
-              slidesPerView={3}
-              spaceBetween={40}
-              loop={true}
-              //   controller={{ control: firstSwiper }}
-              onSlideChange={handleSlideChange}
-              autoplay={{
-                delay: 3500,
-                disableOnInteraction: false,
-              }}
-              modules={[Autoplay]}
-              // onSwiper={(swiper) => {
-              //   setPageAgendaSlider(swiper.realIndex);
-              //   swiperRef.current = swiper;
-              // }}
-              className="rounded-b-3xl"
-              // effect={'fade'}
-            >
-              <div
-                className={` mb-20 gap-y-10 gap-x-10 mt-20 ${
-                  loadAgenda
-                    ? "grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1"
-                    : agenda.length == 0 || agendaError
-                    ? ""
-                    : "grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1"
-                }`}
+          {/* Agenda */}
+          <div className="lg:hidden mt-28 mb-10 2xl:px-16 lg:px-10 px-8 flex flex-col items-center justify-center">
+            <h1 className="text-4xl font-bold capitalize underline decoration-[#3C903C]">
+              Agenda
+            </h1>
+            {/* agenda web */}
+            <div className="xl:block hidden w-full mt-10">
+              <Swiper
+                centeredSlides={true}
+                slidesPerView={3}
+                spaceBetween={40}
+                loop={true}
+                //   controller={{ control: firstSwiper }}
+                onSlideChange={handleSlideChange}
+                autoplay={{
+                  delay: 3500,
+                  disableOnInteraction: false,
+                }}
+                modules={[Autoplay]}
+                // onSwiper={(swiper) => {
+                //   setPageAgendaSlider(swiper.realIndex);
+                //   swiperRef.current = swiper;
+                // }}
+                className="rounded-b-3xl"
+                // effect={'fade'}
               >
-                {!loadAgenda ? (
-                  agenda.length != 0 ? (
-                    agenda.map((i, key) => (
-                      <SwiperSlide key={key}>
-                        <CardAgenda data={i} />
-                      </SwiperSlide>
-                    ))
-                  ) : agendaError ? (
-                    <>
-                      <div className="flex flex-col justify-center items-center">
-                        <Lottie animationData={ErrorIndicator} />
-                        <h1 className="font-bold">Terjadi Kesalahan</h1>
-                      </div>
-                    </>
+                <div
+                  className={` mb-20 gap-y-10 gap-x-10 mt-20 ${
+                    loadAgenda
+                      ? "grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1"
+                      : agenda.length == 0 || agendaError
+                      ? ""
+                      : "grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1"
+                  }`}
+                >
+                  {!loadAgenda ? (
+                    agenda.length != 0 ? (
+                      agenda.map((i, key) => (
+                        <SwiperSlide key={key}>
+                          <CardAgenda data={i} />
+                        </SwiperSlide>
+                      ))
+                    ) : agendaError ? (
+                      <>
+                        <div className="flex flex-col justify-center items-center">
+                          <Lottie animationData={ErrorIndicator} />
+                          <h1 className="font-bold">Terjadi Kesalahan</h1>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="flex flex-col justify-center items-center">
+                          <Lottie animationData={NotFound} />
+                          <h1 className="font-bold">Agenda Tidak Tersedia</h1>
+                        </div>
+                      </>
+                    )
                   ) : (
-                    <>
-                      <div className="flex flex-col justify-center items-center">
-                        <Lottie animationData={NotFound} />
-                        <h1 className="font-bold">Agenda Tidak Tersedia</h1>
-                      </div>
-                    </>
-                  )
-                ) : (
-                  load.map((i, key) => <CardAgendaLoading key={key} />)
-                )}
-              </div>
-            </Swiper>
-          </div>
+                    load.map((i, key) => <CardAgendaLoading key={key} />)
+                  )}
+                </div>
+              </Swiper>
+            </div>
 
-          {/* agenda mobile */}
-          <div className="xl:hidden block w-full mt-10">
-            <Swiper
-              centeredSlides={true}
-              slidesPerView={1}
-              spaceBetween={40}
-              loop={true}
-              //   controller={{ control: firstSwiper }}
-              onSlideChange={handleSlideChange}
-              autoplay={{
-                delay: 3500,
-                disableOnInteraction: false,
-              }}
-              modules={[Autoplay]}
-              // onSwiper={(swiper) => {
-              //   setPageAgendaSlider(swiper.realIndex);
-              //   swiperRef.current = swiper;
-              // }}
-              className="rounded-b-3xl"
-              // effect={'fade'}
-            >
-              <div
-                className={` mb-20 gap-y-10 gap-x-10 mt-20 ${
-                  loadAgenda
-                    ? "grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1"
-                    : agenda.length == 0 || agendaError
-                    ? ""
-                    : "grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1"
-                }`}
+            {/* agenda mobile */}
+            <div className="xl:hidden block w-full mt-10">
+              <Swiper
+                centeredSlides={true}
+                slidesPerView={1}
+                spaceBetween={40}
+                loop={true}
+                //   controller={{ control: firstSwiper }}
+                onSlideChange={handleSlideChange}
+                autoplay={{
+                  delay: 3500,
+                  disableOnInteraction: false,
+                }}
+                modules={[Autoplay]}
+                // onSwiper={(swiper) => {
+                //   setPageAgendaSlider(swiper.realIndex);
+                //   swiperRef.current = swiper;
+                // }}
+                className="rounded-b-3xl"
+                // effect={'fade'}
               >
-                {!loadAgenda ? (
-                  agenda.length != 0 ? (
-                    agenda.map((i, key) => (
-                      <SwiperSlide key={key}>
-                        <CardAgenda data={i} />
-                      </SwiperSlide>
-                    ))
-                  ) : agendaError ? (
-                    <>
-                      <div className="flex flex-col justify-center items-center">
-                        <Lottie animationData={ErrorIndicator} />
-                        <h1 className="font-bold">Terjadi Kesalahan</h1>
-                      </div>
-                    </>
+                <div
+                  className={` mb-20 gap-y-10 gap-x-10 mt-20 ${
+                    loadAgenda
+                      ? "grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1"
+                      : agenda.length == 0 || agendaError
+                      ? ""
+                      : "grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1"
+                  }`}
+                >
+                  {!loadAgenda ? (
+                    agenda.length != 0 ? (
+                      agenda.map((i, key) => (
+                        <SwiperSlide key={key}>
+                          <CardAgenda data={i} />
+                        </SwiperSlide>
+                      ))
+                    ) : agendaError ? (
+                      <>
+                        <div className="flex flex-col justify-center items-center">
+                          <Lottie animationData={ErrorIndicator} />
+                          <h1 className="font-bold">Terjadi Kesalahan</h1>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="flex flex-col justify-center items-center">
+                          <Lottie animationData={NotFound} />
+                          <h1 className="font-bold">Agenda Tidak Tersedia</h1>
+                        </div>
+                      </>
+                    )
                   ) : (
-                    <>
-                      <div className="flex flex-col justify-center items-center">
-                        <Lottie animationData={NotFound} />
-                        <h1 className="font-bold">Agenda Tidak Tersedia</h1>
-                      </div>
-                    </>
-                  )
-                ) : (
-                  load.map((i, key) => <CardAgendaLoading key={key} />)
-                )}
-              </div>
-            </Swiper>
+                    load.map((i, key) => <CardAgendaLoading key={key} />)
+                  )}
+                </div>
+              </Swiper>
+            </div>
           </div>
-        </div>
 
-        {/* program */}
-        <div className="mt-28 mb-10 2xl:px-16 lg:px-10 px-8 flex flex-col items-center justify-center">
-          <h1 className="text-4xl font-bold capitalize underline decoration-[#3C903C]">
-            Aplikasi Pemerintah
-          </h1>
-          <div className="grid lg:grid-cols-3 grid-cols-1 2xl:gap-x-24 lg:gap-x-10 gap-10 mt-16 mb-16 w-full justify-center h-full">
-            {/* box */}
-            {app.map((i, key) => (
-              <CardApp key={key} data={i} />
-            ))}
-            {/* box */}
-          </div>
-          <AnimatedButton
-            onClick={() => navigate("/aplikasi")}
-            label={"Lebih Banyak"}
-            styleButton={
-              "px-5 py-1 rounded-full hover:text-white text-hijauPrimary border-2 border-hijauPrimary before:bg-bgHijauPrimary"
-            }
-          />
-          {/* <div
+          {/* program */}
+          <div className="mt-28 mb-10 2xl:px-16 lg:px-10 px-8 flex flex-col items-center justify-center">
+            <h1 className="text-4xl font-bold capitalize underline decoration-[#3C903C]">
+              Aplikasi Pemerintah
+            </h1>
+            <div className="grid lg:grid-cols-3 grid-cols-1 2xl:gap-x-24 lg:gap-x-10 gap-10 mt-16 mb-16 w-full justify-center h-full">
+              {/* box */}
+              {app.map((i, key) => (
+                <CardApp key={key} data={i} />
+              ))}
+              {/* box */}
+            </div>
+            <AnimatedButton
+              onClick={() => navigate("/aplikasi")}
+              label={"Lebih Banyak"}
+              styleButton={
+                "px-5 py-1 rounded-full hover:text-white text-hijauPrimary border-2 border-hijauPrimary before:bg-bgHijauPrimary"
+              }
+            />
+            {/* <div
             onClick={() => navigate('/aplikasi')}
             onMouseEnter={handleMouseOver}
             onMouseLeave={handleMouseOut}
@@ -383,90 +442,96 @@ export default function Home() {
           >
             <p className="font-semibold ">Lebih Banyak</p>
           </div> */}
-        </div>
-        {/* program */}
-        {/* Gallery */}
-        <Galeri />
-        {/* Gallery */}
-        {/* Berita */}
-        <div className="mt-28 mb-28 flex flex-col items-center justify-center 2xl:px-16 lg:px-10 px-8">
-          {/* Title for dekstop */}
-          <div className="top lg:flex hidden justify-between items-center w-full">
-            <h1 className="font-bold 2xl:text-4xl lg:text-2xl">
-              Berita Terbaru
-            </h1>
-            <div
-              onClick={() => {
-                navigate('/berita');
-              }}
-              className={`flex items-center justify-center gap-x-2  cursor-pointer ${
-                hoverButton2
-                  ? 'text-[#007100] transition-all -translate-x-1 -translate-y-1'
-                  : ' text-[#6B7280] transition-all'
-              }`}
-              onMouseEnter={handleMouseOver2}
-              onMouseLeave={handleMouseOut2}
-            >
-              <h1 className="font-bold 2xl:text-xl lg:text-lg">More News</h1>
-              <ArrowRight2
-                size="22"
-                color={`${hoverButton2 ? '#547153' : '#6B7280'}`}
-              />
+          </div>
+          {/* program */}
+          {/* Gallery */}
+          <Galeri />
+          {/* Gallery */}
+        </section>
+
+        <section id="second-section">
+          {/* Berita */}
+          <div className="mt-28 mb-28 flex flex-col items-center justify-center 2xl:px-16 lg:px-10 px-8">
+            {/* Title for dekstop */}
+            <div className="top lg:flex hidden justify-between items-center w-full">
+              <h1 className="font-bold 2xl:text-4xl lg:text-2xl">
+                Berita Terbaru
+              </h1>
+              <div
+                onClick={() => {
+                  navigate("/berita");
+                }}
+                className={`flex items-center justify-center gap-x-2  cursor-pointer ${
+                  hoverButton2
+                    ? "text-[#007100] transition-all -translate-x-1 -translate-y-1"
+                    : " text-[#6B7280] transition-all"
+                }`}
+                onMouseEnter={handleMouseOver2}
+                onMouseLeave={handleMouseOut2}
+              >
+                <h1 className="font-bold 2xl:text-xl lg:text-lg">More News</h1>
+                <ArrowRight2
+                  size="22"
+                  color={`${hoverButton2 ? "#547153" : "#6B7280"}`}
+                />
+              </div>
             </div>
-          </div>
-          {/* Title for dekstop */}
-          {/* Title For Mobile */}
-          <div className="lg:hidden flex justify-center items-center">
-            <h1 className="font-bold text-2xl underline underline-[#547153]">
-              Berita Terbaru
-            </h1>
-          </div>
-          {/* Title For Mobile */}
-          <div
-            className={` content w-full 2xl:mt-20 mt-10   2xl:gap-x-16 lg:gap-x-4 lg:gap-y-0 gap-y-10 ${
-              loadBerita
-                ? 'grid lg:grid-cols-4 grid-cols-1'
-                : berita.length == 0
-                ? ''
-                : 'grid lg:grid-cols-4 grid-cols-1'
-            }`}
-          >
-            {loadBerita ? (
-              <>
-                <CardBeritaLoading />
-                <CardBeritaLoading />
-                <CardBeritaLoading />
-                <CardBeritaLoading />
-              </>
-            ) : berita.length != 0 ? (
-              berita.slice(0, 4).map((i, key) => <CardBerita key={key} i={i} />)
-            ) : beritaError ? (
-              <>
-                <div className="flex flex-col justify-center items-center">
-                  <Lottie animationData={ErrorIndicator} />
-                  <h1 className="font-bold">Terjadi Kesalahan</h1>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="flex flex-col justify-center items-center">
-                  <Lottie animationData={NotFound} />
-                  <h1 className="font-bold">Berita Tidak Tersedia</h1>
-                </div>
-              </>
-            )}
+            {/* Title for dekstop */}
+            {/* Title For Mobile */}
             <div className="lg:hidden flex justify-center items-center">
-              <AnimatedButton
-                onClick={() => navigate('/berita')}
-                label={'More News'}
-                styleButton={
-                  'px-5 py-1 rounded-full hover:text-white text-hijauPrimary border-2 border-hijauPrimary before:bg-bgHijauPrimary'
-                }
-              />
+              <h1 className="font-bold text-2xl underline underline-[#547153]">
+                Berita Terbaru
+              </h1>
+            </div>
+            {/* Title For Mobile */}
+            <div
+              className={` content w-full 2xl:mt-20 mt-10   2xl:gap-x-16 lg:gap-x-4 lg:gap-y-0 gap-y-10 ${
+                loadBerita
+                  ? "grid lg:grid-cols-4 grid-cols-1"
+                  : berita.length == 0
+                  ? ""
+                  : "grid lg:grid-cols-4 grid-cols-1"
+              }`}
+            >
+              {loadBerita ? (
+                <>
+                  <CardBeritaLoading />
+                  <CardBeritaLoading />
+                  <CardBeritaLoading />
+                  <CardBeritaLoading />
+                </>
+              ) : berita.length != 0 ? (
+                berita
+                  .slice(0, 4)
+                  .map((i, key) => <CardBerita key={key} i={i} />)
+              ) : beritaError ? (
+                <>
+                  <div className="flex flex-col justify-center items-center">
+                    <Lottie animationData={ErrorIndicator} />
+                    <h1 className="font-bold">Terjadi Kesalahan</h1>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="flex flex-col justify-center items-center">
+                    <Lottie animationData={NotFound} />
+                    <h1 className="font-bold">Berita Tidak Tersedia</h1>
+                  </div>
+                </>
+              )}
+              <div className="lg:hidden flex justify-center items-center">
+                <AnimatedButton
+                  onClick={() => navigate("/berita")}
+                  label={"More News"}
+                  styleButton={
+                    "px-5 py-1 rounded-full hover:text-white text-hijauPrimary border-2 border-hijauPrimary before:bg-bgHijauPrimary"
+                  }
+                />
+              </div>
             </div>
           </div>
-        </div>
-        {/* Berita */}
+          {/* Berita */}
+        </section>
       </div>
     </>
   );
@@ -505,7 +570,7 @@ function CardInfo({ index, data }) {
         onMouseOut={handleMouseOut}
         className={`penduduk relative flex flex-col  items-center lg:gap-y-5 gap-y-1 lg:px-12 px-5  lg:py-16 py-10 transition-all cursor-default rounded-2xl border-2 ${
           isHovering &&
-          '-translate-y-1 -translate-x-1 shadow-xl transition-all bg-white border-0'
+          "-translate-y-1 -translate-x-1 shadow-xl transition-all bg-white border-0"
           // eslint-disable-next-line eqeqeq
         } `}
       >
@@ -516,7 +581,7 @@ function CardInfo({ index, data }) {
             decimal={data.count}
             end={data.count}
           />
-          {data.title == 'Luas Wilayah' && 'KM'}
+          {data.title == "Luas Wilayah" && "KM"}
         </div>
         <p className="lg:text-2xl text-lg">{data.title}</p>
 
@@ -591,12 +656,12 @@ function CardInfoMobile({ data }) {
       <div
         className={`penduduk flex flex-col justify-center text-center  items-center  gap-y-1  px-5 border-[0.5px]  py-5 ${
           data.id == 1
-            ? 'rounded-tl-xl'
+            ? "rounded-tl-xl"
             : data.id == 2
-            ? 'rounded-tr-xl'
+            ? "rounded-tr-xl"
             : data.id == 3
-            ? 'rounded-bl-xl'
-            : 'rounded-br-xl'
+            ? "rounded-bl-xl"
+            : "rounded-br-xl"
         }`}
       >
         <div className="flex gap-x-3">
@@ -606,7 +671,7 @@ function CardInfoMobile({ data }) {
             decimal={data.count}
             end={data.count}
           />
-          {data.title == 'Luas Wilayah' && 'KM'}
+          {data.title == "Luas Wilayah" && "KM"}
         </div>
         <p className="text-xl ">{data.title}</p>
       </div>
@@ -675,18 +740,18 @@ function CardBerita({ i }) {
   const navigate = useNavigate();
   const date = new Date(i.createdAt);
   var months = [
-    'Januari',
-    'Februari',
-    'Maret',
-    'April',
-    'May',
-    'Juni',
-    'Juli',
-    'Agustus',
-    'September',
-    'Oktober',
-    'November',
-    'Desember',
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "May",
+    "Juni",
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember",
   ];
   var monthName = months[date.getMonth()];
 
@@ -696,7 +761,9 @@ function CardBerita({ i }) {
         title={i.judul}
         onClick={() => {
           // setRoute(`/berita/${i.slug}`)
-          navigate(`/berita/${i.slug}`, {state: {route : `/berita/${i.slug}`}});
+          navigate(`/berita/${i.slug}`, {
+            state: { route: `/berita/${i.slug}` },
+          });
         }}
         className="bg-[#f5f5fa] w-full 2xl:h-[350px] h-[300px] beritaHover rounded-3xl shadow-md cursor-pointer hover:border hover:border-hijauPrimary transition-all ease-in-out"
       >
