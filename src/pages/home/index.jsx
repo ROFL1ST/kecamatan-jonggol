@@ -26,7 +26,9 @@ import AnimatedButton from "../../component/animatedButton";
 import AnimatedButton2 from "../../component/animatedButton2";
 import { useDispatch, useSelector } from "react-redux";
 import { changeState } from "../../redux/actions";
-
+import { useKeenSlider } from "keen-slider/react";
+import "keen-slider/keen-slider.min.css";
+import Agendacard from "./component/CardAgenda";
 export default function Home() {
   const navigate = useNavigate();
   const swiperRef = React.useRef();
@@ -182,7 +184,6 @@ export default function Home() {
     getAgenda();
   }, []);
 
-  
   return (
     <>
       <div className=" lg:pt-[100px] pt-[80px] w-full">
@@ -190,24 +191,20 @@ export default function Home() {
         <section className="" onScroll={handleScroll}>
           <div
             className={`z-50 ${
-              isSticky ? "sticky top-[300px]" : "relative"
+              isSticky ? "sticky top-[100px]" : "relative"
             } hidden lg:block`}
           >
             <div className="flex items-start absolute">
               <div
                 className={`${
-                  agendaSidebar ? "translate-x-0" : "-translate-x-[350px]"
-                } bg-[#fff012] w-[350px] h-[500px] border border-black rounded-br-lg border-l-0 transition-all ease-in-out duration-700`}
+                  agendaSidebar ? "ml-0" : "-ml-[350px]"
+                } bg-[#1565C0] rounded-lg w-[350px] h-auto border border-black rounded-br-lg border-l-0 transition-all ease-in-out duration-700`}
               >
-                <div className="w-full h-full flex justify-center items-center">
-                  <h1>konten agenda ada disini!</h1>
-                </div>
+                <Agendacard />
               </div>
               <div
                 onClick={() => handleAgendaSidebar()}
-                className={`${
-                  agendaSidebar ? "translate-x-0" : "-translate-x-[350px]"
-                } flex items-center transition-all ease-in-out cursor-pointer duration-700`}
+                className={` flex items-center transition-[0.3s] ease-in-out cursor-pointer duration-700`}
               >
                 <div className="bg-kuningPrimary w-[50px] h-[150px] z-10 flex border border-l-0 border-black rounded-tr-lg rounded-br-lg justify-center items-center">
                   <p className="-rotate-90 text-center z-50">Agenda</p>
@@ -887,3 +884,5 @@ function CardAgenda({ data }) {
     </>
   );
 }
+
+
