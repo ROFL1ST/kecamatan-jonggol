@@ -187,6 +187,8 @@ export default function Home() {
   return (
     <>
       <div className=" lg:pt-[100px] pt-[80px] w-full">
+      <Slider />
+
         <section className="" onScroll={handleScroll}>
           <div
             className={`z-50 ${
@@ -218,7 +220,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <Slider />
           {/* 
         <div className="mt-32 lg:flex hidden flex-row justify-between items-center 2xl:px-16 lg:px-10 px-8 mb-20 gap-x-96">
           <div className="left flex flex-col gap-y-20 2xl:w-1/3 lg:w-11/12">
