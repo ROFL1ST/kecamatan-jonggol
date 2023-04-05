@@ -45,7 +45,7 @@ export default function Home() {
   const handleScroll = (e) => {
     const scrollPosition = e.target.scrollTop;
     const secondSectionTop =
-      document.querySelector("#second-section").offsetTop;
+      document.querySelector('#second-section').offsetTop;
     const isPastSecondSection = scrollPosition > secondSectionTop;
 
     if (isPastSecondSection && isSticky) {
@@ -187,7 +187,6 @@ export default function Home() {
   return (
     <>
       <div className=" lg:pt-[100px] pt-[80px] w-full">
-        <Slider />
         <section className="" onScroll={handleScroll}>
           <div
             className={`z-50 ${
@@ -211,14 +210,15 @@ export default function Home() {
                 </div>
                 <div
                   className={`${
-                    agendaSidebar ? "rotate-180" : "rotate-0"
-                  } bg-[#fff012] rounded-full transition-all ease-in-out w-fit h-fit`}
+                    agendaSidebar ? 'rotate-180' : 'rotate-0'
+                  } bg-kuningPrimary rounded-full transition-all ease-in-out w-fit h-fit`}
                 >
                   <ArrowCircleRight size="27" color="#000000" />
                 </div>
               </div>
             </div>
           </div>
+          <Slider />
           {/* 
         <div className="mt-32 lg:flex hidden flex-row justify-between items-center 2xl:px-16 lg:px-10 px-8 mb-20 gap-x-96">
           <div className="left flex flex-col gap-y-20 2xl:w-1/3 lg:w-11/12">
@@ -421,10 +421,10 @@ export default function Home() {
               {/* box */}
             </div>
             <AnimatedButton
-              onClick={() => navigate("/aplikasi")}
-              label={"Lebih Banyak"}
+              onClick={() => navigate('/aplikasi')}
+              label={'Lebih Banyak'}
               styleButton={
-                "px-5 py-1 rounded-full hover:text-white text-hijauPrimary border-2 border-hijauPrimary before:bg-bgHijauPrimary"
+                'px-5 py-1 rounded-full hover:text-white text-hijauPrimary border-2 border-hijauPrimary before:bg-bgHijauPrimary'
               }
             />
             {/* <div
