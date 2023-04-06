@@ -3,13 +3,19 @@ import React from "react";
 import "keen-slider/keen-slider.min.css";
 import {
   Arrow,
+  ArrowCircleLeft2,
+  ArrowCircleRight2,
   ArrowLeft2,
   ArrowRight2,
   Calendar,
   Location,
+  Send2,
 } from "iconsax-react";
 import { getApi } from "../../../API/restApi";
 import { useNavigate } from "react-router-dom";
+import NoAgenda from "../../../assets/json/68258-empty-animation.json";
+import Lottie from "lottie-react";
+
 export default function Agendacard() {
   const [weekNum, setWeekNum] = React.useState(1); // state untuk nomor minggu
   const [days, setDays] = React.useState([]); // state untuk list hari
@@ -19,7 +25,7 @@ export default function Agendacard() {
   // fungsi untuk mengambil dan menampilkan list hari dalam satu minggu
   const getDaysInWeek = (weekNum) => {
     const start = new Date(); // tanggal saat ini
-    console.log(start);
+    // console.log(start);
     // start.setDate(1); // set tanggal ke 1 untuk menghindari bug di akhir bulan
     const diff = (weekNum - 1) * 7; // hitung selisih hari
     start.setDate(start.getDate() - start.getDay() + diff); // set tanggal awal minggu
@@ -42,33 +48,54 @@ export default function Agendacard() {
     setDays(getDaysInWeek(weekNum));
   }, []);
 
-
   // hari ini
   const dateToday = date.getDate();
   const [selectedDay, setSelectedDay] = React.useState(dateToday);
 
-
   // slider
 
-  const [currentSlide, setCurrentSlide] = React.useState(0);
+  // get the index of the slide that contains the current date
+  const [initialSlide, setInitialSlide] = React.useState(0);
+  const [indexSlide, setIndexSlide] = React.useState(0);
+  // set the current slide to the index that contains the current date
+
   const [loaded, setLoaded] = React.useState(false);
+
   const [sliderRef, instanceRef] = useKeenSlider({
     slides: {
-      
       perView: 4,
-      slideChanged(slider) {
-        setCurrentSlide(slider.track.details.rel);
-        
-      },
       created() {
         setLoaded(true);
       },
       spacing: 15,
     },
+    initial: initialSlide != 0 && 5,
+    slideChanged(slider) {
+      if (slider) {
+        setIndexSlide(slider.track.details.rel);
+        console.log(
+          instanceRef.current.track.details.slides.length == indexSlide
+        );
+        // console.log(
+        //   indexSlide === instanceRef.current.track.details.slides.length
+        // );
+      }
+    },
   });
 
-  // console.log(selectedDay);
+  React.useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      const currentSlide = days.findIndex((day) => day.date === dateToday);
 
+      setInitialSlide(currentSlide);
+    }, 3000);
+
+    return () => clearTimeout(timeoutId);
+  }, [days, dateToday]);
+
+  // console.log(dateToday);
+  // console.log(days.filter((i) => i.date == dateToday));
+  // days.findIndex((day) => day.date === dateToday)
   // data agenda
 
   const [agenda, setAgenda] = React.useState([]);
@@ -78,11 +105,11 @@ export default function Agendacard() {
   const getAgenda = async () => {
     try {
       await getApi(`agenda?limit=9`).then((res) => {
-        console.log(selectedDay);
+        // console.log(selectedDay);
         const filteredAgenda = res.data.data.filter(
           (i) => new Date(i.tanggal).getDate() == selectedDay
         );
-        console.log(filteredAgenda);
+        // console.log(filteredAgenda);
         setAgenda(filteredAgenda);
         setLoadAgenda(false);
       });
@@ -95,6 +122,9 @@ export default function Agendacard() {
 
   React.useEffect(() => {
     getAgenda();
+    if (selectedDay) {
+      setLoadAgenda(true);
+    }
   }, [selectedDay]);
   return (
     <>
@@ -110,68 +140,124 @@ export default function Agendacard() {
             </p>
           </div>
           <div className="content rounded-md  flex-grow bg-white mt-3 border border-blue-gray-50 overflow-hidden text-black">
-            <div className="bg-white flex flex-col gap-6 px-3 py-5">
-              {/* Calendar */}
-              <div className="top flex flex-col ">
-                <h1 className="font-roboto font-medium mb-1">
-                  {date.toLocaleDateString("id-ID", {
-                    month: "long",
-                    year: "numeric",
-                  })}
-                </h1>
-                <h1 className="text-xs text-gray-500">Minggu ke {weekNum}</h1>
-              </div>
-              <div className="flex gap-x-3 items-center">
-                <ArrowLeft2
-                  onClick={(e) =>
-                    e.stopPropagation() || instanceRef.current?.prev()
-                  }
-                  className="cursor-pointer"
-                />
-                <div ref={sliderRef} className="flex keen-slider text-white">
-                  {loaded && instanceRef.current && <></>}
-                  {days.map((day, index) => (
-                    <div
-                      onClick={() => {
-                        setSelectedDay(day.date);
-                      }}
-                      className={`keen-slider__slide group cursor-pointer flex flex-col justify-center items-center w-12 h-12 rounded flex-shrink-0 flex-grow-0
+            {!loaded && (
+              <div className="bg-white flex flex-col gap-6 px-3 py-5">
+                {/* Calendar */}
+                <div className="top flex flex-col ">
+                  <h1 className="font-roboto font-medium mb-1">
+                    {date.toLocaleDateString("id-ID", {
+                      month: "long",
+                      year: "numeric",
+                    })}
+                  </h1>
+                  <h1 className="text-xs text-gray-500">Minggu ke {weekNum}</h1>
+                </div>
+                <div className="flex gap-x-3 items-center">
+                  <ArrowLeft2
+                    onClick={(e) =>
+                      e.stopPropagation() || instanceRef.current?.prev()
+                    }
+                    className={`cursor-pointer ${
+                      indexSlide == 0 && "text-gray-400"
+                    }`}
+                  />
+                  <div ref={sliderRef} className="flex keen-slider text-white">
+                    {loaded && instanceRef.current && <></>}
+                    {days.map((day, index) => (
+                      <div
+                        onClick={() => {
+                          setSelectedDay(day.date);
+                        }}
+                        className={`keen-slider__slide group cursor-pointer flex flex-col justify-center items-center w-12 h-12 rounded flex-shrink-0 flex-grow-0
                       transition-colors ease-brand duration-250 ${
                         selectedDay == day.date
                           ? "bg-green-700 hover:bg-green-800"
                           : "text-black"
                       }`}
-                      key={index}
-                    >
-                      <div
-                        className="uppercase leading-3 mb-1 font-bold "
-                        style={{ fontSize: "10px" }}
+                        key={day.date}
                       >
-                        {day.day}
+                        <div
+                          className="uppercase leading-3 mb-1 font-bold "
+                          style={{ fontSize: "10px" }}
+                        >
+                          {day.day}
+                        </div>
+                        <div className="font-roboto font-medium leading-none  ">
+                          {day.date}
+                        </div>
                       </div>
-                      <div className="font-roboto font-medium leading-none  ">
-                        {day.date}
+                    ))}
+                  </div>
+                  <ArrowRight2
+                    className={`cursor-pointer ${
+                      indexSlide ===
+                        instanceRef.current.track.details.slides.length - 1 &&
+                      "text-gray-400"
+                    }`}
+                    onClick={(e) =>
+                      e.stopPropagation() || instanceRef.current?.next()
+                    }
+                  />
+                </div>
+                {/* Calendar */}
+                <div
+                  className={`h-[370px] md:h-[280px] xl:h-[370px] bg-white flex flex-col items-center ${
+                    agenda.length != 0 && !loadAgenda
+                      ? "justify-start"
+                      : "justify-center"
+                  } overflow-hidden ml-5 mr-4`}
+                >
+                  <div
+                    className={`w-full flex flex-col ${
+                      !loadAgenda && agenda.length != 0 ? "flex-grow pt-1 pr-2 md:pr-4 overflow-y-auto" : ""
+                    }  `}
+                  >
+                    {!loadAgenda ? (
+                      agenda.length != 0 ? (
+                        agenda.map((i, key) => <Card key={key} data={i} />)
+                      ) : (
+                        <>
+                          <div className="flex flex-col text-center justify-center items-center">
+                            <Lottie
+                              className="w-1/2 mx-auto"
+                              animationData={NoAgenda}
+                            />
+                            <div class="w-full font-lato leading-6 text-center">
+                              <p class="text-base font-bold text-blue-gray-500 max-w-[20ch] mx-auto mb-2">
+                                Tidak ada kegiatan/event di hari ini
+                              </p>{" "}
+                              <p class="text-xs text-gray-600">
+                                Silakan lihat ke tanggal
+                                <span class="text-gray-800">
+                                  sebelumnya
+                                </span>{" "}
+                                atau
+                                <span class="text-gray-800">selanjutnya</span>
+                              </p>
+                            </div>
+                          </div>
+                        </>
+                      )
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                  {!loadAgenda && agenda.length != 0 && (
+                    <>
+                      <div className="flex justify-center py-5 border-t border-gray-100">
+                        <div className="flex justify-between gap-[12px] cursor-pointer">
+                          <p className="text-sm">Lihat Semua Agenda</p>
+                          <div className="flex justify-center items-center">
+                            <ArrowCircleRight2 className="h-5" />
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    </>
+                  )}
                 </div>
-                <ArrowRight2
-                  className="cursor-pointer"
-                  onClick={(e) =>
-                    e.stopPropagation() || instanceRef.current?.next()
-                  }
-                />
+                {/* <button onClick={handleNext}>Next</button> */}
               </div>
-              {/* Calendar */}
-              <div className="h-[370px] md:h-[280px] xl:h-[370px] bg-white flex flex-col items-center justify-start overflow-hidden ml-5 mr-4">
-                <div className="w-full flex flex-col flex-grow overflow-y-auto pt-1 pr-2 md:pr-4">
-                  {agenda.map((i, key) => (
-                    <Card key={key} data={i} />
-                  ))}
-                </div>
-              </div>
-              {/* <button onClick={handleNext}>Next</button> */}
-            </div>
+            )}
           </div>
         </div>
       </div>
