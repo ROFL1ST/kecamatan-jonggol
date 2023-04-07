@@ -1,4 +1,4 @@
-@import url(//db.onlinewebfonts.com/c/2f86dc938a55788d3416b876b43a116a?family=Poppins);
+@import url('https://fonts.cdnfonts.com/css/poppins');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -18,119 +18,106 @@
   @apply text-hijauPrimary;
 }
 
-*{
+* {
   margin: 0;
   padding: 0;
-  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400 !important;
 }
 
-html{
+html {
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
-
 }
 
-body{
-  background-color: #F0F0F0;
+body {
+  background-color: #f0f0f0;
   overflow-x: hidden !important;
-
 }
-
 
 @media (max-width: 1080px) {
-
-
-  .swiper-image{
+  .swiper-image {
     width: 35% !important;
-  
   }
-  .mySwiper{
+  .mySwiper {
     display: flex;
     justify-content: center;
   }
 }
 
 @media (max-width: 1023px) {
-  .swiper-title{
+  .swiper-title {
     display: none !important;
   }
 
-  .swiper-image{
+  .swiper-image {
     width: 28% !important;
-  
   }
-  .mySwiper{
+  .mySwiper {
     display: flex;
     justify-content: center;
   }
 }
-
-
 
 @media (max-width: 768px) {
-  .swiper-title{
+  .swiper-title {
     display: none !important;
   }
 
-  .swiper-image{
+  .swiper-image {
     width: 33% !important;
-  
   }
-  .mySwiper{
+  .mySwiper {
     display: flex;
     justify-content: center;
   }
 }
 
-
-
-@media(max-width: 640px) {
-  .swiper-title{
+@media (max-width: 640px) {
+  .swiper-title {
     display: none !important;
   }
 
-  .swiper-image{
+  .swiper-image {
     width: 60% !important;
-  
   }
-  .mySwiper{
+  .mySwiper {
     width: 100%;
-      padding-left: 5px !important;
-      padding-right: 5px !important;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
 
     display: flex;
     justify-content: center;
   }
 }
 
-.anti-blos{
+.anti-blos {
   overflow: hidden;
-   text-overflow: ellipsis;
-   display: -webkit-box;
-   -webkit-line-clamp: 2; /* number of lines to show */
-           line-clamp: 2; 
-   -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
-.anti-blos2{
+.anti-blos2 {
   overflow: hidden;
-   text-overflow: ellipsis;
-   display: -webkit-box;
-   -webkit-line-clamp: 1; /* number of lines to show */
-           line-clamp: 2; 
-   -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
-.anti-blos3{
+.anti-blos3 {
   overflow: hidden;
-   text-overflow: ellipsis;
-   display: -webkit-box;
-   -webkit-line-clamp: 3; /* number of lines to show */
-           line-clamp: 3; 
-   -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
-
 
 @keyframes spinner {
   0% {
@@ -152,27 +139,24 @@ body{
 table tr:first-child th:first-child {
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
-
 }
 
 /* top-right border-radius */
 table tr:first-child th:last-child {
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
-
 }
 
-.navbar{
+.navbar {
   top: 0;
   translate: 0 -102px;
-  transition: 0.3s
+  transition: 0.3s;
 }
 
-.navbar.visible{
+.navbar.visible {
   top: 0;
   translate: 0;
 }
-
 
 .swiper-scrollbar {
   position: relative !important;
@@ -298,7 +282,6 @@ table tr:first-child th:last-child {
 .scrollbar::-webkit-scrollbar-thumb:hover {
   background: #1b6422;
 }
-
 
 /* .bar{
   top: 0;
