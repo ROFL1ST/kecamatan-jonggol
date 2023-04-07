@@ -1,6 +1,6 @@
-import { useKeenSlider } from "keen-slider/react";
-import React from "react";
-import "keen-slider/keen-slider.min.css";
+import { useKeenSlider } from 'keen-slider/react';
+import React from 'react';
+import 'keen-slider/keen-slider.min.css';
 import {
   Arrow,
   ArrowCircleLeft2,
@@ -10,13 +10,15 @@ import {
   Calendar,
   Location,
   Send2,
-} from "iconsax-react";
-import { getApi } from "../../../API/restApi";
-import { useNavigate } from "react-router-dom";
-import NoAgenda from "../../../assets/json/68258-empty-animation.json";
-import Lottie from "lottie-react";
+} from 'iconsax-react';
+import { getApi } from '../../../API/restApi';
+import { useNavigate } from 'react-router-dom';
+import NoAgenda from '../../../assets/json/68258-empty-animation.json';
+import Lottie from 'lottie-react';
+import UnderButton3 from './underButton3';
 
 export default function Agendacard() {
+  const navigate = useNavigate();
   const [weekNum, setWeekNum] = React.useState(1); // state untuk nomor minggu
   const [days, setDays] = React.useState([]); // state untuk list hari
   const date = new Date(); // tanggal saat ini
@@ -33,7 +35,7 @@ export default function Agendacard() {
     for (let i = 0; i < 7; i++) {
       const date = new Date(start);
       date.setDate(date.getDate() + i); // tambah i hari
-      const day = date.toLocaleDateString("id-ID", { weekday: "short" }); // nama hari dalam bahasa Inggris
+      const day = date.toLocaleDateString('id-ID', { weekday: 'short' }); // nama hari dalam bahasa Inggris
       result.push({ date: date.getDate(), day }); // tambahkan ke array
     }
     return result;
@@ -139,15 +141,15 @@ export default function Agendacard() {
               Kecamatan Jonggol.
             </p>
           </div>
-          <div className="content rounded-md  flex-grow bg-white mt-3 border border-blue-gray-50 overflow-hidden text-black">
+          <div className="content rounded-lg  flex-grow bg-white mt-3 border border-blue-gray-50 overflow-hidden text-black">
             {!loaded && (
               <div className="bg-white flex flex-col gap-6 px-3 py-5">
                 {/* Calendar */}
                 <div className="top flex flex-col ">
                   <h1 className="font-roboto font-medium mb-1">
-                    {date.toLocaleDateString("id-ID", {
-                      month: "long",
-                      year: "numeric",
+                    {date.toLocaleDateString('id-ID', {
+                      month: 'long',
+                      year: 'numeric',
                     })}
                   </h1>
                   <h1 className="text-xs text-gray-500">Minggu ke {weekNum}</h1>
@@ -158,7 +160,7 @@ export default function Agendacard() {
                       e.stopPropagation() || instanceRef.current?.prev()
                     }
                     className={`cursor-pointer ${
-                      indexSlide == 0 && "text-gray-400"
+                      indexSlide == 0 && 'text-gray-400'
                     }`}
                   />
                   <div ref={sliderRef} className="flex keen-slider text-white">
@@ -171,14 +173,14 @@ export default function Agendacard() {
                         className={`keen-slider__slide group cursor-pointer flex flex-col justify-center items-center w-12 h-12 rounded flex-shrink-0 flex-grow-0
                       transition-colors ease-brand duration-250 ${
                         selectedDay == day.date
-                          ? "bg-green-700 hover:bg-green-800"
-                          : "text-black"
+                          ? 'bg-green-700 hover:bg-green-800'
+                          : 'text-black'
                       }`}
                         key={day.date}
                       >
                         <div
                           className="uppercase leading-3 mb-1 font-bold "
-                          style={{ fontSize: "10px" }}
+                          style={{ fontSize: '10px' }}
                         >
                           {day.day}
                         </div>
@@ -191,8 +193,8 @@ export default function Agendacard() {
                   <ArrowRight2
                     className={`cursor-pointer ${
                       indexSlide ===
-                        instanceRef.current.track.details.slides.length - 1 &&
-                      "text-gray-400"
+                        instanceRef.current?.track.details.slides.length - 1 &&
+                      'text-gray-400'
                     }`}
                     onClick={(e) =>
                       e.stopPropagation() || instanceRef.current?.next()
@@ -203,13 +205,15 @@ export default function Agendacard() {
                 <div
                   className={`h-[370px] md:h-[280px] xl:h-[370px] bg-white flex flex-col items-center ${
                     agenda.length != 0 && !loadAgenda
-                      ? "justify-start"
-                      : "justify-center"
+                      ? 'justify-start'
+                      : 'justify-center'
                   } overflow-hidden ml-5 mr-4`}
                 >
                   <div
                     className={`w-full flex flex-col ${
-                      !loadAgenda && agenda.length != 0 ? "flex-grow pt-1 pr-2 md:pr-4 overflow-y-auto" : ""
+                      !loadAgenda && agenda.length != 0
+                        ? 'flex-grow pt-1 pr-2 md:pr-4 overflow-y-auto'
+                        : ''
                     }  `}
                   >
                     {!loadAgenda ? (
@@ -225,12 +229,12 @@ export default function Agendacard() {
                             <div class="w-full font-lato leading-6 text-center">
                               <p class="text-base font-bold text-blue-gray-500 max-w-[20ch] mx-auto mb-2">
                                 Tidak ada kegiatan/event di hari ini
-                              </p>{" "}
+                              </p>{' '}
                               <p class="text-xs text-gray-600">
                                 Silakan lihat ke tanggal
                                 <span class="text-gray-800">
                                   sebelumnya
-                                </span>{" "}
+                                </span>{' '}
                                 atau
                                 <span class="text-gray-800">selanjutnya</span>
                               </p>
@@ -245,11 +249,17 @@ export default function Agendacard() {
                   {!loadAgenda && agenda.length != 0 && (
                     <>
                       <div className="flex justify-center py-5 border-t border-gray-100">
-                        <div className="flex justify-between gap-[12px] cursor-pointer">
-                          <p className="text-sm">Lihat Semua Agenda</p>
+                        <div
+                          onClick={() => {
+                            navigate(`/agenda`);
+                          }}
+                          className="flex justify-between gap-[12px] cursor-pointer"
+                        >
+                          {/* <p className="text-sm">Lihat Semua Agenda</p>
                           <div className="flex justify-center items-center">
                             <ArrowCircleRight2 className="h-5" />
-                          </div>
+                          </div> */}
+                          <UnderButton3 />
                         </div>
                       </div>
                     </>
@@ -269,9 +279,9 @@ function Card({ data }) {
   const navigate = useNavigate();
 
   const date = new Date(data.tanggal);
-  const [hoursStart, minutesStart] = data.start.split(":");
+  const [hoursStart, minutesStart] = data.start.split(':');
   const formatedStart = `${hoursStart}:${minutesStart}`;
-  const [hoursEnd, minutesEnd] = data.end.split(":");
+  const [hoursEnd, minutesEnd] = data.end.split(':');
   const formatedEnd = `${hoursEnd}:${minutesEnd}`;
   return (
     <>
@@ -287,7 +297,7 @@ function Card({ data }) {
           <div className="flex justify-between">
             <p className="line-clamp-1 text-xs whitespace-nowrap text-green-700">
               {formatedStart} - {formatedEnd} WIB
-            </p>{" "}
+            </p>{' '}
             <p
               onClick={() => {
                 navigate(`/agenda/${data.slug}`);

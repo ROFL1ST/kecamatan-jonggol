@@ -199,7 +199,7 @@ export default function Home() {
               <div
                 className={`${
                   agendaSidebar ? "ml-0" : "-ml-[350px]"
-                } bg-[#1565C0] rounded-lg w-[350px] h-auto border border-black rounded-br-lg border-l-0 transition-all ease-in-out duration-700`}
+                } bg-[#017002] drop-shadow-lg rounded-lg rounded-tr-none rounded-tl-none rounded-bl-none w-[350px] h-auto border border-black rounded-br-lg border-l-0 transition-all ease-in-out duration-700`}
               >
                 <Agendacard />
               </div>
@@ -207,15 +207,15 @@ export default function Home() {
                 onClick={() => handleAgendaSidebar()}
                 className={` flex items-center transition-[0.3s] ease-in-out cursor-pointer duration-700`}
               >
-                <div className="bg-kuningPrimary w-[50px] h-[150px] z-10 flex border border-l-0 border-black rounded-tr-lg rounded-br-lg justify-center items-center">
+                <div className="bg-[#017002] text-white w-[50px] h-[150px] z-10 flex border border-l-0 border-black rounded-tr-lg rounded-br-lg justify-center items-center">
                   <p className="-rotate-90 text-center z-50">Agenda</p>
                 </div>
                 <div
                   className={`${
                     agendaSidebar ? 'rotate-180' : 'rotate-0'
-                  } bg-kuningPrimary rounded-full transition-all ease-in-out w-fit h-fit`}
+                  } bg-[#017002] rounded-full border border-black transition-all ease-in-out w-fit h-fit`}
                 >
-                  <ArrowCircleRight size="27" color="#000000" />
+                  <ArrowCircleRight size="27" color="#ffffff" />
                 </div>
               </div>
             </div>
