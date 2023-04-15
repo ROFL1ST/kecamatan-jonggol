@@ -37,7 +37,6 @@ export default function Home() {
   const [pageAgendaSlider, setPageAgendaSlider] = React.useState(0);
   const [agendaError, setAgendaError] = React.useState(false);
   const [limit, setLimit] = React.useState(9);
-  const [agenda, setAgenda] = React.useState([]);
   const [agendaSidebar, setAgendaSidebar] = useState(false);
   const [loadAgenda, setLoadAgenda] = React.useState(true);
   const [penduduk, setPenduduk] = React.useState();
@@ -57,19 +56,7 @@ export default function Home() {
     }
   };
 
-  const getAgenda = async () => {
-    try {
-      await getApi(`agenda?limit=${limit}`).then((res) => {
-        console.log(res);
-        setAgenda(res.data.data);
-        setLoadAgenda(false);
-      });
-    } catch (error) {
-      console.log(error);
-      setLoadAgenda(false);
-      setAgendaError(true);
-    }
-  };
+  
 
   const handleSlideChange = (swiper) => {
     setPageAgendaSlider(swiper.realIndex);
@@ -183,7 +170,6 @@ export default function Home() {
     getDesa();
     getPenduduk();
     getAsn();
-    getAgenda();
   }, []);
 
   return (
