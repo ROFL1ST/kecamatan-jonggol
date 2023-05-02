@@ -31,6 +31,7 @@ import "keen-slider/keen-slider.min.css";
 import Agendacard from "./component/CardAgenda";
 import AgendaContent from "./component/AgendaContent";
 import AgendaForMobile from "./component/AgendaForMobile";
+import Bellow from "./component/Bellow";
 export default function Home() {
   const navigate = useNavigate();
   const swiperRef = React.useRef();
@@ -423,6 +424,7 @@ export default function Home() {
           {/* Berita */}
         </section>
       </div>
+      <Bellow/>
     </>
   );
 }
