@@ -410,7 +410,7 @@ export default function Home() {
           {/* Berita */}
         </section>
       </div>
-      <Bellow/>
+      {/* <Bellow/> */}
     </>
   );
 }

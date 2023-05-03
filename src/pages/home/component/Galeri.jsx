@@ -1,37 +1,24 @@
-import { ArrowRight3, ArrowLeft3 } from 'iconsax-react';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Scrollbar } from 'swiper';
-import slide1 from '../../../assets/images/kevinmarcus.jpg';
-import slide2 from '../../../assets/images/save-rohingya.jpg';
-import slide3 from '../../../assets/images/sri-mulyani.jpg';
-import { Dialog, Transition } from '@headlessui/react';
-import { getApi } from '../../../API/restApi';
-import parse from 'html-react-parser';
-import NoImage from '../../../assets/images/thumbnail.jpg';
-import AnimatedButton from '../../../component/animatedButton';
-
+import { ArrowRight3, ArrowLeft3 } from "iconsax-react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectCoverflow } from "swiper";
+import { Dialog, Transition } from "@headlessui/react";
+import { getApi } from "../../../API/restApi";
+import parse from "html-react-parser";
+import NoImage from "../../../assets/images/thumbnail.jpg";
+import AnimatedButton from "../../../component/animatedButton";
 
 export default function Galeri() {
   const navigate = useNavigate();
   // const swiperRef = React.useRef(null);
-
-  const [hoverButton, setHoverButton] = React.useState(false);
-  const handleMouseOver = () => {
-    setHoverButton(true);
-  };
-
-  const handleMouseOut = () => {
-    setHoverButton(false);
-  };
 
   const load = [1, 2, 3, 5, 6, 7];
   const [dataGaleri, setDataGaleri] = React.useState([]);
   const [loadGaleri, setLoadGaleri] = React.useState(true);
   const getGaleri = async () => {
     try {
-      getApi('album').then((res) => {
+      getApi("album").then((res) => {
         setDataGaleri(res.data.data);
         setLoadGaleri(false);
       });
@@ -44,8 +31,11 @@ export default function Galeri() {
   React.useEffect(() => {
     getGaleri();
   }, []);
-
-  const swiperRef = React.useRef(null);
+  const [page, setPage] = React.useState(0);
+  const handleSlideChange = (swiper) => {
+    setPage(swiper.realIndex);
+    console.log(swiper.realIndex);
+  };
 
   return (
     <>
@@ -71,18 +61,18 @@ export default function Galeri() {
             >
               Selengkapnya
             </button> */}
-            <div className='lg:block hidden'>
+            <div className="lg:block hidden">
               <AnimatedButton
-                onClick={() => navigate('/foto')}
-                label={'Selengkapnya'}
+                onClick={() => navigate("/foto")}
+                label={"Selengkapnya"}
                 styleButton={
-                  'px-5 mt-5 py-1 rounded-full text-[15px] text-white border-2 border-white hover:text-black hover:border-kuningPrimary before:bg-bgKuningPrimary hover:text-black'
+                  "px-5 mt-5 py-1 rounded-full text-[15px] text-white border-2 border-white hover:text-black hover:border-kuningPrimary before:bg-bgKuningPrimary hover:text-black"
                 }
               />
             </div>
           </div>
           <div className="kanan lg:w-2/3 w-full">
-            <Swiper
+            {/* <Swiper
               spaceBetween={20}
               //   controller={{ control: firstSwiper }}
               scrollbar={{
@@ -119,14 +109,57 @@ export default function Galeri() {
               ) : (
                 <></>
               )}
+            </Swiper> */}
+            <Swiper
+              effect={"coverflow"}
+              grabCursor={true}
+              coverflowEffect={{
+                rotate: 0,
+                stretch: 0,
+                depth: 100,
+                modifier: 3,
+                slideShadows: false,
+              }}
+              onSlideChange={handleSlideChange}
+              loop={true}
+              pagination={{
+                el: ".swiper-scrollbar",
+                draggable: true,
+                hide: false,
+              }}
+              modules={[EffectCoverflow]}
+              breakpoints={{
+                640: {
+                  slidesPerView: 2,
+                },
+                768: {
+                  slidesPerView: 1,
+                },
+                1024: {
+                  slidesPerView: 2,
+                },
+                1560: {
+                  slidesPerView: 3,
+                },
+              }}
+            >
+              {!loadGaleri ? (
+                dataGaleri.map((i, key) => (
+                  <SwiperSlide className="swiper-image" key={key}>
+                    <CardFoto i={i} page={page} index={key} />
+                  </SwiperSlide>
+                ))
+              ) : (
+                <></>
+              )}
             </Swiper>
             <div className="swiper-scrollbar my-scrollbar mt-20 lg:flex !hidden"></div>
             <div className="lg:hidden flex justify-center">
               <AnimatedButton
-                onClick={() => navigate('/foto')}
-                label={'Selengkapnya'}
+                onClick={() => navigate("/foto")}
+                label={"Selengkapnya"}
                 styleButton={
-                  'px-5 mt-5 py-1 rounded-full text-[15px] text-white border-2 border-white hover:text-black hover:border-kuningPrimary before:bg-bgKuningPrimary hover:text-black'
+                  "px-5 mt-5 py-1 rounded-full text-[15px] text-white border-2 border-white hover:text-black hover:border-kuningPrimary before:bg-bgKuningPrimary hover:text-black"
                 }
               />
             </div>
@@ -137,18 +170,19 @@ export default function Galeri() {
   );
 }
 
-function CardFoto({ i }) {
+function CardFoto({ i, page, index }) {
   const [open, setOpen] = React.useState(false);
   const cancelButtonRef = React.useRef(null);
+
   return (
     <>
       <div
         onClick={() => {
-          if (i.cover != null) {
+          if (i.cover != null || page == index - 1) {
             setOpen(true);
           }
         }}
-        className="hover:scale-105 transition duration-500 transform lg:h-96 2xl:min-h-[30rem] m-7 h-96 rounded-2xl w-full bg-cover bg-center shadow-2xl  cursor-pointer"
+        className=" lg:h-96 2xl:min-h-[30rem] shadow-lg m-7 h-96 rounded-2xl w-full bg-cover bg-center   cursor-pointer"
         style={{
           backgroundImage: `url(${
             i.cover != null ? i.cover.thumbnail : NoImage
@@ -156,7 +190,9 @@ function CardFoto({ i }) {
         }}
       >
         <div className="w-full h-full transition duration-500 ease-in-out group-hover:bg-opacity-70  bg-black bg-opacity-25 px-5 py-5 rounded-2xl flex flex-col justify-end">
-          <h1 className="text-white font-semibold">{i.nama_album}</h1>
+          {page == index - 1 && (
+            <h1 className="text-white font-semibold">{i.nama_album}</h1>
+          )}
         </div>
       </div>
       <Modal
@@ -175,31 +211,31 @@ function Modal({ open, setOpen, cancelButtonRef, foto }) {
   const data = [
     {
       id: 1,
-      img: 'https://jonggolberkah.com/asset/img_galeri/84asemka2.jpg',
-      desc: 'Seorang pedagang sedang membungkus souvenir penikahan yang akan dijual ataupun pesanan dari pelanggangnnya.',
-      place: 'Desa Singasari',
-      createAt: '24 Desember 2022',
+      img: "https://jonggolberkah.com/asset/img_galeri/84asemka2.jpg",
+      desc: "Seorang pedagang sedang membungkus souvenir penikahan yang akan dijual ataupun pesanan dari pelanggangnnya.",
+      place: "Desa Singasari",
+      createAt: "24 Desember 2022",
     },
     {
       id: 2,
-      img: 'https://jonggolberkah.com/asset/img_galeri/84asemka2.jpg',
-      desc: 'Seorang pedagang sedang membungkus souvenir penikahan yang akan dijual ataupun pesanan dari pelanggangnnya.',
-      place: 'Desa Singasari',
-      createAt: '24 Desember 2022',
+      img: "https://jonggolberkah.com/asset/img_galeri/84asemka2.jpg",
+      desc: "Seorang pedagang sedang membungkus souvenir penikahan yang akan dijual ataupun pesanan dari pelanggangnnya.",
+      place: "Desa Singasari",
+      createAt: "24 Desember 2022",
     },
     {
       id: 3,
-      img: 'https://jonggolberkah.com/asset/img_galeri/84asemka2.jpg',
-      desc: 'Seorang pedagang sedang membungkus souvenir penikahan yang akan dijual ataupun pesanan dari pelanggangnnya.',
-      place: 'Desa Singasari',
-      createAt: '24 Desember 2022',
+      img: "https://jonggolberkah.com/asset/img_galeri/84asemka2.jpg",
+      desc: "Seorang pedagang sedang membungkus souvenir penikahan yang akan dijual ataupun pesanan dari pelanggangnnya.",
+      place: "Desa Singasari",
+      createAt: "24 Desember 2022",
     },
     {
       id: 4,
-      img: 'https://jonggolberkah.com/asset/img_galeri/84asemka2.jpg',
-      desc: 'Seorang pedagang sedang membungkus souvenir penikahan yang akan dijual ataupun pesanan dari pelanggangnnya.',
-      place: 'Desa Singasari',
-      createAt: '24 Desember 2022',
+      img: "https://jonggolberkah.com/asset/img_galeri/84asemka2.jpg",
+      desc: "Seorang pedagang sedang membungkus souvenir penikahan yang akan dijual ataupun pesanan dari pelanggangnnya.",
+      place: "Desa Singasari",
+      createAt: "24 Desember 2022",
     },
   ];
 
@@ -337,18 +373,18 @@ function Modal({ open, setOpen, cancelButtonRef, foto }) {
 function CardModal({ img, tgl, nama, summary }) {
   const date = new Date(tgl);
   var months = [
-    'Januari',
-    'Februari',
-    'Maret',
-    'April',
-    'May',
-    'Juni',
-    'Juli',
-    'Agustus',
-    'September',
-    'Oktober',
-    'November',
-    'Desember',
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "May",
+    "Juni",
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember",
   ];
   var monthName = months[date.getMonth()];
   return (
