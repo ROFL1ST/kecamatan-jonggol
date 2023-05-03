@@ -29,13 +29,15 @@ import { changeState } from "../../redux/actions";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import Agendacard from "./component/CardAgenda";
+import AgendaContent from "./component/AgendaContent";
+import AgendaForMobile from "./component/AgendaForMobile";
+import Bellow from "./component/Bellow";
 export default function Home() {
   const navigate = useNavigate();
   const swiperRef = React.useRef();
   const [pageAgendaSlider, setPageAgendaSlider] = React.useState(0);
   const [agendaError, setAgendaError] = React.useState(false);
   const [limit, setLimit] = React.useState(9);
-  const [agenda, setAgenda] = React.useState([]);
   const [agendaSidebar, setAgendaSidebar] = useState(false);
   const [loadAgenda, setLoadAgenda] = React.useState(true);
   const [penduduk, setPenduduk] = React.useState();
@@ -45,7 +47,7 @@ export default function Home() {
   const handleScroll = (e) => {
     const scrollPosition = e.target.scrollTop;
     const secondSectionTop =
-      document.querySelector('#second-section').offsetTop;
+      document.querySelector("#second-section").offsetTop;
     const isPastSecondSection = scrollPosition > secondSectionTop;
 
     if (isPastSecondSection && isSticky) {
@@ -55,19 +57,7 @@ export default function Home() {
     }
   };
 
-  const getAgenda = async () => {
-    try {
-      await getApi(`agenda?limit=${limit}`).then((res) => {
-        console.log(res);
-        setAgenda(res.data.data);
-        setLoadAgenda(false);
-      });
-    } catch (error) {
-      console.log(error);
-      setLoadAgenda(false);
-      setAgendaError(true);
-    }
-  };
+  
 
   const handleSlideChange = (swiper) => {
     setPageAgendaSlider(swiper.realIndex);
@@ -181,13 +171,12 @@ export default function Home() {
     getDesa();
     getPenduduk();
     getAsn();
-    getAgenda();
   }, []);
 
   return (
     <>
       <div className=" lg:pt-[100px] pt-[80px] w-full">
-      <Slider />
+        <Slider />
 
         <section className="" onScroll={handleScroll}>
           <div
@@ -212,7 +201,7 @@ export default function Home() {
                 </div>
                 <div
                   className={`${
-                    agendaSidebar ? 'rotate-180' : 'rotate-0'
+                    agendaSidebar ? "rotate-180" : "rotate-0"
                   } bg-[#017002] rounded-full border border-black transition-all ease-in-out w-fit h-fit`}
                 >
                   <ArrowCircleRight size="27" color="#ffffff" />
@@ -287,125 +276,15 @@ export default function Home() {
 
           {/* Agenda */}
           <div className="lg:hidden mt-28 mb-10 2xl:px-16 lg:px-10 px-8 flex flex-col items-center justify-center">
-            <h1 className="text-4xl font-bold capitalize underline decoration-[#3C903C]">
-              Agenda
-            </h1>
-            {/* agenda web */}
-            <div className="xl:block hidden w-full mt-10">
-              <Swiper
-                centeredSlides={true}
-                slidesPerView={3}
-                spaceBetween={40}
-                loop={true}
-                //   controller={{ control: firstSwiper }}
-                onSlideChange={handleSlideChange}
-                autoplay={{
-                  delay: 3500,
-                  disableOnInteraction: false,
-                }}
-                modules={[Autoplay]}
-                // onSwiper={(swiper) => {
-                //   setPageAgendaSlider(swiper.realIndex);
-                //   swiperRef.current = swiper;
-                // }}
-                className="rounded-b-3xl"
-                // effect={'fade'}
-              >
-                <div
-                  className={` mb-20 gap-y-10 gap-x-10 mt-20 ${
-                    loadAgenda
-                      ? "grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1"
-                      : agenda.length == 0 || agendaError
-                      ? ""
-                      : "grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1"
-                  }`}
-                >
-                  {!loadAgenda ? (
-                    agenda.length != 0 ? (
-                      agenda.map((i, key) => (
-                        <SwiperSlide key={key}>
-                          <CardAgenda data={i} />
-                        </SwiperSlide>
-                      ))
-                    ) : agendaError ? (
-                      <>
-                        <div className="flex flex-col justify-center items-center">
-                          <Lottie animationData={ErrorIndicator} />
-                          <h1 className="font-bold">Terjadi Kesalahan</h1>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="flex flex-col justify-center items-center">
-                          <Lottie animationData={NotFound} />
-                          <h1 className="font-bold">Agenda Tidak Tersedia</h1>
-                        </div>
-                      </>
-                    )
-                  ) : (
-                    load.map((i, key) => <CardAgendaLoading key={key} />)
-                  )}
-                </div>
-              </Swiper>
-            </div>
-
-            {/* agenda mobile */}
-            <div className="xl:hidden block w-full mt-10">
-              <Swiper
-                centeredSlides={true}
-                slidesPerView={1}
-                spaceBetween={40}
-                loop={true}
-                //   controller={{ control: firstSwiper }}
-                onSlideChange={handleSlideChange}
-                autoplay={{
-                  delay: 3500,
-                  disableOnInteraction: false,
-                }}
-                modules={[Autoplay]}
-                // onSwiper={(swiper) => {
-                //   setPageAgendaSlider(swiper.realIndex);
-                //   swiperRef.current = swiper;
-                // }}
-                className="rounded-b-3xl"
-                // effect={'fade'}
-              >
-                <div
-                  className={` mb-20 gap-y-10 gap-x-10 mt-20 ${
-                    loadAgenda
-                      ? "grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1"
-                      : agenda.length == 0 || agendaError
-                      ? ""
-                      : "grid 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1"
-                  }`}
-                >
-                  {!loadAgenda ? (
-                    agenda.length != 0 ? (
-                      agenda.map((i, key) => (
-                        <SwiperSlide key={key}>
-                          <CardAgenda data={i} />
-                        </SwiperSlide>
-                      ))
-                    ) : agendaError ? (
-                      <>
-                        <div className="flex flex-col justify-center items-center">
-                          <Lottie animationData={ErrorIndicator} />
-                          <h1 className="font-bold">Terjadi Kesalahan</h1>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="flex flex-col justify-center items-center">
-                          <Lottie animationData={NotFound} />
-                          <h1 className="font-bold">Agenda Tidak Tersedia</h1>
-                        </div>
-                      </>
-                    )
-                  ) : (
-                    load.map((i, key) => <CardAgendaLoading key={key} />)
-                  )}
-                </div>
-              </Swiper>
+            <div className="w-full overflow-hidden  rounded-md">
+              <div className="flex flex-col gap-1 bg-green-700 px-5 pt-3 pb-4 text-white">
+                <h4 className="text-xl leading-8 font-bold">Agenda Kecamatan Jonggol</h4>{" "}
+                <p className="text-xs leading-5">
+                  Dapatkan informasi terkait semua kegiatan yang dilakukan di
+                  Kecamatan Jonggol.
+                </p>
+              </div>
+              <AgendaForMobile/>
             </div>
           </div>
 
@@ -422,10 +301,10 @@ export default function Home() {
               {/* box */}
             </div>
             <AnimatedButton
-              onClick={() => navigate('/aplikasi')}
-              label={'Lebih Banyak'}
+              onClick={() => navigate("/aplikasi")}
+              label={"Lebih Banyak"}
               styleButton={
-                'px-5 py-1 rounded-full hover:text-white text-hijauPrimary border-2 border-hijauPrimary before:bg-bgHijauPrimary'
+                "px-5 py-1 rounded-full hover:text-white text-hijauPrimary border-2 border-hijauPrimary before:bg-bgHijauPrimary"
               }
             />
             {/* <div
@@ -531,6 +410,7 @@ export default function Home() {
           {/* Berita */}
         </section>
       </div>
+      {/* <Bellow/> */}
     </>
   );
 }
@@ -786,104 +666,4 @@ function CardBerita({ i }) {
     </>
   );
 }
-
-function CardAgendaLoading() {
-  return (
-    <div className="bg-[#3C903C] w-full h-80 flex flex-col rounded-2xl py-10 px-5 border-blue-300 animate-pulse">
-      <div className="flex justify-between flex-col h-full">
-        <div>
-          <div className="flex justify-between w-full">
-            <div className="left w-1/4 h-4 bg-gray-300 rounded-full"></div>
-            <div className="left w-1/5 h-4 bg-gray-300 rounded-full"></div>
-          </div>
-          <div className="space-y-2 mt-7">
-            <div className="text-xs font-bold h-4 w-3/4 bg-gray-300 rounded-full"></div>
-            <div className="text-xs font-bold h-4 w-1/4 bg-gray-300 rounded-full"></div>
-          </div>
-        </div>
-        <div className="flex justify-between w-full items-end">
-          <div className="left w-1/4 h-10 bg-gray-300 rounded-full"></div>
-          <div className="left w-1/5 h-4 bg-gray-300 rounded-full"></div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function CardAgenda({ data }) {
-  const navigate = useNavigate();
-  const date = new Date(data.tanggal);
-  var months = [
-    "Januari",
-    "Februari",
-    "Maret",
-    "April",
-    "May",
-    "Juni",
-    "Juli",
-    "Agustus",
-    "September",
-    "Oktober",
-    "November",
-    "Desember",
-  ];
-  var monthName = months[date.getMonth()];
-
-  const [hoursStart, minutesStart] = data.start.split(":");
-  const formatedStart = `${hoursStart}:${minutesStart}`;
-  const [hoursEnd, minutesEnd] = data.end.split(":");
-  const formatedEnd = `${hoursEnd}:${minutesEnd}`;
-
-  return (
-    <>
-      <div className="agendaHover hover:border hover:border-hijauPrimary transition-all ease-in-out 2xl:h-[350px] my-5 lg:h-[350px] h-[300px] w-full bg-white rounded-2xl px-6 py-5 shadow-xl">
-        {/* top */}
-        <div className="flex justify-between w-full  items-center mb-8">
-          <p className="font-bold">
-            {formatedStart} - {formatedEnd}
-          </p>
-          <div className="flex font-bold gap-x-3 items-center text-[#6D6D6D]">
-            <Location size="22" color="#6D6D6D" />
-            <p>{data.tempat}</p>
-          </div>
-        </div>
-        {/* top */}
-        {/* Center */}
-        <div className="flex flex-col justify-between h-4/5">
-          <h1 className="font-bold text-2xl 2xl:w-3/4">{data.nama_agenda}</h1>
-          <div className="flex justify-between w-full items-end">
-            {/* <button
-              onClick={() => {
-                navigate(`/agenda/${data.slug}`);
-              }}
-              className="px-7 py-3 font-bold bg-[#3C903C] text-white rounded-2xl text-xl"
-            >
-              Detail
-            </button> */}
-            <AnimatedButton2
-              onClick={() => {
-                navigate(`/agenda/${data.slug}`);
-              }}
-              label={"Detail"}
-              styleButton={"bg-hijauPrimary after:bg-kuningPrimary rounded-xl"}
-              styleP={
-                "px-8 py-4 text-white text-[18px] tracking-wider hover:text-black"
-              }
-            />
-
-            <div className="flex text-[#6D6D6D] gap-x-3 font-bold text-sm ">
-              <Calendar size="22" color="#6D6D6D" />
-              <p>
-                {date.getDate()} {monthName} {date.getFullYear()}
-              </p>
-            </div>
-          </div>
-        </div>
-        {/* Center */}
-        {/* Bottom */}
-      </div>
-    </>
-  );
-}
-
 
