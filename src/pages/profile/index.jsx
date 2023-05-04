@@ -170,12 +170,12 @@ export default function Profile() {
 
   const getAgama = async () => {
     try {
-      await getApi(`sarana-keagamaan?${search !== "" && `key=${search}`}&${limit}`).then(
-        (res) => {
-          setAgama(res.data.data);
-          setLoadAgama(false);
-        }
-      );
+      await getApi(
+        `sarana-keagamaan?${search !== "" && `key=${search}`}&${limit}`
+      ).then((res) => {
+        setAgama(res.data.data);
+        setLoadAgama(false);
+      });
     } catch (error) {
       console.log(error);
       setLoadAgama(false);
@@ -311,12 +311,14 @@ export default function Profile() {
                 kecamatan Jonggol mencakup sekolah negeri dan swasta
               </p>
             </div>
-            <div
-              className={`content  gap-16 w-full justify-center items-center grid lg:grid-cols-4 grid-cols-1`}
-            >
-              {dataSekolah.slice(0, limit).map((i, key) => (
-                <CardSekolah key={key} i={i} />
-              ))}
+            <div className="w-full">
+              <div
+                className={`  gap-16  justify-center items-center grid lg:grid-cols-4 grid-cols-1 h-full`}
+              >
+                {dataSekolah.slice(0, limit).map((i, key) => (
+                  <CardSekolah key={key} i={i} />
+                ))}
+              </div>
             </div>
             {limit > 4 ? (
               <></>
@@ -849,7 +851,7 @@ function CardSekolah({ i }) {
       <div
         onMouseEnter={handleMouseOver}
         onMouseLeave={handleMouseOut}
-        className={`card flex flex-col h-[100%] text-center items-center gap-y-5 bg-white  w-full 2xl:px-4 lg:px-3 px-5 py-[50px] rounded-[20px] cursor-default transition-all  ${
+        className={` flex flex-col h-[100%] text-center items-center gap-y-5 bg-white  w-full 2xl:px-4 lg:px-3 px-5 py-[50px] rounded-[20px] cursor-default transition-all  ${
           isHovering && "-translate-y-1 -translate-x-1 shadow-xl transition-all"
         }`}
       >
