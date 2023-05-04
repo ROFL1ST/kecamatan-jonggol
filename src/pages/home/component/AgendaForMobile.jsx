@@ -12,126 +12,130 @@ import Lottie from 'lottie-react';
 
 
 export default function AgendaForMobile() {
-    const navigate = useNavigate();
-    const [weekNum, setWeekNum] = React.useState(1); // state untuk nomor minggu
-    const [days, setDays] = React.useState([]); // state untuk list hari
-    const date = new Date(); // tanggal saat ini
-  
-  
-    function getWeekCountInMonth(year, month) {
-      const today = new Date();
-      const startOfCurrentMonth = startOfMonth(today);
-      const startOfFirstWeek = startOfWeek(startOfCurrentMonth);
-      const currentWeekStart = addWeeks(startOfFirstWeek, differenceInCalendarWeeks(today, startOfFirstWeek));
-      const weekNumber = differenceInCalendarWeeks(currentWeekStart, startOfFirstWeek) + 1;
-      return weekNumber;
+  const navigate = useNavigate();
+  const [weekNum, setWeekNum] = React.useState(1); // state untuk nomor minggu
+  const [days, setDays] = React.useState([]); // state untuk list hari
+  const date = new Date(); // tanggal saat ini
+
+  function getWeekCountInMonth(year, month) {
+    const today = new Date();
+    const startOfCurrentMonth = startOfMonth(today);
+    const startOfFirstWeek = startOfWeek(startOfCurrentMonth);
+    const currentWeekStart = addWeeks(
+      startOfFirstWeek,
+      differenceInCalendarWeeks(today, startOfFirstWeek)
+    );
+    const weekNumber =
+      differenceInCalendarWeeks(currentWeekStart, startOfFirstWeek) + 1;
+    return weekNumber;
+  }
+  // console.log(moment());
+  // fungsi untuk mengambil dan menampilkan list hari dalam satu minggu
+  const getDaysInWeek = (weekNum) => {
+    const start = new Date(); // tanggal saat ini
+    // console.log(start);
+    // start.setDate(1); // set tanggal ke 1 untuk menghindari bug di akhir bulan
+    const diff = (weekNum - 1) * 7; // hitung selisih hari
+    start.setDate(start.getDate() - start.getDay() + diff); // set tanggal awal minggu
+    const result = [];
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(start);
+      date.setDate(date.getDate() + i); // tambah i hari
+      const day = date.toLocaleDateString("id-ID", { weekday: "short" }); // nama hari dalam bahasa Inggris
+   
+      const fullDate = date.toISOString().substring(0,10)
+      result.push({ date: date.getDate(), day, fullDate }); // tambahkan ke array
     }
-    // console.log(moment());
-    // fungsi untuk mengambil dan menampilkan list hari dalam satu minggu
-    const getDaysInWeek = (weekNum) => {
-      const start = new Date(); // tanggal saat ini
-      // console.log(start);
-      // start.setDate(1); // set tanggal ke 1 untuk menghindari bug di akhir bulan
-      const diff = (weekNum - 1) * 7; // hitung selisih hari
-      start.setDate(start.getDate() - start.getDay() + diff); // set tanggal awal minggu
-      const result = [];
-      for (let i = 0; i < 7; i++) {
-        const date = new Date(start);
-        date.setDate(date.getDate() + i); // tambah i hari
-        const day = date.toLocaleDateString('id-ID', { weekday: 'short' }); // nama hari dalam bahasa Inggris
-        result.push({ date: date.getDate(), day }); // tambahkan ke array
+    return result;
+  };
+
+  // fungsi untuk menampilkan daftar hari
+
+  // fungsi untuk menangani klik tombol "next"
+
+  // set state days pada render pertama
+  React.useState(() => {
+    setWeekNum(getWeekCountInMonth());
+    setDays(getDaysInWeek(weekNum));
+  }, []);
+
+  // hari ini
+  const dateToday = date.getDate();
+  const [selectedDay, setSelectedDay] = React.useState(dateToday);
+  const [selectedDate, setSelectedDate] = React.useState(date.toISOString().substring(0,10))
+
+  // slider
+
+  // get the index of the slide that contains the current date
+  const [initialSlide, setInitialSlide] = React.useState(0);
+  const [indexSlide, setIndexSlide] = React.useState(0);
+  // set the current slide to the index that contains the current date
+
+  const [loaded, setLoaded] = React.useState(false);
+
+  const [sliderRef, instanceRef] = useKeenSlider({
+    slides: {
+      perView: 4,
+      created() {
+        setLoaded(true);
+      },
+      spacing: 15,
+    },
+    initial: initialSlide,
+    slideChanged(slider) {
+      if (slider) {
+        setIndexSlide(slider.track.details.rel);
+        console.log(initialSlide);
+        // console.log(
+        //   indexSlide === instanceRef.current.track.details.slides.length
+        // );
       }
-      return result;
-    };
-  
-    // fungsi untuk menampilkan daftar hari
-  
-    // fungsi untuk menangani klik tombol "next"
-  
-    // set state days pada render pertama
-    React.useState(() => {
-      setWeekNum(getWeekCountInMonth())
-      setDays(getDaysInWeek(weekNum));
-    }, []);
-  
-    // hari ini
-    const dateToday = date.getDate();
-    const [selectedDay, setSelectedDay] = React.useState(dateToday);
-  
-    // slider
-  
-    // get the index of the slide that contains the current date
-    const [initialSlide, setInitialSlide] = React.useState(0);
-    const [indexSlide, setIndexSlide] = React.useState(0);
-    // set the current slide to the index that contains the current date
-  
-    const [loaded, setLoaded] = React.useState(false);
-  
-    const [sliderRef, instanceRef] = useKeenSlider({
-      slides: {
-        perView: 4,
-        created() {
-          setLoaded(true);
-        },
-        spacing: 15,
-      },
-      initial: initialSlide,
-      slideChanged(slider) {
-        if (slider) {
-          setIndexSlide(slider.track.details.rel);
-          console.log(
-            initialSlide
-          );
-          // console.log(
-          //   indexSlide === instanceRef.current.track.details.slides.length
-          // );
-        }
-      },
-    });
-  
-    React.useEffect(() => {
-      const timeoutId = setTimeout(() => {
-        const currentSlide = days.findIndex((day) => day.date === dateToday);
-  
-        setInitialSlide(currentSlide);
-      }, 3000);
-  
-      return () => clearTimeout(timeoutId);
-    }, [days, dateToday]);
-  
-    // console.log(dateToday);
-    // console.log(days.filter((i) => i.date == dateToday));
-    // days.findIndex((day) => day.date === dateToday)
-    // data agenda
-  
-    const [agenda, setAgenda] = React.useState([]);
-    const [loadAgenda, setLoadAgenda] = React.useState(true);
-    const [agendaError, setAgendaError] = React.useState(false);
-  
-    const getAgenda = async () => {
-      try {
-        await getApi(`agenda?limit=9`).then((res) => {
-          // console.log(selectedDay);
-          const filteredAgenda = res.data.data.filter(
-            (i) => new Date(i.tanggal).getDate() == selectedDay
-          );
-          // console.log(filteredAgenda);
-          setAgenda(filteredAgenda);
-          setLoadAgenda(false);
-        });
-      } catch (error) {
-        console.log(error);
+    },
+  });
+
+  React.useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      const currentSlide = days.findIndex((day) => day.date === dateToday);
+
+      setInitialSlide(currentSlide);
+    }, 3000);
+
+    return () => clearTimeout(timeoutId);
+  }, [days, dateToday]);
+
+  // console.log(dateToday);
+  // console.log(days.filter((i) => i.date == dateToday));
+  // days.findIndex((day) => day.date === dateToday)
+  // data agenda
+
+  const [agenda, setAgenda] = React.useState([]);
+  const [loadAgenda, setLoadAgenda] = React.useState(true);
+  const [agendaError, setAgendaError] = React.useState(false);
+
+  const getAgenda = async () => {
+    try {
+      await getApi(`agenda?limit=9`).then((res) => {
+        // console.log(selectedDay);
+        const filteredAgenda = res.data.data.filter(
+          (i) => i.tanggal == selectedDate
+        );
+        // console.log(filteredAgenda);
+        setAgenda(filteredAgenda);
         setLoadAgenda(false);
-        setAgendaError(true);
-      }
-    };
-  
-    React.useEffect(() => {
-      getAgenda();
-      if (selectedDay) {
-        setLoadAgenda(true);
-      }
-    }, [selectedDay]);
+      });
+    } catch (error) {
+      console.log(error);
+      setLoadAgenda(false);
+      setAgendaError(true);
+    }
+  };
+
+  React.useEffect(() => {
+    getAgenda();
+    if (selectedDay) {
+      setLoadAgenda(true);
+    }
+  }, [selectedDay]);
   return (
     <>
       <div className="content rounded-bl-lg rounded-br-lg  flex-grow bg-white  border border-blue-gray-50 overflow-hidden text-black">
@@ -162,6 +166,7 @@ export default function AgendaForMobile() {
                   <div
                     onClick={() => {
                       setSelectedDay(day.date);
+                      setSelectedDate(day.fullDate)
                     }}
                     className={`keen-slider__slide group cursor-pointer flex flex-col justify-center items-center w-12 h-12 rounded flex-shrink-0 flex-grow-0
                       transition-colors ease-brand duration-250 ${

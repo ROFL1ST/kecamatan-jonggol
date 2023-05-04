@@ -46,7 +46,9 @@ export default function AgendaContent() {
       const date = new Date(start);
       date.setDate(date.getDate() + i); // tambah i hari
       const day = date.toLocaleDateString("id-ID", { weekday: "short" }); // nama hari dalam bahasa Inggris
-      result.push({ date: date.getDate(), day }); // tambahkan ke array
+   
+      const fullDate = date.toISOString().substring(0,10)
+      result.push({ date: date.getDate(), day, fullDate }); // tambahkan ke array
     }
     return result;
   };
@@ -64,6 +66,7 @@ export default function AgendaContent() {
   // hari ini
   const dateToday = date.getDate();
   const [selectedDay, setSelectedDay] = React.useState(dateToday);
+  const [selectedDate, setSelectedDate] = React.useState(date.toISOString().substring(0,10))
 
   // slider
 
@@ -118,7 +121,7 @@ export default function AgendaContent() {
       await getApi(`agenda?limit=9`).then((res) => {
         // console.log(selectedDay);
         const filteredAgenda = res.data.data.filter(
-          (i) => new Date(i.tanggal).getDate() == selectedDay
+          (i) => i.tanggal == selectedDate
         );
         // console.log(filteredAgenda);
         setAgenda(filteredAgenda);
@@ -167,6 +170,8 @@ export default function AgendaContent() {
                   <div
                     onClick={() => {
                       setSelectedDay(day.date);
+                      setSelectedDate(day.fullDate)
+                      console.log(day);
                     }}
                     className={`keen-slider__slide group cursor-pointer flex flex-col justify-center items-center w-12 h-12 rounded flex-shrink-0 flex-grow-0
                       transition-colors ease-brand duration-250 ${
