@@ -53,11 +53,7 @@ export default function AgendaContent() {
     return result;
   };
 
-  // fungsi untuk menampilkan daftar hari
 
-  // fungsi untuk menangani klik tombol "next"
-
-  // set state days pada render pertama
   React.useState(() => {
     setWeekNum(getWeekCountInMonth());
     setDays(getDaysInWeek(weekNum));
