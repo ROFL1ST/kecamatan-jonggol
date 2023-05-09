@@ -95,7 +95,7 @@ function Card({ i }) {
       <div
         onMouseEnter={handleMouseOver}
         onMouseLeave={handleMouseOut}
-        className="card flex flex-col  gap-y-5 bg-bgHijauPrimary w-full pb-10 rounded-[20px] transition-all"
+        className=" flex flex-col  gap-y-5 bg-bgHijauPrimary w-full pb-10 rounded-[20px] transition-all"
       >
         <div
           style={{ backgroundImage: `url(${i.thumbnail})` }}

@@ -321,7 +321,7 @@ function Card({ i }) {
       <div
         onMouseEnter={handleMouseOver}
         onMouseLeave={handleMouseOut}
-        className={`card flex flex-col gap-y-5 bg-white lg:h-[400px] h-[300px] w-full 2xl:px-4 lg:px-3 px-4 py-5 rounded-[20px] cursor-pointer transition-all ${
+        className={` flex flex-col gap-y-5 bg-white lg:h-[400px] h-[300px] w-full 2xl:px-4 lg:px-3 px-4 py-5 rounded-[20px] cursor-pointer transition-all ${
           isHovering && "-translate-y-1 -translate-x-1 shadow-xl transition-all"
         }`}
       >
