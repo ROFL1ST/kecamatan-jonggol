@@ -23,7 +23,7 @@ import { BurgerClose as Burger } from 'react-burger-icons';
 
 export default function Navbar() {
   const location = useLocation();
-  // console.log(location.pathname);
+// console.log(location.pathname);
   const activePage =
     'bg-white px-5 py-2 rounded-lg text-[#3C903C] font-bold transition-all';
   const normalPages = 'transition-all px-5';
@@ -65,7 +65,7 @@ export default function Navbar() {
   return (
     <>
       <div
-        className={`fixed w-screen z-20 navbar ${isVisible ? 'visible' : ''}`}
+        className={`fixed w-screen z-50 navbar ${isVisible ? 'visible' : ''}`}
       >
         {/* Dekstop */}
         <div className="lg:flex hidden bg-[#007100] h-6"></div>

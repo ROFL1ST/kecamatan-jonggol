@@ -294,5 +294,7 @@ table tr:first-child th:last-child {
   translate: 0;
 } */
 
-
-
+.ornament {
+  filter: invert(16%) sepia(97%) saturate(1544%) hue-rotate(96deg)
+    brightness(91%) contrast(106%);
+}

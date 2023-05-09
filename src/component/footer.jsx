@@ -2,6 +2,8 @@ import React from 'react';
 import kementrian from '../assets/logo/kementrianSekertariat.jpg';
 import dpr from '../assets/logo/dpr.png';
 import dalamNegri from '../assets/logo/kementriandalamnegeri.png';
+import ornament from '../assets/images/ornament.svg';
+import ornament2 from '../assets/images/oornament2.svg';
 import jabar from '../assets/logo/provinsi.png';
 import bogor from '../assets/logo/kabupatenbogor.png';
 import * as dayjs from 'dayjs';
@@ -99,7 +101,22 @@ export default function Footer() {
           </div>
           {/* Kecamatan Jonggol */}
           {/* Information */}
-          <div className="flex lg:flex-row flex-col lg:gap-y-0 gap-y-10 justify-between mx-auto text-white 2xl:w-4/5 lg:w-11/12 gap-x-10 py-16">
+          <div className="flex lg:flex-row flex-col lg:gap-y-0 gap-y-10 justify-between mx-auto text-white 2xl:w-4/5 lg:w-11/12 gap-x-10 py-16 relative">
+            <div className="absolute bottom-[-20px] lg:right-[-115px] right-[-30px] z-10">
+              <img
+                src={ornament}
+                alt=""
+                className="w-[200px] ornament opacity-40"
+              />
+            </div>
+            <div className="absolute bottom-[-20px] left-[-90px] lg:left-[-50px] z-10">
+              <img
+                src={ornament2}
+                alt=""
+                className="w-[200px] lg:w-[300px] ornament opacity-40"
+              />
+            </div>
+
             {/* About And Location */}
             <div className="flex flex-col gap-y-5 lg:w-1/4">
               <div className="about flex flex-col gap-y-3">
@@ -129,7 +146,7 @@ export default function Footer() {
             </div>
             {/* About And Location */}
             {/* Contact And Social Media */}
-            <div className="flex flex-col gap-y-6 lg:w-1/4">
+            <div className="flex flex-col gap-y-6 lg:w-1/4 z-20">
               <div className="Contact flex flex-col gap-y-3">
                 <h1 className="font-bold 2xl:text-lg">Contact Us</h1>
                 <p className="2xl:text-base text-sm">
@@ -176,7 +193,7 @@ export default function Footer() {
             </div>
             {/* Contact And Social Media */}
             {/* Privacy Policy */}
-            <div className="flex flex-col gap-y-5 lg:w-1/4">
+            <div className="flex flex-col gap-y-5 lg:w-1/4 z-20">
               <div className="Contact flex flex-col gap-y-3">
                 <h1 className="font-bold 2xl:text-lg">Privacy Policy</h1>
                 <ul className="flex flex-col gap-y-2 2xl:text-base lg:text-sm">
@@ -203,7 +220,7 @@ export default function Footer() {
           {/* Information */}
         </div>
         <div className="py-5 lg:w-full w-11/12 flex justify-center items-center text-white">
-          <h1>
+          <h1 className='text-sm'>
             Copyright © {now.format('YYYY')} Pemerintah Daerah Kabupaten Bogor,
             Kecamatan Jonggol. All Right Reserved
           </h1>
