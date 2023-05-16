@@ -6,13 +6,44 @@ import Banner2 from "../../../assets/images/banner2.jpg";
 import Banner3 from "../../../assets/images/banner3.jpg";
 import Banner4 from "../../../assets/images/banner4.jpg";
 import Banner5 from "../../../assets/images/banner5.jpg";
-
+import { FaInstagram, FaFacebook, FaTwitter, FaYoutube } from "react-icons/fa";
 
 import "swiper/css/effect-fade";
 import "swiper/css";
 import { ArrowLeft3, ArrowRight3 } from "iconsax-react";
 export default function Slider() {
   const swiperRef = React.useRef();
+
+  const social = [
+    {
+      id: 1,
+      url: "",
+      icon: (
+        <FaInstagram color="white" size={20} className="social-slider-icon" />
+      ),
+    },
+    {
+      id: 2,
+      url: "",
+      icon: (
+        <FaFacebook color="white" size={20} className="social-slider-icon" />
+      ),
+    },
+    {
+      id: 3,
+      url: "",
+      icon: (
+        <FaTwitter color="white" size={20} className="social-slider-icon" />
+      ),
+    },
+    {
+      id: 4,
+      url: "",
+      icon: (
+        <FaYoutube color="white" size={20} className="social-slider-icon" />
+      ),
+    },
+  ];
   const banner = [
     {
       id: 1,
@@ -57,34 +88,51 @@ export default function Slider() {
         slidesPerView={"auto"}
         spaceBetween={0}
         loop={true}
-        //   controller={{ control: firstSwiper }}
+          // controller={{ control: firstSwiper }}
         onSlideChange={handleSlideChange}
         autoplay={{
           delay: 3500,
           disableOnInteraction: false,
         }}
-       
-        modules={[EffectFade,  Autoplay]}
+        modules={[EffectFade, Autoplay]}
         onSwiper={(swiper) => {
           setPage(swiper.realIndex);
           swiperRef.current = swiper;
         }}
-        className="rounded-b-3xl w-screen"
+        className="w-screen rounded-b-3xl"
         effect={"fade"}
       >
         {banner.map((i, key) => (
           <SwiperSlide key={key}>
             <div
-              className="lg:h-[83vh] h-[70vh] bg-cover bg-center "
+              className="relative h-[70vh] bg-cover bg-center lg:h-[83vh]"
               style={{ backgroundImage: `url(${i.url})` }}
             >
-              <div className="w-full h-full bg-black bg-opacity-25 2xl:px-16 lg:px-10 px-8 lg:py-32 py-20 rounded-b-2xl flex flex-col justify-end">
-                <div className="flex flex-col lg:gap-y-40 gap-y-10 text-white">
-                  <h1 className=" font-bold lg:text-6xl text-4xl uppercase">{i.title}</h1>
-                  <p className="lg:text-lg 2xl:w-1/3 lg:w-1/2 w-3/4 capitalize">{i.desc}</p>
+              <div className="absolute flex h-full w-full flex-col items-end justify-center space-y-5 pr-5">
+                {social.map((_, index) => {
+                  return (
+                    <a href={_.url}>
+                      <div
+                        className="social-slider changeColor cursor-pointer rounded-lg p-3 transition-all ease-in-out"
+                        key={index}
+                      >
+                        {_.icon}
+                      </div>
+                    </a>
+                  );
+                })}
+              </div>
+              <div className="flex h-full w-full flex-col justify-end rounded-b-2xl bg-black bg-opacity-25 px-8 py-20 lg:px-10 lg:py-32 2xl:px-16">
+                <div className="flex flex-col gap-y-10 text-white lg:gap-y-40">
+                  <h1 className=" text-4xl font-bold uppercase lg:text-6xl">
+                    {i.title}
+                  </h1>
+                  <p className="w-3/4 capitalize lg:w-1/2 lg:text-lg 2xl:w-1/3">
+                    {i.desc}
+                  </p>
                 </div>
-                <div className="absolute bottom-10 right-14 text-white lg:flex hidden items-center">
-                  <div className="arrow space-x-5 flex">
+                <div className="absolute bottom-10 right-14 hidden items-center text-white lg:flex">
+                  <div className="arrow flex space-x-5">
                     <ArrowLeft3
                       onClick={() => swiperRef.current.slidePrev()}
                       size="42"
@@ -98,15 +146,15 @@ export default function Slider() {
                       className="cursor-pointer"
                     />
                   </div>
-                  <div className="flex ml-8 items-center gap-x-2">
+                  <div className="ml-8 flex items-center gap-x-2">
                     {banner.map((i, key) => (
                       <div
                         key={key}
                         className={`${
                           // eslint-disable-next-line eqeqeq
                           page == key
-                            ? "border rounded-full p-[4px] border-white transition-all"
-                            : "bg-white rounded-full p-[4px] transition-all"
+                            ? "rounded-full border border-white p-[4px] transition-all"
+                            : "rounded-full bg-white p-[4px] transition-all"
                         }`}
                       ></div>
                     ))}

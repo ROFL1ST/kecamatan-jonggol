@@ -1,14 +1,14 @@
-@import url('https://fonts.cdnfonts.com/css/poppins');
+@import url("https://fonts.cdnfonts.com/css/poppins");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 .underlineButton:hover svg {
-  @apply transform translate-x-4;
+  @apply translate-x-4 transform;
   color: #2a9134;
 }
 .underlineButtonn:hover svg {
-  @apply transform translate-x-4;
+  @apply translate-x-4 transform;
   color: #fff012;
 }
 .agendaHover:hover h1 {
@@ -21,7 +21,7 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 400 !important;
 }
 
@@ -297,4 +297,48 @@ table tr:first-child th:last-child {
 .ornament {
   filter: invert(16%) sepia(97%) saturate(1544%) hue-rotate(96deg)
     brightness(91%) contrast(106%);
+}
+.img-magnifier-container {
+  position: relative;
+}
+
+.img-magnifier-glass {
+  position: absolute;
+  border: 3px solid #000;
+  border-radius: 50%;
+  cursor: none;
+  /*Set the size of the magnifier glass:*/
+  width: 100px;
+  height: 100px;
+}
+
+.social-slider {
+  /* From https://css.glass */
+  background: rgba(228, 228, 228, 0.25);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6.6px);
+  -webkit-backdrop-filter: blur(6.6px);
+}
+.social-slider:hover {
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.474);
+  box-shadow: 0 4px 30px rgba(98, 98, 98, 0.485);
+  backdrop-filter: blur(6.6px);
+  -webkit-backdrop-filter: blur(6.6px);
+}
+.changeColor {
+  color: #818c8d;
+}
+.changeColor:hover {
+  color: white;
+}
+.potensiCardHover {
+  background: rgba(228, 228, 228, 0.25);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6.6px);
+  -webkit-backdrop-filter: blur(6.6px);
+}
+
+.myGaleri .swiper-wrapper {
+  justify-content: center;
 }
