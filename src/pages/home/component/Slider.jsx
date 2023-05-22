@@ -6,6 +6,11 @@ import Banner2 from "../../../assets/images/banner2.jpg";
 import Banner3 from "../../../assets/images/banner3.jpg";
 import Banner4 from "../../../assets/images/banner4.jpg";
 import Banner5 from "../../../assets/images/banner5.jpg";
+import b1 from "../../../assets/images/banner/2.jpg";
+import b2 from "../../../assets/images/banner/3.jpg";
+import b3 from "../../../assets/images/banner/4.jpg";
+import b4 from "../../../assets/images/banner/5.jpg";
+import b5 from "../../../assets/images/banner/6.jpg";
 import { FaInstagram, FaFacebook, FaTwitter, FaYoutube } from "react-icons/fa";
 
 import "swiper/css/effect-fade";
@@ -47,31 +52,31 @@ export default function Slider() {
   const banner = [
     {
       id: 1,
-      url: Banner1,
+      url: b1,
       title: "Bersama",
       desc: "di kelola secara profesional, menghindari benturan kepentingan, tidak menoleransi suap, menjunjung tinggi kepercayaan dan integritas. Berpedoman pada asas tata kelola pemerintah yang bersih dan baik",
     },
     {
       id: 2,
-      url: Banner2,
+      url: b2,
       title: "Ekonomis",
       desc: "berperan dalam pembangunan ekonomi nasional, menjadi pelopor dalam mewujudkan kabupaten bogor yang termaju dan berkeradaban",
     },
     {
       id: 3,
-      url: Banner3,
+      url: b3,
       title: "Komunikatif",
       desc: "Menciptakan nilai tambah dengan orientasi komersial, mengambil keputusan berdasarkan prinsip-prinsip bisnis yang sehat",
     },
     {
       id: 4,
-      url: Banner4,
+      url: b4,
       title: "Aman",
       desc: "Mampu berkompetisi dalam skala regional maupun internasional, mendorong pertumbuhan investasi, membangun budaya sadar biaya dan menghargai kinerja",
     },
     {
       id: 5,
-      url: Banner5,
+      url: b5,
       title: "Harmonis",
       desc: "Mampu berkompetisi dalam skala regional maupun internasional, mendorong pertumbuhan investasi, membangun budaya sadar biaya dan menghargai kinerja",
     },
@@ -88,7 +93,7 @@ export default function Slider() {
         slidesPerView={"auto"}
         spaceBetween={0}
         loop={true}
-          // controller={{ control: firstSwiper }}
+        // controller={{ control: firstSwiper }}
         onSlideChange={handleSlideChange}
         autoplay={{
           delay: 3500,

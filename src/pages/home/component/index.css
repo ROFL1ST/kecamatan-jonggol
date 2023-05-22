@@ -137,9 +137,9 @@
   content: '';
   position: absolute;
   z-index: -1;
-  height: 150px;
-  width: 200px;
-  border-radius: 50%;
+  height: 100px;
+  width: 500px;
+  border-radius: 100%;
 }
 
 .animatedButton:before {

@@ -342,3 +342,30 @@ table tr:first-child th:last-child {
 .myGaleri .swiper-wrapper {
   justify-content: center;
 }
+
+.bg-jonggol {
+  background-image: url("https://asset.kgnewsroom.com/photo/pre/2023/01/11/490af52c-f6b2-4613-9752-021ceb851839_jpg.jpg?id=1965610");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  position: relative;
+}
+.bg-jonggol::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background-color: rgba(199, 199, 199, 0.537);  */
+  background-color: #3b903b6e;
+}
+.bg-jonggol svg {
+  /* position: absolute; */
+  position: relative;
+  z-index: 5;
+}
+.bg-footer {
+  background-image: url(https://smkmadinatulquran.sch.id/wp-content/uploads/2021/08/topography-pattern-1.png);
+  opacity: 0.3;
+}

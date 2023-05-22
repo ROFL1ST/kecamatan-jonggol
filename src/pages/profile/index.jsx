@@ -1,26 +1,27 @@
-import React from 'react';
-import CountUp from 'react-countup';
-import { Dialog, Transition } from '@headlessui/react';
-import Lottie from 'lottie-react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import { Autoplay, Pagination } from 'swiper';
-import { getApi } from '../../API/restApi';
-import Kesehatan from './component/Kesehatan';
-import ProfilePic from '../../assets/json/27562-searching-for-profile.json';
-import NotFound from '../../assets/json/93134-not-found.json';
-import { useNavigate } from 'react-router-dom';
-import ErrorIndicator from '../../assets/json/98642-error-404.json';
-import { ArrowRight2 } from 'iconsax-react';
-import UnderlineButton from '../home/component/underlineButton';
-import AnimatedButton from '../../component/animatedButton';
+import React from "react";
+import CountUp from "react-countup";
+import { Dialog, Transition } from "@headlessui/react";
+import Lottie from "lottie-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Autoplay, Pagination } from "swiper";
+import { getApi } from "../../API/restApi";
+import Kesehatan from "./component/Kesehatan";
+import ProfilePic from "../../assets/json/27562-searching-for-profile.json";
+import NotFound from "../../assets/json/93134-not-found.json";
+import { NavLink, useNavigate } from "react-router-dom";
+import ErrorIndicator from "../../assets/json/98642-error-404.json";
+import { ArrowRight2 } from "iconsax-react";
+import UnderlineButton from "../home/component/underlineButton";
+import AnimatedButton from "../../component/animatedButton";
+import { FiExternalLink } from "react-icons/fi";
 
 export default function Profile() {
   const [penduduk, setPenduduk] = React.useState();
   const getPenduduk = async () => {
     try {
-      await getApi('penduduk/total').then((res) => {
+      await getApi("penduduk/total").then((res) => {
         setPenduduk(res.data.data);
       });
     } catch (error) {
@@ -31,7 +32,7 @@ export default function Profile() {
   const [asn, setAsn] = React.useState();
   const getAsn = async () => {
     try {
-      await getApi('pegawai/total').then((res) => {
+      await getApi("pegawai/total").then((res) => {
         setAsn(res.data.data);
       });
     } catch (error) {
@@ -45,7 +46,7 @@ export default function Profile() {
   const [loadDesa, setLoadDesa] = React.useState(true);
   const getDesa = async () => {
     try {
-      await getApi('desa').then((res) => {
+      await getApi("desa").then((res) => {
         setDesa(res.data.data);
         setLoadDesa(false);
       });
@@ -59,105 +60,105 @@ export default function Profile() {
     {
       id: 1,
       count: penduduk,
-      title: 'Penduduk',
+      title: "Penduduk",
     },
     {
       id: 2,
       count: desa.length,
-      title: 'Jumlah Desa',
+      title: "Jumlah Desa",
     },
     {
       id: 3,
       count: asn,
-      title: 'Jumlah ASN',
+      title: "Jumlah ASN",
     },
     {
       id: 4,
       count: 158.9,
-      title: 'Luas Wilayah',
+      title: "Luas Wilayah",
     },
   ];
 
   const dataSekolah = [
     {
       id: 1,
-      nama: 'TK',
-      initial: 'Taman Kanak-kanak',
-      desc: 'Kecamatan Jonggol memiliki beberapa TK yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya',
+      nama: "TK",
+      initial: "Taman Kanak-kanak",
+      desc: "Kecamatan Jonggol memiliki beberapa TK yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya",
       swasta: 10,
       negri: 5,
       logoPendidikan:
-        'https://blog.pengajartekno.com/wp-content/uploads/2022/11/logo-tk-png.png',
+        "https://blog.pengajartekno.com/wp-content/uploads/2022/11/logo-tk-png.png",
     },
     {
       id: 2,
-      nama: 'SD',
-      initial: 'Sekolah Dasar',
-      desc: 'Kecamatan Jonggol memiliki beberapa SD yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya',
+      nama: "SD",
+      initial: "Sekolah Dasar",
+      desc: "Kecamatan Jonggol memiliki beberapa SD yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya",
       swasta: 10,
       negri: 5,
       logoPendidikan:
-        'https://siap-sekolah.s3.amazonaws.com/17724/files/2014/03/logo-sd1.png',
+        "https://siap-sekolah.s3.amazonaws.com/17724/files/2014/03/logo-sd1.png",
     },
     {
       id: 3,
-      nama: 'SMP',
-      initial: 'Sekolah Menengah Pertama',
-      desc: 'Kecamatan Jonggol memiliki beberapa SMP yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya',
+      nama: "SMP",
+      initial: "Sekolah Menengah Pertama",
+      desc: "Kecamatan Jonggol memiliki beberapa SMP yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya",
       swasta: 10,
       negri: 5,
       logoPendidikan:
-        'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjIvTdX754HDd_esf3o6e4wbFThVMz3IdHT7mVzG75sdiwueT7XUOps-_s5dRkN8Q73uLStyjrztY3EYWT9K8ORhROkXSd7kQz4RLzpofDzbPI3B_0Js7608kMaQ3GI5Ff2WpCk93qlSh9ei4ps42ZIkX2oq0zj6ldPIWkg7CIKTxbpDqGoK8UJURac/s1049/logo-smp.png',
+        "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjIvTdX754HDd_esf3o6e4wbFThVMz3IdHT7mVzG75sdiwueT7XUOps-_s5dRkN8Q73uLStyjrztY3EYWT9K8ORhROkXSd7kQz4RLzpofDzbPI3B_0Js7608kMaQ3GI5Ff2WpCk93qlSh9ei4ps42ZIkX2oq0zj6ldPIWkg7CIKTxbpDqGoK8UJURac/s1049/logo-smp.png",
     },
     {
       id: 4,
-      nama: 'SMA',
-      initial: 'Sekolah Menengah Atas',
-      desc: 'Kecamatan Jonggol memiliki beberapa SMA yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya',
+      nama: "SMA",
+      initial: "Sekolah Menengah Atas",
+      desc: "Kecamatan Jonggol memiliki beberapa SMA yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya",
       swasta: 10,
       negri: 5,
       logoPendidikan:
-        'https://sman1sukaresmi.sch.id/media_library/posts/post-image-1601167638481.png',
+        "https://sman1sukaresmi.sch.id/media_library/posts/post-image-1601167638481.png",
     },
     {
       id: 5,
-      nama: 'SMK',
-      initial: 'Sekolah Menengah Kejuruan',
-      desc: 'Kecamatan Jonggol memiliki beberapa SMK yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya',
+      nama: "SMK",
+      initial: "Sekolah Menengah Kejuruan",
+      desc: "Kecamatan Jonggol memiliki beberapa SMK yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya",
       swasta: 10,
       negri: 5,
       logoPendidikan:
-        'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiro7tiXSyLj1CLoOyVMSKZl_IKv5OXGFHHorA-42WoEaJjdKkVjH5pGkhB8sQOzHl0aMBvtHHuQ6UPoJ2jOjpLvhPzOyljOVnYZFvTjZWnewvppOxyRwQrN7c2raHXq2-tFU7fLVomRAienX_I0KUFixoJ7a_g6zrp6jnj-icChRUM8rVlGucEpDKd/s1130/SMK%20BISA%20HEBAT.png',
+        "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiro7tiXSyLj1CLoOyVMSKZl_IKv5OXGFHHorA-42WoEaJjdKkVjH5pGkhB8sQOzHl0aMBvtHHuQ6UPoJ2jOjpLvhPzOyljOVnYZFvTjZWnewvppOxyRwQrN7c2raHXq2-tFU7fLVomRAienX_I0KUFixoJ7a_g6zrp6jnj-icChRUM8rVlGucEpDKd/s1130/SMK%20BISA%20HEBAT.png",
     },
     {
       id: 6,
-      nama: 'MA',
-      initial: 'Madrasah Aliyah',
-      desc: 'Kecamatan Jonggol memiliki beberapa MA yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya',
+      nama: "MA",
+      initial: "Madrasah Aliyah",
+      desc: "Kecamatan Jonggol memiliki beberapa MA yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya",
       swasta: 10,
       negri: 5,
       logoPendidikan:
-        'https://rekreartive.com/wp-content/uploads/2019/04/Logo-Madrasah-MI-Mts-dan-MA-Warna.png',
+        "https://rekreartive.com/wp-content/uploads/2019/04/Logo-Madrasah-MI-Mts-dan-MA-Warna.png",
     },
     {
       id: 7,
-      nama: 'MTS',
-      initial: 'Madrasah Tsanawiyah',
-      desc: 'Kecamatan Jonggol memiliki beberapa MTS yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya',
+      nama: "MTS",
+      initial: "Madrasah Tsanawiyah",
+      desc: "Kecamatan Jonggol memiliki beberapa MTS yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya",
       swasta: 10,
       negri: 5,
       logoPendidikan:
-        'https://rekreartive.com/wp-content/uploads/2019/04/Logo-Madrasah-MI-Mts-dan-MA-Warna.png',
+        "https://rekreartive.com/wp-content/uploads/2019/04/Logo-Madrasah-MI-Mts-dan-MA-Warna.png",
     },
     {
       id: 8,
-      nama: 'MI',
+      nama: "MI",
       initial: "Madrasah Ibtida'iyah",
-      desc: 'Kecamatan Jonggol memiliki beberapa MI yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya',
+      desc: "Kecamatan Jonggol memiliki beberapa MI yang berkualitas dan berkomitmen untuk memberikan pendidikan terbaik bagi siswanya",
       swasta: 10,
       negri: 5,
       logoPendidikan:
-        'https://rekreartive.com/wp-content/uploads/2019/04/Logo-Madrasah-MI-Mts-dan-MA-Warna.png',
+        "https://rekreartive.com/wp-content/uploads/2019/04/Logo-Madrasah-MI-Mts-dan-MA-Warna.png",
     },
   ];
 
@@ -166,12 +167,12 @@ export default function Profile() {
   const [agamaError, setAgamaError] = React.useState(false);
   const [limitAgama, setLimitAgama] = React.useState(6);
 
-  const [search, setSearch] = React.useState('');
+  const [search, setSearch] = React.useState("");
 
   const getAgama = async () => {
     try {
       await getApi(
-        `sarana-keagamaan?${search !== '' && `key=${search}`}&${limit}`
+        `sarana-keagamaan?${search !== "" && `key=${search}`}&${limit}`
       ).then((res) => {
         setAgama(res.data.data);
         setLoadAgama(false);
@@ -206,23 +207,23 @@ export default function Profile() {
 
   return (
     <>
-      <div className="lg:pt-[100px] pt-[80px] w-screen">
-        <div className="flex lg:flex-row flex-col justify-between w-full  px-16 py-32 lg:items-center items-start bg-[#A8CAA8]">
+      <div className="w-screen pt-[80px] lg:pt-[100px]">
+        <div className="flex w-full flex-col items-start justify-between  bg-[#A8CAA8] px-16 py-32 lg:flex-row lg:items-center">
           <Lottie animationData={ProfilePic} className="lg:w-1/3" />
           <div className="lg:w-1/4">
-            <h1 className="lg:text-6xl text-4xl font-bold lg:w-3/5 lg:text-center text-white">
+            <h1 className="text-4xl font-bold text-white lg:w-3/5 lg:text-center lg:text-6xl">
               Profile Kecamatan Jonggol
             </h1>
           </div>
         </div>
-        <div className="lg:px-16 px-5 py-10 lg:gap-y-0 gap-y-3 flex flex-col justify-center items-center bg-[#3C903C]">
+        <div className="flex flex-col items-center justify-center gap-y-3 bg-[#3C903C] px-5 py-10 lg:gap-y-0 lg:px-16">
           {/* Informasi Desa */}
           <h1 className="text-4xl font-bold text-white">
             Informasi Seputar Desa
           </h1>
           <div className="w-full">
             <Swiper
-              className="mt-10 mySwiper"
+              className="mySwiper mt-10"
               spaceBetween={20}
               breakpoints={{
                 640: {
@@ -250,7 +251,7 @@ export default function Profile() {
                   ))
                 ) : desaError ? (
                   <>
-                    <div className="flex flex-col justify-center items-center">
+                    <div className="flex flex-col items-center justify-center">
                       <Lottie animationData={ErrorIndicator} />
                       <h1 className="font-bold text-white">
                         Terjadi Kesalahan
@@ -259,7 +260,7 @@ export default function Profile() {
                   </>
                 ) : (
                   <>
-                    <div className="flex flex-col justify-center items-center">
+                    <div className="flex flex-col items-center justify-center">
                       <Lottie animationData={NotFound} />
                       <h1 className="font-bold text-white">
                         Desa Tidak Tersedia
@@ -278,11 +279,11 @@ export default function Profile() {
           </div>
           {/* Informasi Desa */}
           {/* jumlah for dekstop */}
-          <h1 className="text-4xl mt-10 font-bold text-white px-10 text-center">
+          <h1 className="mt-10 px-10 text-center text-4xl font-bold text-white">
             Informasi Seputar Jonggol
           </h1>
-          <div className="mt-10 mb-10 px-16 lg:flex hidden justify-center">
-            <div className=" rounded-xl bg-white flex lg:px-5 lg:py-5 ">
+          <div className="mt-10 mb-10 hidden justify-center px-16 lg:flex">
+            <div className=" flex rounded-xl bg-white lg:px-5 lg:py-5 ">
               {data.map((i, key) => (
                 <CardInfo key={key} index={key} data={i} />
               ))}
@@ -290,19 +291,19 @@ export default function Profile() {
           </div>
           {/* jumlah for dekstop */}
           {/* jumlah for mobile */}
-          <div className="mt-10 mb-10 px-8 lg:hidden flex justify-center">
-            <div className="rounded-xl bg-white grid grid-cols-2">
+          <div className="mt-10 mb-10 flex justify-center px-8 lg:hidden">
+            <div className="grid grid-cols-2 rounded-xl bg-white">
               {data.map((i, key) => (
                 <CardInfoMobile key={key} index={key} data={i} />
               ))}
             </div>
           </div>
           {/* jumlah for mobile */}
-          <div className="border-b-2  lg:w-3/5 w-1/2"></div>
+          <div className="w-1/2  border-b-2 lg:w-3/5"></div>
           {/* Data Sekolah */}
-          <div className="py-10 flex flex-col justify-center items-center mt-10 gap-y-10 lg:px-16">
-            <div className="top flex flex-col gap-y-5 justify-center items-center lg:w-3/5 text-center">
-              <h1 className="font-bold text-4xl text-white">
+          <div className="mt-10 flex flex-col items-center justify-center gap-y-10 py-10 lg:px-16">
+            <div className="top flex flex-col items-center justify-center gap-y-5 text-center lg:w-3/5">
+              <h1 className="text-4xl font-bold text-white">
                 Informasi Seputar Pendidikan
               </h1>
               <p className="text-white">
@@ -313,7 +314,7 @@ export default function Profile() {
             </div>
             <div className="w-full">
               <div
-                className={`  gap-16  justify-center items-center grid lg:grid-cols-4 grid-cols-1 h-full`}
+                className={`  grid  h-full grid-cols-1 items-center justify-center gap-16 lg:grid-cols-4`}
               >
                 {dataSekolah.slice(0, limit).map((i, key) => (
                   <CardSekolah key={key} i={i} />
@@ -323,12 +324,12 @@ export default function Profile() {
             {limit > 4 ? (
               <></>
             ) : (
-              <div className=" flex justify-center items-center">
+              <div className=" flex items-center justify-center">
                 <AnimatedButton
                   onClick={() => setLimit(limit + 12)}
-                  label={'Selengkapnya'}
+                  label={"Selengkapnya"}
                   styleButton={
-                    'px-5 mt-5 py-1 rounded-full text-[15px] text-white border-2 border-white hover:text-black hover:border-kuningPrimary before:bg-bgKuningPrimary hover:text-black'
+                    "px-5 mt-5 py-1 rounded-full text-[15px] text-white border-2 border-white hover:text-black hover:border-kuningPrimary before:bg-bgKuningPrimary hover:text-black"
                   }
                 />
               </div>
@@ -337,7 +338,7 @@ export default function Profile() {
           {/* Data Sekolah */}
         </div>
         {/* Kesehatan */}
-        <div className="2xl:px-28 lg:px-16 px-5 py-10 lg:gap-y-0 gap-y-3 flex flex-col justify-center items-center">
+        <div className="flex flex-col items-center justify-center gap-y-3 px-5 py-10 lg:gap-y-0 lg:px-16 2xl:px-28">
           <h1 className="text-4xl font-bold text-[#3C903C]">
             Informasi Seputar Kesehatan
           </h1>
@@ -346,13 +347,13 @@ export default function Profile() {
         {/* Kesehatan */}
 
         {/* Keagamaan */}
-        <div className="flex flex-col justify-center items-center py-20 lg:px-28 px-10 mb-20 bg-[#3C903C] rounded-xl">
+        <div className="mb-20 flex flex-col items-center justify-center rounded-xl bg-[#3C903C] py-20 px-10 lg:px-28">
           {/* top */}
-          <div className="flex lg:flex-row flex-col-reverse lg:gap-y-0 gap-y-5 justify-between w-full items-center">
-            <div className="left relative lg:w-auto w-full">
+          <div className="flex w-full flex-col-reverse items-center justify-between gap-y-5 lg:flex-row lg:gap-y-0">
+            <div className="left relative w-full lg:w-auto">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="absolute top-0 bottom-0 w-6 h-6 my-auto text-white left-3"
+                className="absolute top-0 bottom-0 left-3 my-auto h-6 w-6 text-white"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -369,29 +370,29 @@ export default function Profile() {
                   setSearch(e.target.value);
                 }}
                 type="text"
-                className="block w-full placeholder:text-white text-white pl-12 px-4 py-3 bg-[#3C903C] border rounded-xl focus:border-white focus:ring-white focus:outline-none focus:ring focus:ring-opacity-40"
+                className="block w-full rounded-xl border bg-[#3C903C] px-4 py-3 pl-12 text-white placeholder:text-white focus:border-white focus:outline-none focus:ring focus:ring-white focus:ring-opacity-40"
                 placeholder="Search..."
               />
             </div>
             <div className="right">
-              <div className="w-full py-3 border-2 px-5 rounded-xl flex justify-center items-center border-white">
-                <h1 className="font-bold text-2xl text-white">
-                  Menampilkan Sarana Sarana Keagamaan
+              <div className="flex w-full items-center justify-center rounded-xl border-2 border-white py-3 px-5">
+                <h1 className="text-2xl font-bold text-white">
+                  Menampilkan Sarana-Sarana Keagamaan
                 </h1>
               </div>
             </div>
           </div>
-          <div className="border-b-2 mt-10 w-full mb-10"></div>
+          <div className="mt-10 mb-10 w-full border-b-2"></div>
           {/* top */}
           {/* content */}
-          <div className=" py-5 w-full">
+          <div className=" w-full py-5">
             <div
               className={`${
                 loadAgama
-                  ? 'grid lg:grid-cols-3 grid-cols-1'
+                  ? "grid grid-cols-1 lg:grid-cols-3"
                   : agama.length == 0
-                  ? ''
-                  : 'grid lg:grid-cols-3 grid-cols-1'
+                  ? ""
+                  : "grid grid-cols-1 lg:grid-cols-3"
               } mb-20 gap-4 `}
             >
               {!loadAgama ? (
@@ -399,7 +400,7 @@ export default function Profile() {
                   agama.map((i, key) => <CardIbadah key={key} i={i} />)
                 ) : agamaError ? (
                   <>
-                    <div className="flex flex-col justify-center items-center">
+                    <div className="flex flex-col items-center justify-center">
                       <Lottie animationData={ErrorIndicator} />
                       <h1 className="font-bold text-white">
                         Terjadi Kesalahan
@@ -408,7 +409,7 @@ export default function Profile() {
                   </>
                 ) : (
                   <>
-                    <div className="flex flex-col justify-center items-center">
+                    <div className="flex flex-col items-center justify-center">
                       <Lottie animationData={NotFound} />
                       <h1 className="font-bold text-white">
                         Agama Tidak Tersedia
@@ -425,9 +426,9 @@ export default function Profile() {
             ) : (
               <AnimatedButton
                 onClick={() => setLimitAgama(limitAgama + 6)}
-                label={'Selengkapnya'}
+                label={"Selengkapnya"}
                 styleButton={
-                  'px-5 mt-5 py-1 rounded-full text-[15px] text-white border-2 border-white hover:text-black hover:border-kuningPrimary before:bg-bgKuningPrimary hover:text-black'
+                  "px-5 mt-5 py-1 rounded-full text-[15px] text-white border-2 border-white hover:text-black hover:border-kuningPrimary before:bg-bgKuningPrimary hover:text-black"
                 }
               />
             )}
@@ -436,6 +437,54 @@ export default function Profile() {
         </div>
         {/* Keagamaan */}
       </div>
+
+      {/* penutup */}
+      <div className="bg-jonggol flex h-[1000px] w-full flex-col justify-between bg-blue-400">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path
+              fill="#F0F0F0"
+              fillOpacity={1}
+              d="M0,128L80,117.3C160,107,320,85,480,101.3C640,117,800,171,960,192C1120,213,1280,203,1360,197.3L1440,192L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"
+            />
+          </svg>
+        </div>
+
+        <div className="z-10 flex w-full flex-col items-center justify-center">
+          <h1 className="text-center text-[30px] font-bold capitalize text-white">
+            segera unduh{" "}
+            <span className="underline underline-offset-4">
+              aplikasi pelayanan masyarakat
+            </span>
+          </h1>
+          <div className="w-[100%] flex justify-center">
+            <AnimatedButton
+              styleButton={
+                "xl:w-[15%] w-[20%] px-5 py-1 mt-5 rounded-full hover:text-hijauPrimary text-white border-2 border-white before:bg-white"
+              }
+              label={
+                <NavLink to={"/aplikasi"}>
+                  <div className="flex items-center justify-center space-x-1">
+                    <p>Lihat Aplikasi</p>
+                    <FiExternalLink />
+                  </div>
+                </NavLink>
+              }
+            />
+          </div>
+        </div>
+
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path
+              fill="#F0F0F0"
+              fillOpacity={1}
+              d="M0,128L80,117.3C160,107,320,85,480,101.3C640,117,800,171,960,192C1120,213,1280,203,1360,197.3L1440,192L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
+            />
+          </svg>
+        </div>
+      </div>
+      {/* penutup */}
     </>
   );
 }
@@ -443,13 +492,13 @@ export default function Profile() {
 function CardLoadingIbadah(params) {
   return (
     <>
-      <div className="2xl:px-16 px-10 py-5 gap-y-3 rounded-2xl bg-white flex flex-col items-center">
-        <div className="uppercase px-7 py-3 font-bold bg-[#3C903C] text-white rounded-2xl text-xl animate-pulse">
-          <div className="w-20 h-5 bg-cover rounded-2xl bg-center bg-gray-300"></div>
+      <div className="flex flex-col items-center gap-y-3 rounded-2xl bg-white px-10 py-5 2xl:px-16">
+        <div className="animate-pulse rounded-2xl bg-[#3C903C] px-7 py-3 text-xl font-bold uppercase text-white">
+          <div className="h-5 w-20 rounded-2xl bg-gray-300 bg-cover bg-center"></div>
         </div>
-        <div className="flex flex-col h-full items-center animate-pulse w-1/2 gap-y-2">
-          <div className="w-1/2 h-5 bg-cover rounded-2xl bg-center bg-gray-300"></div>
-          <div className="w-1/3 h-5 bg-cover rounded-2xl bg-center bg-gray-300"></div>
+        <div className="flex h-full w-1/2 animate-pulse flex-col items-center gap-y-2">
+          <div className="h-5 w-1/2 rounded-2xl bg-gray-300 bg-cover bg-center"></div>
+          <div className="h-5 w-1/3 rounded-2xl bg-gray-300 bg-cover bg-center"></div>
         </div>
       </div>
     </>
@@ -459,24 +508,24 @@ function CardLoadingIbadah(params) {
 function CardLoadingDesa(params) {
   return (
     <>
-      <div className="2xl:px-16 px-10 py-10 rounded-2xl bg-white flex flex-col items-center ">
-        <div className="uppercase px-7 py-3 font-bold bg-[#3C903C] text-white rounded-2xl text-xl animate-pulse">
-          <div className="w-20 h-5 bg-cover rounded-2xl bg-center bg-gray-300"></div>
+      <div className="flex flex-col items-center rounded-2xl bg-white px-10 py-10 2xl:px-16 ">
+        <div className="animate-pulse rounded-2xl bg-[#3C903C] px-7 py-3 text-xl font-bold uppercase text-white">
+          <div className="h-5 w-20 rounded-2xl bg-gray-300 bg-cover bg-center"></div>
         </div>
-        <div className="flex justify-between w-full animate-pulse mt-10">
-          <div className="flex flex-col h-full w-1/2 gap-y-2">
-            <div className="w-1/2 h-5 bg-cover rounded-2xl bg-center bg-gray-300"></div>
-            <div className="w-1/3 h-5 bg-cover rounded-2xl bg-center bg-gray-300"></div>
+        <div className="mt-10 flex w-full animate-pulse justify-between">
+          <div className="flex h-full w-1/2 flex-col gap-y-2">
+            <div className="h-5 w-1/2 rounded-2xl bg-gray-300 bg-cover bg-center"></div>
+            <div className="h-5 w-1/3 rounded-2xl bg-gray-300 bg-cover bg-center"></div>
           </div>
-          <div className="w-1/3 h-5 bg-cover rounded-2xl bg-center bg-[#3C903C]"></div>
+          <div className="h-5 w-1/3 rounded-2xl bg-[#3C903C] bg-cover bg-center"></div>
         </div>
       </div>
-      <div className="2xl:px-20 px-10 py-10 rounded-2xl bg-white flex flex-col items-center">
-        <div className="uppercase px-7 py-3 font-bold bg-[#3C903C] text-white rounded-2xl text-xl animate-pulse">
-          <div className="w-20 h-5 bg-cover rounded-2xl bg-center bg-gray-300"></div>
+      <div className="flex flex-col items-center rounded-2xl bg-white px-10 py-10 2xl:px-20">
+        <div className="animate-pulse rounded-2xl bg-[#3C903C] px-7 py-3 text-xl font-bold uppercase text-white">
+          <div className="h-5 w-20 rounded-2xl bg-gray-300 bg-cover bg-center"></div>
         </div>
-        <div className=" h-96 rounded-2xl bg-gray-300 animate-pulse w-full mt-10">
-          <div className="w-full h-full flex flex-col justify-center items-center "></div>
+        <div className=" mt-10 h-96 w-full animate-pulse rounded-2xl bg-gray-300">
+          <div className="flex h-full w-full flex-col items-center justify-center "></div>
         </div>
       </div>
     </>
@@ -486,9 +535,9 @@ function CardLoadingDesa(params) {
 function CardIbadah({ i }) {
   return (
     <>
-      <div className="2xl:px-16 px-10 py-5 gap-y-3 rounded-2xl bg-white flex flex-col items-center">
-        <div className="uppercase px-7 py-3 font-bold bg-[#3C903C] text-white rounded-full text-xl">
-          {i.nama_sarana.includes('Masjid') ? 'Masjid' : 'Gereja'}
+      <div className="flex flex-col items-center gap-y-3 rounded-2xl bg-white px-10 py-5 2xl:px-16">
+        <div className="rounded-full bg-[#3C903C] px-7 py-3 text-xl font-bold uppercase text-white">
+          {i.nama_sarana.includes("Masjid") ? "Masjid" : "Gereja"}
         </div>
         <h1 className="font-bold">{i.nama_sarana}</h1>
         <h1 className="font-bold">Desa {i.desa.nama_desa}</h1>
@@ -519,14 +568,14 @@ function Desa({ i }) {
   }, []);
   return (
     <>
-      <div className="2xl:px-16 px-10 py-10 mb-5 rounded-2xl bg-white flex flex-col items-center">
-        <div className="uppercase px-7 py-3 font-bold bg-[#3C903C] text-white rounded-2xl text-xl">
+      <div className="mb-5 flex flex-col items-center rounded-2xl bg-white px-10 py-10 2xl:px-16">
+        <div className="rounded-2xl bg-[#3C903C] px-7 py-3 text-xl font-bold uppercase text-white">
           {i.nama_desa}
         </div>
-        <div className="flex justify-between w-full mt-5 items-end">
+        <div className="mt-5 flex w-full items-end justify-between">
           <div>
             <h1 className="font-bold">Kepala Desa</h1>
-            <h1 className="flex justify-start items-start">{i.kepala_desa}</h1>
+            <h1 className="flex items-start justify-start">{i.kepala_desa}</h1>
           </div>
           {/* <div className="flex flex-col items-end gap-y-2 text-gray-300 cursor-pointer hover:text-[#3C903C] transition-all h-full">
             <h1>Longtitude : {i.longtitude}</h1>
@@ -546,21 +595,21 @@ function Desa({ i }) {
             onClick={() => {
               navigate(`desa/${i.slug}`);
             }}
-            label={'Selengkapnya...'}
-            styleP={'text-gray-300 text-[15px] before:text-hijauPrimary'}
+            label={"Selengkapnya..."}
+            styleP={"text-gray-300 text-[15px] before:text-hijauPrimary"}
             styleSvg={
-              'text-transparent hover:text-hijauPrimary transform translate-x-4'
+              "text-transparent hover:text-hijauPrimary transform translate-x-4"
             }
-            styleButton={'after:bg-hijauPrimary'}
+            styleButton={"after:bg-hijauPrimary"}
           />
         </div>
       </div>
 
-      <div className="2xl:px-20 px-10 py-10 rounded-2xl bg-white flex flex-col items-center">
-        <div className="uppercase px-7 py-3 font-bold bg-[#3C903C] text-white rounded-2xl text-xl">
+      <div className="flex flex-col items-center rounded-2xl bg-white px-10 py-10 2xl:px-20">
+        <div className="rounded-2xl bg-[#3C903C] px-7 py-3 text-xl font-bold uppercase text-white">
           Potensi Desa
         </div>
-        <div className="mt-5 mySwiper w-full">
+        <div className="mySwiper mt-5 w-full">
           <Swiper
             slidesPerView={1}
             spaceBetween={20}
@@ -580,9 +629,9 @@ function Desa({ i }) {
               ) : (
                 <>
                   <SwiperSlide>
-                    <div className="flex flex-col justify-center items-center">
+                    <div className="flex flex-col items-center justify-center">
                       <Lottie animationData={NotFound} />
-                      <h1 className="font-bold text-lg">Tidak ada data</h1>
+                      <h1 className="text-lg font-bold">Tidak ada data</h1>
                     </div>
                   </SwiperSlide>
                 </>
@@ -590,8 +639,8 @@ function Desa({ i }) {
             ) : (
               <>
                 <SwiperSlide>
-                  <div className=" h-96 rounded-2xl bg-gray-300 animate-pulse w-full mt-10">
-                    <div className="w-full h-full flex flex-col justify-center items-center "></div>
+                  <div className=" mt-10 h-96 w-full animate-pulse rounded-2xl bg-gray-300">
+                    <div className="flex h-full w-full flex-col items-center justify-center "></div>
                   </div>
                 </SwiperSlide>
               </>
@@ -612,14 +661,14 @@ function CardFotoPotensi({ i }) {
         onClick={() => {
           setOpen(true);
         }}
-        className="lg:h-96 2xl:min-h-[27.5rem]  h-96 rounded-2xl bg-cover bg-center shadow-2xl"
+        className="h-96 rounded-2xl  bg-cover bg-center shadow-2xl lg:h-96 2xl:min-h-[27.5rem]"
         style={{
           backgroundImage: `url(${i.thumbnail})`,
         }}
       >
-        <div className="w-full h-full bg-black bg-opacity-25 px-5 py-5 rounded-2xl flex flex-col justify-start items-center">
-          <h1 className="text-white font-bold text-2xl">{i.kategori}</h1>
-          <h1 className="text-white font-semibold text-xl">{i.nama_potensi}</h1>
+        <div className="flex h-full w-full flex-col items-center justify-start rounded-2xl bg-black bg-opacity-25 px-5 py-5">
+          <h1 className="text-2xl font-bold text-white">{i.kategori}</h1>
+          <h1 className="text-xl font-semibold text-white">{i.nama_potensi}</h1>
         </div>
       </div>
       <Modal
@@ -673,9 +722,9 @@ function Modal({ open, setOpen, cancelButtonRef, foto }) {
             <div className="fixed inset-0 bg-black bg-opacity-75 transition-opacity" />
           </Transition.Child>
 
-          <div className="fixed z-10 inset-0 overflow-y-auto">
-            <div className="flex items-end md:pt-32 md:pb-28 md:my-0 py-32 justify-center min-h-full p-4 text-center ">
-              <div className="cursor-pointer flex absolute xl:right-[19.5rem] lg:right-10 right-5 2xl:top-16 top-10 text-white">
+          <div className="fixed inset-0 z-10 overflow-y-auto">
+            <div className="flex min-h-full items-end justify-center p-4 py-32 text-center md:my-0 md:pt-32 md:pb-28 ">
+              <div className="absolute right-5 top-10 flex cursor-pointer text-white lg:right-10 xl:right-[19.5rem] 2xl:top-16">
                 <svg
                   onClick={() => {
                     setOpen(false);
@@ -685,7 +734,7 @@ function Modal({ open, setOpen, cancelButtonRef, foto }) {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-6 h-6 "
+                  className="h-6 w-6 "
                 >
                   <path
                     strokeLinecap="round"
@@ -703,7 +752,7 @@ function Modal({ open, setOpen, cancelButtonRef, foto }) {
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <Dialog.Panel className=" relative flex lg:gap-x-20 lg:space-y-0 space-y-20  text-center overflow-hidden transform transition-all  justify-center ">
+                <Dialog.Panel className=" relative flex transform justify-center space-y-20  overflow-hidden text-center transition-all lg:gap-x-20  lg:space-y-0 ">
                   {/* <div className={`lg:flex hidden justify-center items-center`}>
                     <ArrowLeft3
                       onClick={() => swiperRef.current.slidePrev()}
@@ -743,34 +792,34 @@ function Modal({ open, setOpen, cancelButtonRef, foto }) {
 function CardModal({ img, tgl, nama, summary }) {
   const date = new Date(tgl);
   var months = [
-    'Januari',
-    'Februari',
-    'Maret',
-    'April',
-    'May',
-    'Juni',
-    'Juli',
-    'Agustus',
-    'September',
-    'Oktober',
-    'November',
-    'Desember',
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "May",
+    "Juni",
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember",
   ];
   var monthName = months[date.getMonth()];
   return (
     <>
-      <div className=" items-center flex flex-col justify-center">
+      <div className=" flex flex-col items-center justify-center">
         <img
-          className=" rounded-lg  2xl:min-w-[680px] 2xl:min-h-[443px] 2xl:max-h-[443px] md:min-w-[490px] md:min-h-[318px] md:max-h-[318px] min-w-[353px] min-h-[215px] max-h-[215px]"
+          className=" max-h-[215px]  min-h-[215px] min-w-[353px] rounded-lg md:max-h-[318px] md:min-h-[318px] md:min-w-[490px] 2xl:max-h-[443px] 2xl:min-h-[443px] 2xl:min-w-[680px]"
           src={img}
           alt="gambar album"
         />
-        <div className=" items-center gap-y-5 flex flex-col mt-10 w-11/12">
+        <div className=" mt-10 flex w-11/12 flex-col items-center gap-y-5">
           <h1 className="font-semibold text-white lg:text-lg">
             {date.getDate()} {monthName} {date.getFullYear()} | {nama}
           </h1>
 
-          <p className="text-white lg:w-3/4 md:w-full sm:w-1/2 w-4/5  2xl:text-sm text-xs font-extralight">
+          <p className="w-4/5 text-xs font-extralight text-white sm:w-1/2  md:w-full lg:w-3/4 2xl:text-sm">
             {summary}
           </p>
         </div>
@@ -839,16 +888,16 @@ function CardSekolah({ i }) {
       <div
         onMouseEnter={handleMouseOver}
         onMouseLeave={handleMouseOut}
-        className={`flex flex-col h-[100%] text-center justify-between items-center gap-y-5 bg-white  w-full 2xl:px-4 lg:px-3 px-5 py-[50px] rounded-[20px] cursor-default transition-all  ${
-          isHovering && '-translate-y-1 -translate-x-1 shadow-xl transition-all'
+        className={`flex h-[100%] w-full cursor-default flex-col items-center justify-between gap-y-5  rounded-[20px] bg-white px-5 py-[50px] text-center transition-all lg:px-3 2xl:px-4  ${
+          isHovering && "-translate-y-1 -translate-x-1 shadow-xl transition-all"
         }`}
       >
         <div className="w-full">
-          <div className="w-full h-[150px] flex justify-center items-center mb-5">
+          <div className="mb-5 flex h-[150px] w-full items-center justify-center">
             <img src={i.logoPendidikan} alt="" className="w-[150px]" />
           </div>
-          <div className="title flex flex-col gap-y-2 items-center">
-            <h1 className="font-bold text-lg">{i.nama}</h1>
+          <div className="title flex flex-col items-center gap-y-2">
+            <h1 className="text-lg font-bold">{i.nama}</h1>
             <h2>({i.initial})</h2>
           </div>
           <p>{i.desc}</p>
@@ -867,12 +916,12 @@ function CardSekolah({ i }) {
             </div>
           </div>
 
-          <div className="flex justify-center items-center">
+          <div className="flex items-center justify-center">
             <AnimatedButton
               onClick={() => navigate(`/sekolah/${i.nama}&${i.initial}`)}
-              label={'Selengkapnya'}
+              label={"Selengkapnya"}
               styleButton={
-                'px-5 py-1 mt-5 rounded-full hover:text-white text-hijauPrimary border-2 border-hijauPrimary before:bg-bgHijauPrimary'
+                "px-5 py-1 mt-5 rounded-full hover:text-white text-hijauPrimary border-2 border-hijauPrimary before:bg-bgHijauPrimary"
               }
             />
           </div>
@@ -896,21 +945,21 @@ function CardInfo({ index, data }) {
       <div
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}
-        className={`penduduk flex flex-col  items-center lg:gap-y-5 gap-y-1 lg:px-12 px-5  lg:py-5 py-2 transition-all cursor-default ${
-          isHovering && '-translate-y-1 -translate-x-1 shadow-xl transition-all'
+        className={`penduduk flex cursor-default  flex-col items-center gap-y-1 px-5 py-2  transition-all lg:gap-y-5 lg:px-12 lg:py-5 ${
+          isHovering && "-translate-y-1 -translate-x-1 shadow-xl transition-all"
           // eslint-disable-next-line eqeqeq
-        } ${index != 0 && !isHovering ? 'border-l-2' : 'rounded-xl'}`}
+        } ${index != 0 && !isHovering ? "border-l-2" : "rounded-xl"}`}
       >
         <div className="flex gap-x-3">
           <CountUp
-            className="font-bold text-2xl "
+            className="text-2xl font-bold "
             duration={5}
             decimal={data.count}
             end={data.count}
           />
-          {data.title == 'Luas Wilayah' && 'KM'}
+          {data.title == "Luas Wilayah" && "KM"}
         </div>
-        <p className="lg:text-xl text-sm">{data.title}</p>
+        <p className="text-sm lg:text-xl">{data.title}</p>
       </div>
     </>
   );
@@ -920,24 +969,24 @@ function CardInfoMobile({ data }) {
   return (
     <>
       <div
-        className={`penduduk flex flex-col justify-center text-center  items-center  gap-y-1  px-5 border-[0.5px]  py-5 ${
+        className={`penduduk flex flex-col items-center justify-center  gap-y-1  border-[0.5px]  px-5 py-5  text-center ${
           data.id == 1
-            ? 'rounded-tl-xl'
+            ? "rounded-tl-xl"
             : data.id == 2
-            ? 'rounded-tr-xl'
+            ? "rounded-tr-xl"
             : data.id == 3
-            ? 'rounded-bl-xl'
-            : 'rounded-br-xl'
+            ? "rounded-bl-xl"
+            : "rounded-br-xl"
         }`}
       >
         <div className="flex gap-x-3">
           <CountUp
-            className="font-bold text-2xl "
+            className="text-2xl font-bold "
             duration={5}
             decimal={data.count}
             end={data.count}
           />
-          {data.title == 'Luas Wilayah' && 'KM'}
+          {data.title == "Luas Wilayah" && "KM"}
         </div>
         <p className="text-xl ">{data.title}</p>
       </div>

@@ -17,8 +17,11 @@ export default function Footer() {
   }
   return (
     <>
-      <div className="w-screen z-20 bg-[#007100]   flex flex-col justify-center items-center">
-        <div className="top py-5 bg-[#3C903C] w-full 2xl:px-16 lg:px-10 px-8">
+      <div className="w-screen z-50 bg-[#007100] flex flex-col justify-center items-center">
+        <div className="top py-5 bg-[#3C903C] w-full 2xl:px-16 lg:px-10 px-8 z-50 relative">
+          <div className='absolute top-0 w-full h-full z-[-10] left-0 bg-footer'>
+            {/* <img className='w-full' src="https://smkmadinatulquran.sch.id/wp-content/uploads/2021/08/topography-pattern-1.png" alt="" /> */}
+          </div>
           {/* tautan terkait */}
           <div className="flex justify-center gap-x-5 items-center">
             <div className="border-b-2 lg:w-1/12 w-1/6"></div>
@@ -29,7 +32,7 @@ export default function Footer() {
           </div>
           {/* tautan terkait */}
           {/* List Tautan */}
-          <div className="lg:flex grid grid-cols-3 items-center justify-between 2xl:px-10 lg:px-6 lg:gap-x-16 gap-x-5 lg:gap-y-0 gap-y-5 mt-2 border-b-2 2xl:w-11/12 mx-auto py-6">
+          <div className="z-50 lg:flex grid grid-cols-3 items-center justify-between 2xl:px-10 lg:px-6 lg:gap-x-16 gap-x-5 lg:gap-y-0 gap-y-5 mt-2 border-b-2 2xl:w-11/12 mx-auto py-6">
             {/* sekretariat */}
             <div
               onClick={() => klikTautan('https://www.setneg.go.id/')}
@@ -101,19 +104,19 @@ export default function Footer() {
           </div>
           {/* Kecamatan Jonggol */}
           {/* Information */}
-          <div className="flex lg:flex-row flex-col lg:gap-y-0 gap-y-10 justify-between mx-auto text-white 2xl:w-4/5 lg:w-11/12 gap-x-10 py-16 relative">
-            <div className="absolute bottom-[-20px] lg:right-[-115px] right-[-30px] z-10">
+          <div className="flex lg:flex-row flex-col lg:gap-y-0 gap-y-10 justify-between mx-auto text-white 2xl:w-4/5 lg:w-11/12 gap-x-10 py-16 relative z-50">
+            <div className="absolute z-10 bottom-[-20px] lg:right-[-115px] right-[-30px]">
               <img
                 src={ornament}
                 alt=""
-                className="w-[200px] ornament opacity-40"
+                className="w-[200px] z-10 ornament opacity-40"
               />
             </div>
-            <div className="absolute bottom-[-20px] left-[-90px] lg:left-[-50px] z-10">
+            <div className="absolute z-10 bottom-[-20px] left-[-90px] lg:left-[-50px]">
               <img
                 src={ornament2}
                 alt=""
-                className="w-[200px] lg:w-[300px] ornament opacity-40"
+                className="w-[200px] z-10 lg:w-[300px] ornament opacity-40"
               />
             </div>
 
