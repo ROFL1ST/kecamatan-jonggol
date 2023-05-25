@@ -457,7 +457,7 @@ export default function Profile() {
               aplikasi pelayanan masyarakat
             </span>
           </h1>
-          <div className="w-[100%] flex justify-center">
+          <div className="flex w-[100%] justify-center">
             <AnimatedButton
               styleButton={
                 "xl:w-[15%] w-[20%] px-5 py-1 mt-5 rounded-full hover:text-hijauPrimary text-white border-2 border-white before:bg-white"

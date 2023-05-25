@@ -2,7 +2,7 @@ import { ArrowRight3, ArrowLeft3 } from "iconsax-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow } from "swiper";
+import { Autoplay, EffectCoverflow } from "swiper";
 import { Dialog, Transition } from "@headlessui/react";
 import { getApi } from "../../../API/restApi";
 import parse from "html-react-parser";
@@ -39,11 +39,11 @@ export default function Galeri() {
 
   return (
     <>
-      <section className="mt-28 mb-10 2xl:pl-16 lg:pl-10 lg:pt-20 lg:pb-10 flex flex-col items-center justify-center bg-[#3C903C]">
-        <div className="w-full  flex lg:flex-row flex-col lg:justify-between justify-center gap-x-10 mt-20 mb-20 items-center">
-          <div className="kiri lg:px-0 px-8 lg:w-1/3 flex flex-col lg:items-start items-center lg:mb-0 mb-10 lg:gap-y-0 gap-y-5">
-            <h1 className="text-6xl text-white font-semibold">Foto</h1>
-            <p className="text-white my-3 lg:text-sm 2xl:text-lg 2xl:w-3/4">
+      <section className="mt-28 mb-10 flex flex-col items-center justify-center bg-[#3C903C] lg:pl-10 lg:pt-20 lg:pb-10 2xl:pl-16">
+        <div className="mt-20  mb-20 flex w-full flex-col items-center justify-center gap-x-10 lg:flex-row lg:justify-between">
+          <div className="kiri mb-10 flex flex-col items-center gap-y-5 px-8 lg:mb-0 lg:w-1/3 lg:items-start lg:gap-y-0 lg:px-0">
+            <h1 className="text-6xl font-semibold text-white">Foto</h1>
+            <p className="my-3 text-white lg:text-sm 2xl:w-3/4 2xl:text-lg">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic, in
               unde eos alias tenetur totam debitis cum sint ad minima, modi nam.
               Earum tempora nemo a magnam iusto, sequi quo!
@@ -61,7 +61,7 @@ export default function Galeri() {
             >
               Selengkapnya
             </button> */}
-            <div className="lg:block hidden">
+            <div className="hidden lg:block">
               <AnimatedButton
                 onClick={() => navigate("/foto")}
                 label={"Selengkapnya"}
@@ -71,7 +71,7 @@ export default function Galeri() {
               />
             </div>
           </div>
-          <div className="kanan lg:w-2/3 w-full">
+          <div className="kanan w-full lg:w-2/3">
             {/* <Swiper
               spaceBetween={20}
               //   controller={{ control: firstSwiper }}
@@ -121,13 +121,17 @@ export default function Galeri() {
                 slideShadows: false,
               }}
               onSlideChange={handleSlideChange}
+              autoplay={{
+                delay: 3500,
+                disableOnInteraction: false,
+              }}
               loop={true}
               pagination={{
                 el: ".swiper-scrollbar",
                 draggable: true,
                 hide: false,
               }}
-              modules={[EffectCoverflow]}
+              modules={[EffectCoverflow, Autoplay]}
               breakpoints={{
                 640: {
                   slidesPerView: 2,
@@ -153,8 +157,8 @@ export default function Galeri() {
                 <></>
               )}
             </Swiper>
-            <div className="swiper-scrollbar my-scrollbar mt-20 lg:flex !hidden"></div>
-            <div className="lg:hidden flex justify-center">
+            <div className="swiper-scrollbar my-scrollbar mt-20 !hidden lg:flex"></div>
+            <div className="flex justify-center lg:hidden">
               <AnimatedButton
                 onClick={() => navigate("/foto")}
                 label={"Selengkapnya"}
@@ -182,16 +186,16 @@ function CardFoto({ i, page, index }) {
             setOpen(true);
           }
         }}
-        className=" lg:h-96 2xl:min-h-[30rem] shadow-lg m-7 h-96 rounded-2xl w-full bg-cover bg-center   cursor-pointer"
+        className=" m-7 h-96 w-full cursor-pointer rounded-2xl bg-cover bg-center shadow-lg lg:h-96   2xl:min-h-[30rem]"
         style={{
           backgroundImage: `url(${
             i.cover != null ? i.cover.thumbnail : NoImage
           })`,
         }}
       >
-        <div className="w-full h-full transition duration-500 ease-in-out group-hover:bg-opacity-70  bg-black bg-opacity-25 px-5 py-5 rounded-2xl flex flex-col justify-end">
+        <div className="flex h-full w-full flex-col justify-end rounded-2xl  bg-black bg-opacity-25 px-5 py-5 transition duration-500 ease-in-out group-hover:bg-opacity-70">
           {page == index - 1 && (
-            <h1 className="text-white font-semibold">{i.nama_album}</h1>
+            <h1 className="font-semibold text-white">{i.nama_album}</h1>
           )}
         </div>
       </div>
@@ -279,9 +283,9 @@ function Modal({ open, setOpen, cancelButtonRef, foto }) {
             <div className="fixed inset-0 bg-black bg-opacity-75 transition-opacity" />
           </Transition.Child>
 
-          <div className="fixed z-10 inset-0 overflow-y-auto">
-            <div className="flex items-end md:pt-32 md:pb-28 md:my-0 py-32 justify-center min-h-full p-4 text-center ">
-              <div className="cursor-pointer flex absolute xl:right-[19.5rem] lg:right-10 right-5 2xl:top-16 top-10 text-white">
+          <div className="fixed inset-0 z-10 overflow-y-auto">
+            <div className="flex min-h-full items-end justify-center p-4 py-32 text-center md:my-0 md:pt-32 md:pb-28 ">
+              <div className="absolute right-5 top-10 flex cursor-pointer text-white lg:right-10 xl:right-[19.5rem] 2xl:top-16">
                 <svg
                   onClick={() => {
                     setOpen(false);
@@ -291,7 +295,7 @@ function Modal({ open, setOpen, cancelButtonRef, foto }) {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-6 h-6 "
+                  className="h-6 w-6 "
                 >
                   <path
                     strokeLinecap="round"
@@ -309,7 +313,7 @@ function Modal({ open, setOpen, cancelButtonRef, foto }) {
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <Dialog.Panel className=" relative flex lg:gap-x-20 lg:space-y-0 space-y-20  text-center overflow-hidden transform transition-all  justify-center ">
+                <Dialog.Panel className=" relative flex transform justify-center space-y-20  overflow-hidden text-center transition-all lg:gap-x-20  lg:space-y-0 ">
                   {/* <div className={`lg:flex hidden justify-center items-center`}>
                     <ArrowLeft3
                       onClick={() => swiperRef.current.slidePrev()}
@@ -389,18 +393,18 @@ function CardModal({ img, tgl, nama, summary }) {
   var monthName = months[date.getMonth()];
   return (
     <>
-      <div className=" items-center flex flex-col justify-center">
+      <div className=" flex flex-col items-center justify-center">
         <img
-          className=" rounded-lg  2xl:min-w-[680px] 2xl:min-h-[443px] 2xl:max-h-[443px] md:min-w-[490px] md:min-h-[318px] md:max-h-[318px] min-w-[353px] min-h-[215px] max-h-[215px]"
+          className=" max-h-[215px]  min-h-[215px] min-w-[353px] rounded-lg md:max-h-[318px] md:min-h-[318px] md:min-w-[490px] 2xl:max-h-[443px] 2xl:min-h-[443px] 2xl:min-w-[680px]"
           src={img}
           alt="gambar album"
         />
-        <div className=" items-center gap-y-5 flex flex-col mt-10 w-11/12">
+        <div className=" mt-10 flex w-11/12 flex-col items-center gap-y-5">
           <h1 className="font-semibold text-white lg:text-lg">
             {date.getDate()} {monthName} {date.getFullYear()} | {nama}
           </h1>
 
-          <p className="text-white lg:w-3/4 md:w-full sm:w-1/2 w-4/5  2xl:text-sm text-xs font-extralight">
+          <p className="w-4/5 text-xs font-extralight text-white sm:w-1/2  md:w-full lg:w-3/4 2xl:text-sm">
             <Isi text={summary} />
           </p>
         </div>
